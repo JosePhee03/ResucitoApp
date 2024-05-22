@@ -24,4 +24,25 @@
     <color name="onSurfaceVariant">#e6d1d1</color>
     <color name="outline">#b39c9c</color>
 
+    <color name="precatechumenate">#E6E6E6</color>
+    <color name="onPrecatechumenate">#4C4C4C</color>
+    <color name="precatechumenateContainer">#666666</color>
+    <color name="onPrecatechumenateContainer">#E6E6E6</color>
+
+    <color name="catechumenate">#B4D6E6</color>
+    <color name="onCatechumenate">#28414C</color>
+    <color name="catechumenateContainer">#355766</color>
+    <color name="onCatechumenateContainer">#C3DBE6</color>
+
+    <color name="liturgy">#E6DEA1</color>
+    <color name="onLiturgy">#4C4719</color>
+    <color name="liturgyContainer">#665F22</color>
+    <color name="onLiturgyContainer">#E6E0B5</color>
+
+    <color name="election">#D2E6D1</color>
+    <color name="onElection">#3E4C3D</color>
+    <color name="electionContainer">#536652</color>
+    <color name="onElectionContainer">#D8E6D7</color>
+
+
 </resources>
