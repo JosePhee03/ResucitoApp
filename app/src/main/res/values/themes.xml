@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.Resucito" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
@@ -24,6 +24,28 @@
         <item name="colorSurfaceVariant">@color/surfaceVariant</item>
         <item name="colorOnSurfaceVariant">@color/onSurfaceVariant</item>
         <item name="colorOutline">@color/outline</item>
+    </style>
+
+
+    <style name="ChipAssistCatechumenate" parent="Widget.Material3.Chip.Assist">
+        <item name="chipBackgroundColor">@color/catechumenateContainer</item>
+        <item name="android:textColor">@color/onCatechumenateContainer</item>
+    </style>
+
+    <style name="ChipAssistPrecatechumenate" parent="Widget.Material3.Chip.Assist">
+        <item name="chipBackgroundColor">@color/precatechumenateContainer</item>
+        <item name="android:textColor">@color/onPrecatechumenateContainer</item>
+    </style>
+
+    <style name="ChipAssistLiturgy" parent="Widget.Material3.Chip.Assist">
+        <item name="chipBackgroundColor">@color/liturgyContainer</item>
+        <item name="android:textColor">@color/onLiturgyContainer</item>
+    </style>
+
+    <style name="ChipAssistElection" parent="Widget.Material3.Chip.Assist">
+        <item name="chipBackgroundColor">@color/electionContainer</item>
+        <item name="android:textColor">@color/onLiturgyContainer</item>
+        <item name="strokeColor">@color/primary</item>
     </style>
 
     <style name="TextBodySmall" parent="Base.Theme.Resucito">

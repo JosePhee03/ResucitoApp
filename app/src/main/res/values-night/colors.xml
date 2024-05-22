@@ -31,8 +31,8 @@
 
     <color name="catechumenate">#B4D6E6</color>
     <color name="onCatechumenate">#28414C</color>
-    <color name="catechumenateContainer">#355766</color>
-    <color name="onCatechumenateContainer">#C3DBE6</color>
+    <color name="catechumenateContainer">#004d65</color>
+    <color name="onCatechumenateContainer">#bee9ff</color>
 
     <color name="liturgy">#E6DEA1</color>
     <color name="onLiturgy">#4C4719</color>
@@ -41,8 +41,8 @@
 
     <color name="election">#D2E6D1</color>
     <color name="onElection">#3E4C3D</color>
-    <color name="electionContainer">#536652</color>
-    <color name="onElectionContainer">#D8E6D7</color>
+    <color name="electionContainer">#1e5127</color>
+    <color name="onElectionContainer">#b8f1b9</color>
 
 
 </resources>

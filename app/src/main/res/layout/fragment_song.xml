@@ -1,9 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.song.SongFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.song.SongFragment"
+    android:orientation="vertical">
+
+    <com.google.android.material.chip.ChipGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:chipSpacingHorizontal="8dp"
+        app:chipSpacingVertical="0dp">
+
+        <com.google.android.material.chip.Chip
+            style="@style/ChipAssistCatechumenate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Catecumenado" />
+
+
+        <com.google.android.material.chip.Chip
+            style="@style/ChipAssistPrecatechumenate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Precatecumendo" />
+
+        <com.google.android.material.chip.Chip
+            style="@style/ChipAssistLiturgy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Liturgia" />
+
+        <com.google.android.material.chip.Chip
+            style="@style/ChipAssistElection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Elección" />
+
+    </com.google.android.material.chip.ChipGroup>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,24 +52,23 @@
             android:id="@+id/page_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_bold"
-            android:textColor="@color/onBackground"
-            android:textAppearance="@style/TextHeadline2"
             android:layout_marginBottom="8dp"
-            />
+            android:fontFamily="@font/inter_bold"
+            android:textAppearance="@style/TextHeadline2"
+            android:textColor="@color/onBackground" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_bold"
+                android:textAppearance="@style/TextBodySmall"
                 android:textColor="@color/onBackground"
-                android:textAppearance="@style/TextBodySmall"/>
+                android:text="Tono:" />
 
             <Space
                 android:layout_width="8dp"
@@ -44,23 +79,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_bold"
+                android:textAppearance="@style/TextBodySmall"
                 android:textColor="@color/primary"
-                android:textAppearance="@style/TextBodySmall"/>
+                tools:text="Am" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginBottom="4dp"
-            >
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_bold"
+                android:textAppearance="@style/TextBodySmall"
                 android:textColor="@color/onBackground"
-                android:textAppearance="@style/TextBodySmall"/>
+                android:text="Cejilla" />
 
             <Space
                 android:layout_width="8dp"
@@ -71,27 +107,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_bold"
-                android:textColor="@color/primary"
-                android:textAppearance="@style/TextBodySmall"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_bold"
-                android:textColor="@color/primary"
                 android:textAppearance="@style/TextBodySmall"
-                android:text="°" />
-
-            <Space
-                android:layout_width="8dp"
-                android:layout_height="match_parent" />
+                android:textColor="@color/primary"
+                tools:text="1" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_bold"
-                android:textColor="@color/onBackground"
-                android:textAppearance="@style/TextBodySmall"/>
+                android:text="°"
+                android:textAppearance="@style/TextBodySmall"
+                android:textColor="@color/primary" />
+
         </LinearLayout>
 
         <TextView
@@ -99,16 +126,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_bold"
-            android:textColor="@color/primary"
             android:textAppearance="@style/TextHeadline3"
-            />
+            android:textColor="@color/primary"
+            tools:text="Title Song" />
 
         <TextView
             android:id="@+id/subtitle_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_bold"
-            android:textAppearance="@style/TextBody"/>
+            android:textAppearance="@style/TextBody"
+            tools:text="Subtitle Song" />
     </LinearLayout>
 
-</FrameLayout>
+</LinearLayout>
