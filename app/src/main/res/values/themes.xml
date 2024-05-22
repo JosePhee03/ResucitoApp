@@ -1,0 +1,64 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Resucito" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/onPrimary</item>
+        <item name="colorPrimaryContainer">@color/primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/onPrimaryContainer</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorOnSecondary">@color/onSecondary</item>
+        <item name="colorSecondaryContainer">@color/secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/onSecondaryContainer</item>
+        <item name="colorTertiary">@color/tertiary</item>
+        <item name="colorOnTertiary">@color/onTertiary</item>
+        <item name="colorTertiaryContainer">@color/tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/onTertiaryContainer</item>
+        <item name="colorError">@color/error</item>
+        <item name="colorOnError">@color/onError</item>
+        <item name="colorErrorContainer">@color/errorContainer</item>
+        <item name="colorOnErrorContainer">@color/onErrorContainer</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="colorOnBackground">@color/onBackground</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/onSurface</item>
+        <item name="colorSurfaceVariant">@color/surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/onSurfaceVariant</item>
+        <item name="colorOutline">@color/outline</item>
+    </style>
+
+    <style name="TextBodySmall" parent="Base.Theme.Resucito">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextBody" parent="Base.Theme.Resucito">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextHeadline3" parent="Base.Theme.Resucito">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TextHeadline2" parent="Base.Theme.Resucito">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="TextHeadline1" parent="Base.Theme.Resucito">
+        <item name="android:textSize">32sp</item>
+    </style>
+
+
+    <style name="PrimaryToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="fontFamily">@font/inter_bold</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="SecondaryToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+    </style>
+
+    <style name="Theme.Resucito" parent="Base.Theme.Resucito" >
+        <item name="android:fontFamily">@font/inter_regular</item>
+    </style>
+
+</resources>
