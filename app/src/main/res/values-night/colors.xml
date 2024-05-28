@@ -2,7 +2,7 @@
 <resources>
     <color name="primary">#E67F7F</color>
     <color name="onPrimary">#4C0000</color>
-    <color name="primaryContainer">#660000</color>
+    <color name="primaryContainer">#30660000</color>
     <color name="onPrimaryContainer">#E69D9D</color>
     <color name="secondary">#E67F7F</color>
     <color name="onSecondary">#4C0000</color>
@@ -22,7 +22,17 @@
     <color name="onSurface">#e6e2e2</color>
     <color name="surfaceVariant">#665252</color>
     <color name="onSurfaceVariant">#e6d1d1</color>
-    <color name="outline">#b39c9c</color>
+    <color name="outline">#4C4C4C</color>
+    <color name="outlineVariant">#B6B6B6</color>
+
+    <color name="surfaceDim">#1a1110</color>
+    <color name="surfaceBright">#423735</color>
+    <color name="surfaceContainerLowest">#303030</color>
+    <color name="surfaceContainerLow">#231918</color>
+    <color name="surfaceContainer">#271d1c</color>
+    <color name="surfaceContainerHigh">#322826</color>
+    <color name="surfaceContainerHighest">#3d3230</color>
+
 
     <color name="precatechumenate">#E6E6E6</color>
     <color name="onPrecatechumenate">#4C4C4C</color>

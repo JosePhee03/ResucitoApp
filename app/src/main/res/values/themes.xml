@@ -1,5 +1,5 @@
 <resources>
-    <!-- Base application theme. -->
+
     <style name="Base.Theme.Resucito" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/onPrimary</item>
@@ -24,28 +24,43 @@
         <item name="colorSurfaceVariant">@color/surfaceVariant</item>
         <item name="colorOnSurfaceVariant">@color/onSurfaceVariant</item>
         <item name="colorOutline">@color/outline</item>
-    </style>
+        <item name="colorOutlineVariant">@color/outlineVariant</item>
 
+        <item name="colorSurfaceDim">@color/surfaceDim</item>
+        <item name="colorSurfaceBright">@color/surfaceBright</item>
+        <item name="colorSurfaceContainerLowest">@color/surfaceContainerLowest</item>
+        <item name="colorSurfaceContainerLow">@color/surfaceContainerLow</item>
+        <item name="colorSurfaceContainer">@color/surfaceContainer</item>
+        <item name="colorSurfaceContainerHigh">@color/surfaceContainerHigh</item>
+        <item name="colorSurfaceContainerHighest">@color/surfaceContainerHighest</item>
+
+        <item name="android:fontFamily">@font/franklin_regular</item>
+    </style>
 
     <style name="ChipAssistCatechumenate" parent="Widget.Material3.Chip.Assist">
         <item name="chipBackgroundColor">@color/catechumenateContainer</item>
         <item name="android:textColor">@color/onCatechumenateContainer</item>
+        <item name="colorOutline">@color/catechumenateContainer</item>
     </style>
 
     <style name="ChipAssistPrecatechumenate" parent="Widget.Material3.Chip.Assist">
-        <item name="chipBackgroundColor">@color/precatechumenateContainer</item>
+        <item name="chipBackgroundColor">@color/primary</item>
         <item name="android:textColor">@color/onPrecatechumenateContainer</item>
+        <item name="chipStrokeColor">@color/primary</item>
+        <item name="chipSurfaceColor">@color/primary</item>
+        <item name="chipStrokeWidth">23dp</item>
     </style>
 
     <style name="ChipAssistLiturgy" parent="Widget.Material3.Chip.Assist">
         <item name="chipBackgroundColor">@color/liturgyContainer</item>
         <item name="android:textColor">@color/onLiturgyContainer</item>
+        <item name="colorOutline">@color/liturgyContainer</item>
     </style>
 
     <style name="ChipAssistElection" parent="Widget.Material3.Chip.Assist">
         <item name="chipBackgroundColor">@color/electionContainer</item>
         <item name="android:textColor">@color/onLiturgyContainer</item>
-        <item name="strokeColor">@color/primary</item>
+        <item name="colorOutline">@color/electionContainer</item>
     </style>
 
     <style name="TextBodySmall" parent="Base.Theme.Resucito">
@@ -69,9 +84,20 @@
     </style>
 
 
-    <style name="PrimaryToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="fontFamily">@font/inter_bold</item>
+    <style name="ChordText" parent="Base.Theme.Resucito">
+        <item name="android:textColor">@color/primary</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="LetterText" parent="Base.Theme.Resucito">
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+
+    <style name="PrimaryToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="fontFamily">@font/franklin_bold</item>
         <item name="android:textColor">@color/primary</item>
         <item name="android:textSize">24sp</item>
     </style>
@@ -79,8 +105,13 @@
     <style name="SecondaryToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
     </style>
 
-    <style name="Theme.Resucito" parent="Base.Theme.Resucito" >
-        <item name="android:fontFamily">@font/inter_regular</item>
+    <style name="Theme.Resucito.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="Theme.Resucito.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Resucito.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>
