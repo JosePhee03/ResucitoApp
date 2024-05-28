@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.resucito.MainActivity">
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/bottom_nav_home"
+        app:showAsAction="ifRoom"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/bottom_nav_search"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/song"
+        android:title="@string/bottom_nav_song"
+        android:icon="@drawable/ic_music_2"
+        app:showAsAction="ifRoom" />
+
+</menu>

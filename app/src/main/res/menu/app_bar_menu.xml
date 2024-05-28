@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.resucito.MainActivity">
+    <item
+        android:id="@+id/toggle_theme"
+        android:icon="@drawable/ic_moon"
+        android:title="@string/app_bar_toggle_theme"
+        app:showAsAction="always"
+        android:contentDescription="@string/app_bar_toggle_theme_description" />
+
+</menu>
