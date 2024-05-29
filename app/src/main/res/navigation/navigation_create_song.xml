@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_create_song"
+    app:startDestination="@id/createSongFragment">
+
+    <fragment
+        android:id="@+id/createSongFragment"
+        android:name="com.resucito.ui.create_song.CreateSongFragment"
+        android:label="fragment_create_song"
+        tools:layout="@layout/fragment_create_song">
+        <action
+            android:id="@+id/action_createSongFragment_to_saveSongFragment"
+            app:destination="@id/saveSongFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/saveSongFragment"
+        android:name="com.resucito.ui.save_song.SaveSongFragment"
+        android:label="fragment_save_song"
+        tools:layout="@layout/fragment_save_song" />
+</navigation>
