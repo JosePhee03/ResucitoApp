@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#E67F7F</color>
+    <color name="onPrimary">#4C0000</color>
+    <color name="primaryContainer">#30660000</color>
+    <color name="onPrimaryContainer">#E69D9D</color>
+    <color name="secondary">#E67F7F</color>
+    <color name="onSecondary">#4C0000</color>
+    <color name="secondaryContainer">#660000</color>
+    <color name="onSecondaryContainer">#E69D9D</color>
+    <color name="tertiary">#E6ACB2</color>
+    <color name="onTertiary">#4C2226</color>
+    <color name="tertiaryContainer">#662D33</color>
+    <color name="onTertiaryContainer">#E6BDC1</color>
+    <color name="error">#E69490</color>
+    <color name="onError">#4C100D</color>
+    <color name="errorContainer">#661511</color>
+    <color name="onErrorContainer">#E6ACA9</color>
+    <color name="background">#333030</color>
+    <color name="onBackground">#e6e2e2</color>
+    <color name="surface">#333030</color>
+    <color name="onSurface">#e6e2e2</color>
+    <color name="surfaceVariant">#665252</color>
+    <color name="onSurfaceVariant">#e6d1d1</color>
+    <color name="outline">#4C4C4C</color>
+    <color name="outlineVariant">#B6B6B6</color>
+
+    <color name="surfaceDim">#1a1110</color>
+    <color name="surfaceBright">#423735</color>
+    <color name="surfaceContainerLowest">#303030</color>
+    <color name="surfaceContainerLow">#231918</color>
+    <color name="surfaceContainer">#271d1c</color>
+    <color name="surfaceContainerHigh">#322826</color>
+    <color name="surfaceContainerHighest">#3d3230</color>
+
+
+    <color name="precatechumenate">#E6E6E6</color>
+    <color name="onPrecatechumenate">#4C4C4C</color>
+    <color name="precatechumenateContainer">#666666</color>
+    <color name="onPrecatechumenateContainer">#E6E6E6</color>
+
+    <color name="catechumenate">#B4D6E6</color>
+    <color name="onCatechumenate">#28414C</color>
+    <color name="catechumenateContainer">#004d65</color>
+    <color name="onCatechumenateContainer">#bee9ff</color>
+
+    <color name="liturgy">#E6DEA1</color>
+    <color name="onLiturgy">#4C4719</color>
+    <color name="liturgyContainer">#665F22</color>
+    <color name="onLiturgyContainer">#E6E0B5</color>
+
+    <color name="election">#D2E6D1</color>
+    <color name="onElection">#3E4C3D</color>
+    <color name="electionContainer">#1e5127</color>
+    <color name="onElectionContainer">#b8f1b9</color>
+
+
+</resources>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="precatechumenate">#E6E6E6</color>
+    <color name="onPrecatechumenate">#4C4C4C</color>
+    <color name="precatechumenateContainer">#666666</color>
+    <color name="onPrecatechumenateContainer">#E6E6E6</color>
+
+    <color name="catechumenate">#B4D6E6</color>
+    <color name="onCatechumenate">#28414C</color>
+    <color name="catechumenateContainer">#004d65</color>
+    <color name="onCatechumenateContainer">#bee9ff</color>
+
+    <color name="liturgy">#E6DEA1</color>
+    <color name="onLiturgy">#4C4719</color>
+    <color name="liturgyContainer">#665F22</color>
+    <color name="onLiturgyContainer">#E6E0B5</color>
+
+    <color name="election">#D2E6D1</color>
+    <color name="onElection">#3E4C3D</color>
+    <color name="electionContainer">#1e5127</color>
+    <color name="onElectionContainer">#b8f1b9</color>
+
+    <color name="grey_50">#303030</color>
+    <color name="grey_100">#424242</color>
+    <color name="grey_200">#616161</color>
+    <color name="grey_300">#757575</color>
+    <color name="grey_400">#9E9E9E</color>
+    <color name="grey_500">#BDBDBD</color>
+    <color name="grey_600">#E0E0E0</color>
+    <color name="grey_700">#EEEEEE</color>
+    <color name="grey_800">#F5F5F5</color>
+    <color name="grey_900">#FAFAFA</color>
+</resources>
