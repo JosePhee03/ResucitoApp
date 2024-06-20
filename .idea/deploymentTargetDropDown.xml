@@ -2,8 +2,36 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="app">
+      <entry key="CardSearchSong">
         <State />
+      </entry>
+      <entry key="LyricContainerPreview">
+        <State />
+      </entry>
+      <entry key="NavigationBottomBarPreview">
+        <State />
+      </entry>
+      <entry key="PreviewSearchBar">
+        <State />
+      </entry>
+      <entry key="SongScreenPreview">
+        <State />
+      </entry>
+      <entry key="app">
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\tytto\.android\avd\Pixel_4_API_30.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-06-19T17:11:38.863825700Z" />
+        </State>
       </entry>
     </value>
   </component>

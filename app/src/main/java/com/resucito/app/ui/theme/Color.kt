@@ -1,6 +1,7 @@
 package com.resucito.app.ui.theme
 
 import androidx.compose.ui.graphics.Color
+
 object LightModeColors {
     val primary = Color(0xFFF80000)
     val onPrimary = Color(0xFFFFFFFF)
@@ -26,40 +27,12 @@ object LightModeColors {
     val onSurfaceVariant = Color(0xFF665252)
     val outline = Color(0xFF333333)
     val outlineVariant = Color(0xFFD9D9D9)
-
-    val surfaceDim = Color(0xFFE8D6D3)
-    val surfaceBright = Color(0xFFFFF8F6)
-    val surfaceContainerLowest = Color(0xFFFFFFFF)
-    val surfaceContainerLow = Color(0xFFFFF0EE)
-    val surfaceContainer = Color(0xFFFCEAE7)
-    val surfaceContainerHigh = Color(0xFFF7E4E1)
-    val surfaceContainerHighest = Color(0xFFF1DFDC)
-
-    val precatechumenate = Color(0xFFCCCCCC)
-    val onPrecatechumenate = Color(0xFFFFFFFF)
-    val precatechumenateContainer = Color(0xFFE6E6E6)
-    val onPrecatechumenateContainer = Color(0xFF333333)
-
-    val catechumenate = Color(0xFF81D4FA)
-    val onCatechumenate = Color(0xFFCCDDFF)
-    val catechumenateContainer = Color(0xFFBEE9FF)
-    val onCatechumenateContainer = Color(0xFF001F2A)
-
-    val liturgy = Color(0xFFFDEC54)
-    val onLiturgy = Color(0xFFFFFFFF)
-    val liturgyContainer = Color(0xFFE6E0B5)
-    val onLiturgyContainer = Color(0xFF332F11)
-
-    val election = Color(0xFFC3F2C2)
-    val onElection = Color(0xFFFFFFFF)
-    val electionContainer = Color(0xFFC7F6C6)
-    val onElectionContainer = Color(0xFF2C5531)
 }
 
 object DarkModeColors {
     val primary = Color(0xFFE67F7F)
     val onPrimary = Color(0xFF4C0000)
-    val primaryContainer = Color(0xFF30660000)
+    val primaryContainer = Color(0xFF306600)
     val onPrimaryContainer = Color(0xFFE69D9D)
     val secondary = Color(0xFFE67F7F)
     val onSecondary = Color(0xFF4C0000)
@@ -81,32 +54,4 @@ object DarkModeColors {
     val onSurfaceVariant = Color(0xFFE6D1D1)
     val outline = Color(0xFF4C4C4C)
     val outlineVariant = Color(0xFFB6B6B6)
-
-    val surfaceDim = Color(0xFF1A1110)
-    val surfaceBright = Color(0xFF423735)
-    val surfaceContainerLowest = Color(0xFF303030)
-    val surfaceContainerLow = Color(0xFF231918)
-    val surfaceContainer = Color(0xFF271D1C)
-    val surfaceContainerHigh = Color(0xFF322826)
-    val surfaceContainerHighest = Color(0xFF3D3230)
-
-    val precatechumenate = Color(0xFFE6E6E6)
-    val onPrecatechumenate = Color(0xFF4C4C4C)
-    val precatechumenateContainer = Color(0xFF666666)
-    val onPrecatechumenateContainer = Color(0xFFE6E6E6)
-
-    val catechumenate = Color(0xFFB4D6E6)
-    val onCatechumenate = Color(0xFF28414C)
-    val catechumenateContainer = Color(0xFF004D65)
-    val onCatechumenateContainer = Color(0xFFBEE9FF)
-
-    val liturgy = Color(0xFFE6DEA1)
-    val onLiturgy = Color(0xFF4C4719)
-    val liturgyContainer = Color(0xFF665F22)
-    val onLiturgyContainer = Color(0xFFE6E0B5)
-
-    val election = Color(0xFFD2E6D1)
-    val onElection = Color(0xFF3E4C3D)
-    val electionContainer = Color(0xFF1E5127)
-    val onElectionContainer = Color(0xFFB8F1B9)
 }
