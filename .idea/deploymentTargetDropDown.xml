@@ -2,7 +2,7 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="CardSearchSong">
+      <entry key="CardPreview">
         <State />
       </entry>
       <entry key="LyricContainerPreview">
@@ -11,7 +11,7 @@
       <entry key="NavigationBottomBarPreview">
         <State />
       </entry>
-      <entry key="PreviewSearchBar">
+      <entry key="SearchBar">
         <State />
       </entry>
       <entry key="SongScreenPreview">

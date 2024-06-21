@@ -4,7 +4,7 @@ class Chord {
 
 
     companion object {
-        private val chordRegex = Regex("""(?:A|B|C|D|E|F|G)(maj7)?(?:#|b)?(7)?(m)?(9|6|5)?""")
+        private val chordRegex = Regex("""[ABCDEFG](maj7)?[#b]?(7)?(m)?([965])?""")
 
         fun getNotes(): Array<Note> {
             return Note.entries.toTypedArray()

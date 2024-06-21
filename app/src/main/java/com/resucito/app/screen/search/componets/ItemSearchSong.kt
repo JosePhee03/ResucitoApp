@@ -16,19 +16,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.resucito.app.R
 import com.resucito.app.data.Stage
 
 @Composable
-fun ItemSearchSong(page: String, title: String, subtitle: String, favorite: Boolean, stage: Stage, onClick: () -> Unit) {
+fun ItemSearchSong(
+    page: String,
+    title: String,
+    subtitle: String,
+    favorite: Boolean,
+    stage: Stage,
+    onClick: () -> Unit
+) {
 
     val (_, backgroundColor) = colorStage(stage)
 
     ListItem(
-        modifier = Modifier.fillMaxWidth().clickable { onClick() },
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClick() },
         headlineContent = { Text(title) },
         supportingContent = {
             Text(subtitle)
@@ -73,13 +81,20 @@ fun ItemSearchSongPreview() {
     )
 }
 
-internal data class ColorStage (val textColor: Color, val backgroundColor: Color)
+internal data class ColorStage(val textColor: Color, val backgroundColor: Color)
 
 @Composable
-internal fun colorStage (stage: Stage): ColorStage {
+internal fun colorStage(stage: Stage): ColorStage {
 
     return when (stage) {
-        Stage.PRECATECHUMENATE -> ColorStage(MaterialTheme.colorScheme.surfaceVariant, colorResource(id = R.color.precatechumenateContainer))
-        else -> ColorStage(MaterialTheme.colorScheme.surfaceVariant, colorResource(id = R.color.liturgyContainer))
+        Stage.PRECATECHUMENATE -> ColorStage(
+            MaterialTheme.colorScheme.surfaceVariant,
+            colorResource(id = R.color.precatechumenateContainer)
+        )
+
+        else -> ColorStage(
+            MaterialTheme.colorScheme.surfaceVariant,
+            colorResource(id = R.color.liturgyContainer)
+        )
     }
 }

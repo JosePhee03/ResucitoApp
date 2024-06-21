@@ -1,128 +1,100 @@
 package com.resucito.app.screen.search.componets
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.outlined.Close
-import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.SearchBar
-import androidx.compose.material3.SearchBarDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.resucito.app.R
+import kotlinx.coroutines.delay
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchBox(searchSong: (String) -> Unit) {
+fun SearchBox(isEmpty: Boolean, searchSong: (String) -> Unit) {
 
-    var text by remember {
+    var text by rememberSaveable {
         mutableStateOf("")
     }
 
-    val itemSuggestions = listOf("AAA", "BBB", "CCC")
-
-    val searchBarColors = SearchBarDefaults.colors(
-        containerColor = colorResource(id = R.color.grey_200),
-        dividerColor = colorResource(id = R.color.grey_300),
-    )
-
-    LaunchedEffect(Unit) {
-        searchSong(text)
+    val initialText by remember {
+        mutableStateOf(text)
     }
 
-    Box(contentAlignment = Alignment.TopCenter, modifier = Modifier.fillMaxWidth()) {
-        SearchBar(
-            colors = searchBarColors,
-            query = text,
-            onQueryChange = { text = it },
-            active = false,
-            onActiveChange = {},
-            onSearch = {
-                searchSong(it)
-            },
-            placeholder = { Text("Hacia ti morada santa") },
-            leadingIcon = {
-                IconButton(onClick = { }) {
-                    Icon(imageVector = Icons.Outlined.Search, "Icono de lupa")
-
-                }
-
-            },
-            trailingIcon = {
-
-                IconButton(onClick = { text = "" }) {
-                    Icon(
-                        imageVector = Icons.Outlined.Close,
-                        contentDescription = "Limpiar Busqueda"
-                    )
-                }
-
-            }
-        ) {
-            itemSuggestions.forEach {
-                Row(modifier = Modifier.padding(16.dp)) {
-                    Icon(
-                        modifier = Modifier.padding(end = 8.dp),
-                        imageVector = Icons.Default.Check,
-                        contentDescription = it
-                    )
-                    Text(text = it)
-                }
-            }
+    LaunchedEffect(text) {
+        if (text !== initialText || isEmpty) {
+            delay(400)
+            searchSong(text)
         }
+    }
+
+    SearchBar(text) {
+            text = it
     }
 
 }
 
 @Composable
-@Preview
-internal fun SearchBar() {
-
-    var text by remember {
-        mutableStateOf("")
-    }
-
-    Row {
+internal fun SearchBar(text: String, onChange: (String) -> Unit) {
 
 
-        TextField(value = text, onValueChange = { text = it },
-            placeholder = { Text("Hacia ti morada santa") },
+    val textFieldColors = TextFieldDefaults.colors(
+        focusedIndicatorColor = Color.Transparent,
+        unfocusedIndicatorColor = Color.Transparent,
+        unfocusedContainerColor = colorResource(id = R.color.grey_200),
+        focusedContainerColor = colorResource(id = R.color.grey_200),
+    )
+
+    Box(modifier = Modifier.padding(horizontal =  16.dp, vertical = 8.dp)) {
+        TextField(
+            colors = textFieldColors,
+            value = text,
+            onValueChange = {
+                onChange(it)
+            },
+            placeholder = { Text(text = "Hacia ti morada santa")},
+            modifier = Modifier.fillMaxWidth(),
             leadingIcon = {
-                IconButton(onClick = { }) {
-                    Icon(imageVector = Icons.Outlined.Search, "Icono de lupa")
-
-                }
-
+                Icon(
+                    Icons.Default.Search,
+                    contentDescription = ""
+                )
             },
             trailingIcon = {
-
-                IconButton(onClick = { text = "" }) {
-                    Icon(
-                        imageVector = Icons.Outlined.Close,
-                        contentDescription = "Limpiar Busqueda"
-                    )
+                if (text != "") {
+                    IconButton(
+                        onClick = {
+                            onChange("")
+                        }
+                    ) {
+                        Icon(
+                            Icons.Default.Close,
+                            contentDescription = ""
+                        )
+                    }
                 }
-
-            })
-
-
+            },
+            shape = MaterialTheme.shapes.extraLarge,
+            singleLine = true,
+        )
     }
+
 
 }

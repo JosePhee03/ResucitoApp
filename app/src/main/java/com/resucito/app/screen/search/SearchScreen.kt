@@ -19,7 +19,7 @@ import java.io.InputStreamReader
 fun SearchScreen(navController: NavHostController, songsProvider: SearchSongProvider) {
 
     Column {
-        SearchBox() {
+        SearchBox(songsProvider.songs.isEmpty()) {
             songsProvider.searchSong(it)
         }
         Column(modifier = Modifier.fillMaxWidth()) {

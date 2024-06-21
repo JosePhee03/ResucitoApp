@@ -7,11 +7,9 @@ import com.google.gson.Gson
 import com.resucito.app.data.Song
 import com.resucito.app.db.dao.SongDao
 import com.resucito.app.db.model.SongEntity
-import com.resucito.app.db.model.SongEntityFTS
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlin.random.Random
 
 class SongsProvider(
     private val dao: SongDao
@@ -46,7 +44,7 @@ class SongsProvider(
             val songsList = withContext(Dispatchers.IO) {
                 parseJson(jsonString)
             }
-            val songEntities = songsList.mapIndexed(){ index, it ->
+            val songEntities = songsList.mapIndexed { index, it ->
                 SongEntity(
                     index,
                     it.id,

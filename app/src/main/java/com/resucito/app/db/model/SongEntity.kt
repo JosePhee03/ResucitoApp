@@ -1,6 +1,5 @@
 package com.resucito.app.db.model
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
@@ -21,7 +20,7 @@ data class SongEntity(
     val subtitle: String,
     val capo: Int,
     val stage: Stage,
-    val categories: List<String>,
+    val categories: List<Category>,
     val lyric: String,
     val chords: List<String>,
     val tone: String,

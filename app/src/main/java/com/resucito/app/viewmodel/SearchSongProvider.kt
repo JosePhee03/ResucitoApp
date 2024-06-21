@@ -1,9 +1,6 @@
 package com.resucito.app.viewmodel
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.resucito.app.db.dao.SongDao
@@ -12,7 +9,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class SearchSongProvider (private val dao: SongDao
+class SearchSongProvider(
+    private val dao: SongDao
 ) : ViewModel() {
 
     private val _songs = mutableListOf<SongEntity>()
