@@ -22,7 +22,6 @@ class SongProvider(private val dao: SongDao) : ViewModel() {
     var isError by mutableStateOf(false)
         private set
 
-
     fun findSongById(id: String) {
         viewModelScope.launch {
             isLoading = true
