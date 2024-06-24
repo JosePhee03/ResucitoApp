@@ -24,7 +24,8 @@ data class SongEntity(
     val lyric: String,
     val chords: List<String>,
     val tone: String,
-    val scale: String
+    val scale: String,
+    val favorite: Boolean
 )
 
 class StageConverter {
@@ -43,14 +44,14 @@ class CategoryListConverter {
     private val gson = Gson()
 
     @TypeConverter
-    fun fromObject(strings: List<Category>): String {
-        return gson.toJson(strings)
+    fun fromObject(value: List<Category>): String {
+        return gson.toJson(value)
     }
 
     @TypeConverter
-    fun toObject(data: String): List<Category> {
+    fun toObject(value: String): List<Category> {
         val listType = object : TypeToken<List<Category>>() {}.type
-        return gson.fromJson(data, listType)
+        return gson.fromJson(value, listType)
     }
 }
 

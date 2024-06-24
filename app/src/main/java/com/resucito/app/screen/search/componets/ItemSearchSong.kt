@@ -8,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -16,10 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.resucito.app.R
 import com.resucito.app.data.Stage
+import com.resucito.app.util.colorStage
 
 @Composable
 fun ItemSearchSong(
@@ -28,7 +31,8 @@ fun ItemSearchSong(
     subtitle: String,
     favorite: Boolean,
     stage: Stage,
-    onClick: () -> Unit
+    onClickItem: () -> Unit,
+    onChangeFavorite: (Boolean) -> Unit
 ) {
 
     val (_, backgroundColor) = colorStage(stage)
@@ -36,7 +40,7 @@ fun ItemSearchSong(
     ListItem(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onClick() },
+            .clickable { onClickItem() },
         headlineContent = { Text(title) },
         supportingContent = {
             Text(subtitle)
@@ -51,10 +55,12 @@ fun ItemSearchSong(
             )
         },
         trailingContent = {
-            Icon(
-                imageVector = if (favorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
-                contentDescription = "Seleccionar como favorito",
-            )
+            IconButton(onClick = { onChangeFavorite(!favorite) }) {
+                Icon(
+                    painter = painterResource(if (favorite) R.drawable.ic_favorite_filled else R.drawable.ic_favorite),
+                    contentDescription = if (favorite) "Seleccionar como favorito" else "Deseleccionar como favorito",
+                )
+            }
         }
     )
 }
@@ -81,20 +87,3 @@ fun ItemSearchSongPreview() {
     )
 }
 
-internal data class ColorStage(val textColor: Color, val backgroundColor: Color)
-
-@Composable
-internal fun colorStage(stage: Stage): ColorStage {
-
-    return when (stage) {
-        Stage.PRECATECHUMENATE -> ColorStage(
-            MaterialTheme.colorScheme.surfaceVariant,
-            colorResource(id = R.color.precatechumenateContainer)
-        )
-
-        else -> ColorStage(
-            MaterialTheme.colorScheme.surfaceVariant,
-            colorResource(id = R.color.liturgyContainer)
-        )
-    }
-}
