@@ -32,7 +32,7 @@ object LightModeColors {
 object DarkModeColors {
     val primary = Color(0xFFE67F7F)
     val onPrimary = Color(0xFF4C0000)
-    val primaryContainer = Color(0xFF306600)
+    val primaryContainer = Color(0xFF30660000)
     val onPrimaryContainer = Color(0xFFE69D9D)
     val secondary = Color(0xFFE67F7F)
     val onSecondary = Color(0xFF4C0000)
