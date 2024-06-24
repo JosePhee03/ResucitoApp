@@ -2,16 +2,8 @@ package com.resucito.app.componets
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Search
-import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
@@ -19,9 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
@@ -34,8 +25,8 @@ import com.resucito.app.navigation.Search
 
 data class NavigationItem(
     val route: Any,
-    val iconOutlined: ImageVector,
-    val iconFilled: ImageVector,
+    val iconOutlined: Int,
+    val iconFilled: Int?,
     val label: String,
     val contentDescription: String
 )
@@ -51,22 +42,29 @@ fun NavigationBottomBar(navController: NavHostController) {
     val navigationItem = listOf(
         NavigationItem(
             Home,
-            Icons.Outlined.Home,
-            Icons.Filled.Home,
+            R.drawable.ic_home,
+            R.drawable.ic_home_filled,
             "Inicio",
             "Icono de casa"
         ),
         NavigationItem(
-            Search,
-            Icons.Outlined.Search,
-            Icons.Filled.Search,
+            Search(null, null),
+            R.drawable.ic_search,
+            null,
             "Buscar",
             "Icono de lupa"
         ),
         NavigationItem(
             Album,
-            Icons.Outlined.Star,
-            Icons.Filled.Star,
+            R.drawable.ic_library_music,
+            R.drawable.ic_library_music_filled,
+            "Álbumes",
+            "Icono de casa"
+        ),
+        NavigationItem(
+            Album,
+            R.drawable.ic_more_horiz,
+            null,
             "Álbumes",
             "Icono de casa"
         )
@@ -101,7 +99,7 @@ fun BottomBar(
                 NavigationBarItem(
                     icon = {
                         Icon(
-                            if (isSelected) navItem.iconFilled else navItem.iconOutlined,
+                            painterResource(if (isSelected && navItem.iconFilled != null) navItem.iconFilled else navItem.iconOutlined),
                             contentDescription = navItem.contentDescription
                         )
                     },
@@ -110,56 +108,6 @@ fun BottomBar(
                     onClick = { navController.navigate(route = navItem.route) }
                 )
             }
-        }
-    }
-
-}
-
-@Composable
-@Preview
-fun NavigationBottomBarPreview() {
-
-
-    val navigationItem = listOf(
-        NavigationItem(
-            Home,
-            Icons.Outlined.Home,
-            Icons.Filled.Home,
-            "Inicio",
-            "Icono de casa"
-        ),
-        NavigationItem(
-            Search,
-            Icons.Outlined.Search,
-            Icons.Filled.Search,
-            "Buscar",
-            "Icono de lupa"
-        ),
-        NavigationItem(
-            Album,
-            Icons.Outlined.Star,
-            Icons.Filled.Star,
-            "Álbumes",
-            "Icono de casa"
-        )
-    )
-
-    NavigationBar(contentColor = MaterialTheme.colorScheme.background, tonalElevation = 16.dp) {
-        navigationItem.forEach { navItem ->
-            val isSelected =
-                false
-
-            NavigationBarItem(
-                icon = {
-                    Icon(
-                        if (isSelected) navItem.iconFilled else navItem.iconOutlined,
-                        contentDescription = navItem.contentDescription
-                    )
-                },
-                label = { Text(navItem.label) },
-                selected = isSelected,
-                onClick = { }
-            )
         }
     }
 
