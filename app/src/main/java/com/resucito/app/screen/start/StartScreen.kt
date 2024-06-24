@@ -20,18 +20,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.resucito.app.R
+import com.resucito.app.data.Category
+import com.resucito.app.data.Stage
 import com.resucito.app.navigation.Home
 import com.resucito.app.screen.search.readJsonFromAssets
+import com.resucito.app.viewmodel.AppPreferencesProvider
 import com.resucito.app.viewmodel.SongsProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
-fun StartScreen(navController: NavHostController, songsProvider: SongsProvider) {
+fun StartScreen(
+    navController: NavHostController,
+    appPreferencesProvider: AppPreferencesProvider,
+    songsProvider: SongsProvider
+) {
 
     val context = LocalContext.current
     var databaseInitialized by remember { mutableStateOf(false) }
@@ -42,6 +48,8 @@ fun StartScreen(navController: NavHostController, songsProvider: SongsProvider) 
             scope.launch(Dispatchers.IO) {
                 val jsonString = readJsonFromAssets(context, "ES_2019.json")
                 songsProvider.insertFromJson(jsonString)
+                setCountSongsByStage(appPreferencesProvider, songsProvider)
+                setCountSongsByCategory(appPreferencesProvider, songsProvider)
                 databaseInitialized = true
             }
         } else {
@@ -79,35 +87,24 @@ fun StartScreen(navController: NavHostController, songsProvider: SongsProvider) 
     }
 }
 
-@Composable
-@Preview(showBackground = true)
-fun StartScreenPreview() {
-
-
-    Column(modifier = Modifier.fillMaxSize()) {
-        Box(
-            contentAlignment = Alignment.Center, modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                contentDescription = "Example Image",
-                modifier = Modifier.size(400.dp)
-            )
-
-        }
-        Box(
-            contentAlignment = Alignment.Center, modifier = Modifier
-                .fillMaxWidth()
-                .height(80.dp)
-        ) {
-            LinearProgressIndicator(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            )
-        }
+internal suspend fun setCountSongsByStage(
+    appPreferencesProvider: AppPreferencesProvider,
+    songsProvider: SongsProvider
+) {
+    Stage.entries.forEach {
+        val count = songsProvider.countSongsByStage(it)
+        appPreferencesProvider.updateStagePreferences(it, count)
     }
 
+}
+
+internal suspend fun setCountSongsByCategory(
+    appPreferencesProvider: AppPreferencesProvider,
+    songsProvider: SongsProvider
+) {
+    Category.entries.forEach {
+        val count = songsProvider.countSongsByCategory(it)
+        println("COUNT $count - ${it.name}")
+        appPreferencesProvider.updateCategoryPreferences(it, count)
+    }
 }

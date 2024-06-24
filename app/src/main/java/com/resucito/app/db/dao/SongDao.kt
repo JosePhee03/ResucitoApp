@@ -4,6 +4,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
+import com.resucito.app.data.Category
+import com.resucito.app.data.Stage
 import com.resucito.app.db.model.SongEntity
 
 @Dao
@@ -32,4 +35,12 @@ interface SongDao {
         """
     )
     suspend fun searchSongs(query: String): List<SongEntity>
+    @Query("SELECT Count(*) FROM songs WHERE stage = :stage")
+    suspend fun countSongsByStage(stage: Stage): Int
+
+    @Query("SELECT Count(*) FROM songs WHERE categories IN (:categories)")
+    suspend fun countSongsByCategory(categories: List<Category>): Int
+
+    @Query("UPDATE songs SET favorite = :favorite WHERE id = :songId")
+    suspend fun changeFavoriteSong(songId: String, favorite: Boolean)
 }

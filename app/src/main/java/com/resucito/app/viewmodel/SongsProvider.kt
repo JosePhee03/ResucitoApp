@@ -1,10 +1,13 @@
 package com.resucito.app.viewmodel
 
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import com.resucito.app.data.Category
 import com.resucito.app.data.Song
+import com.resucito.app.data.Stage
 import com.resucito.app.db.dao.SongDao
 import com.resucito.app.db.model.SongEntity
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +27,13 @@ class SongsProvider(
     private val _query = mutableStateOf("")
     val query get() = _query.value
 
+    suspend fun countSongsByStage (stage: Stage): Int{
+        return dao.countSongsByStage(stage)
+    }
+
+    suspend fun countSongsByCategory (category: Category): Int{
+        return dao.countSongsByCategory(listOf(category))
+    }
 
     private fun getAllSongs() {
         viewModelScope.launch {
@@ -57,7 +67,8 @@ class SongsProvider(
                     it.lyric,
                     it.chords,
                     it.tone,
-                    it.scale
+                    it.scale,
+                    false
                 )
             }
             withContext(Dispatchers.IO) {
