@@ -28,25 +28,12 @@ import com.resucito.app.R
 import kotlinx.coroutines.delay
 
 @Composable
-fun SearchBox(isEmpty: Boolean, searchSong: (String) -> Unit) {
+fun SearchBox(text: String, onChange: (String) -> Unit) {
 
-    var text by rememberSaveable {
-        mutableStateOf("")
-    }
 
-    val initialText by remember {
-        mutableStateOf(text)
-    }
-
-    LaunchedEffect(text) {
-        if (text !== initialText || isEmpty) {
-            delay(400)
-            searchSong(text)
-        }
-    }
 
     SearchBar(text) {
-            text = it
+        onChange(it)
     }
 
 }

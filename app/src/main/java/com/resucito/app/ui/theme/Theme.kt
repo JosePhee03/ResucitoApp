@@ -72,6 +72,8 @@ fun ResucitoTheme(
     content: @Composable() () -> Unit
 ) {
 
+
+
     val colorScheme = if (darkTheme) DarkColorPalette else LightColorPalette
 
     val view = LocalView.current
