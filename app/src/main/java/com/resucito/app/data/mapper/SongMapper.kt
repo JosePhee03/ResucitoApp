@@ -56,21 +56,4 @@ object SongMapper {
             favorite = songEntity.favorite
         )
     }
-
-    fun fromDtoToEntity(songDto: SongDto): SongEntity {
-        return SongEntity(
-            id = songDto.id,
-            page = songDto.page,
-            title = songDto.title,
-            subtitle = songDto.subtitle,
-            capo = songDto.capo,
-            stage = songDto.stage,
-            categories = songDto.categories,
-            lyric = songDto.lyric,
-            chords = songDto.chords,
-            tone = songDto.tone,
-            scale = songDto.scale,
-            favorite = false,
-        )
-    }
 }
