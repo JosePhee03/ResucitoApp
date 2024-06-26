@@ -90,9 +90,9 @@ fun StartScreen(
 fun StartScreenPreview() {
     StartScreen(
         rememberNavController(),
-        { context: Context, s: String -> {} },
+        { _, _ -> {} },
         true,
         false,
-        {  }
+        { }
     )
 }

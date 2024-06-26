@@ -1,8 +1,5 @@
 package com.resucito.app.presentation.ui.screen.song.componets
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -17,12 +14,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.painterResource
-import androidx.navigation.NavHostController
 import com.resucito.app.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBarSong (favorite: Boolean, onChangeFavorite: (Boolean) -> Unit, onBackNavigate: () -> Unit) {
+fun TopAppBarSong(
+    favorite: Boolean,
+    onChangeFavorite: (Boolean) -> Unit,
+    onBackNavigate: () -> Unit
+) {
 
     val scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 

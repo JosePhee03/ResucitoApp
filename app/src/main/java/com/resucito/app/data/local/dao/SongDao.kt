@@ -4,9 +4,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Update
-import com.resucito.app.domain.model.Category
-import com.resucito.app.domain.model.Stage
 import com.resucito.app.data.local.entity.SongEntity
 
 @Dao
