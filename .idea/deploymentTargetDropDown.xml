@@ -8,13 +8,13 @@
       <entry key="LyricContainerPreview">
         <State />
       </entry>
-      <entry key="NavigationBottomBarPreview">
-        <State />
-      </entry>
       <entry key="SearchBar">
         <State />
       </entry>
       <entry key="SongScreenPreview">
+        <State />
+      </entry>
+      <entry key="StartScreenPreview">
         <State />
       </entry>
       <entry key="app">
@@ -25,12 +25,12 @@
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\tytto\.android\avd\Pixel_4_API_30.avd" />
+                  <value value="C:\Users\tytto\.android\avd\Pixel_3_API_30.avd" />
                 </Key>
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-06-19T17:11:38.863825700Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-06-25T02:18:13.582902400Z" />
         </State>
       </entry>
     </value>

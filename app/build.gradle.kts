@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp.android)
+    alias(libs.plugins.hilt.android)
 }
 
 android {
@@ -78,4 +79,10 @@ dependencies {
     ksp(libs.androidx.room.compiler)
 
     implementation(libs.androidx.core.splashscreen)
+
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
+
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 }
