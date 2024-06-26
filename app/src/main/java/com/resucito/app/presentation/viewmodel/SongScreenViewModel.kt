@@ -1,19 +1,26 @@
-package com.resucito.app.viewmodel
+package com.resucito.app.presentation.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.resucito.app.db.dao.SongDao
-import com.resucito.app.db.model.SongEntity
+import com.resucito.app.data.local.entity.SongEntity
+import com.resucito.app.domain.model.Song
+import com.resucito.app.domain.usecase.GetSongUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class SongProvider(private val dao: SongDao) : ViewModel() {
+@HiltViewModel
+class SongScreenViewModel @Inject constructor(
+    private val getSongUseCase: GetSongUseCase
 
-    var song by mutableStateOf<SongEntity?>(null)
+): ViewModel() {
+
+    var song by mutableStateOf<Song?>(null)
         private set
 
     var isLoading by mutableStateOf(false)
@@ -28,7 +35,7 @@ class SongProvider(private val dao: SongDao) : ViewModel() {
             isError = false
             try {
                 val newSong = withContext(Dispatchers.IO) {
-                    dao.findSongById(id.trim())
+                    getSongUseCase.execute(id.trim())
                 }
                 song = newSong
             } catch (e: Exception) {
