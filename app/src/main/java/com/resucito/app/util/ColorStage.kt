@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import com.resucito.app.R
-import com.resucito.app.data.Stage
+import com.resucito.app.domain.model.Stage
 
 data class ColorStage(val textColor: Color, val backgroundColor: Color)
 
