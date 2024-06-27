@@ -3,6 +3,7 @@ package com.resucito.app.data.local.db
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.resucito.app.data.local.dao.AlbumDao
 import com.resucito.app.data.local.dao.SongDao
 import com.resucito.app.data.local.entity.AlbumEntity
 import com.resucito.app.data.local.entity.CategoryListConverter
@@ -16,5 +17,7 @@ import com.resucito.app.data.local.entity.StringListConverter
 @TypeConverters(StageConverter::class, StringListConverter::class, CategoryListConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun songDao(): SongDao
+
+    abstract fun albumDao(): AlbumDao
 
 }
