@@ -25,4 +25,8 @@ object RoomModule {
     @Provides
     fun provideSongDao(db: AppDatabase) = db.songDao()
 
+    @Singleton
+    @Provides
+    fun provideAlbumDao(db: AppDatabase) = db.albumDao()
+
 }
