@@ -2,7 +2,7 @@ package com.resucito.app.di
 
 import android.content.Context
 import androidx.room.Room
-import com.resucito.app.data.local.db.SongDatabase
+import com.resucito.app.data.local.db.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,15 +14,15 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object RoomModule {
 
-    private const val SONGS_DATABASE_NAME = "song_db"
+    private const val DATABASE_NAME = "app_db"
 
     @Singleton
     @Provides
     fun provideRoom(@ApplicationContext context: Context) =
-        Room.databaseBuilder(context, SongDatabase::class.java, SONGS_DATABASE_NAME).build()
+        Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME).build()
 
     @Singleton
     @Provides
-    fun provideSongDao(db: SongDatabase) = db.songDao()
+    fun provideSongDao(db: AppDatabase) = db.songDao()
 
 }
