@@ -1,9 +1,10 @@
 package com.resucito.app.data.local.entity
 
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "album")
+@Entity(tableName = "album", indices = [Index(value = ["name"], unique = true)])
 data class AlbumEntity(
 
     @PrimaryKey(true)
