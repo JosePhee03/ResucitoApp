@@ -6,7 +6,6 @@ import androidx.room.Query
 import androidx.room.Transaction
 import com.resucito.app.data.local.entity.AlbumEntity
 import com.resucito.app.data.local.entity.AlbumSongsRelation
-import com.resucito.app.data.local.entity.SongEntity
 
 interface AlbumDao {
 
@@ -27,6 +26,6 @@ interface AlbumDao {
     suspend fun existAlbumName(name: String): Boolean
 
     @Query("DELETE FROM album")
-    suspend fun deleteAlbums ()
+    suspend fun deleteAlbums()
 
 }
