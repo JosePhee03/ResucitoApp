@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.resucito.app.domain.model.Category
 import com.resucito.app.domain.model.Stage
-import com.resucito.app.domain.usecase.GetIsFirstRunUseCase
+import com.resucito.app.domain.usecase.CleanDatabasesUseCase
 import com.resucito.app.domain.usecase.GetSongsUseCase
 import com.resucito.app.domain.usecase.InsertSongsUseCase
 import com.resucito.app.domain.usecase.SetCountCategoryUseCase
@@ -23,6 +23,7 @@ class StartScreenViewModel @Inject constructor(
     private val getSongsUseCase: GetSongsUseCase,
     private val setCountCategoryUseCase: SetCountCategoryUseCase,
     private val setCountStageUseCase: SetCountStageUseCase,
+    private val cleanDatabasesUseCase: CleanDatabasesUseCase
 ) : ViewModel() {
 
     var isLoading by mutableStateOf(true)
@@ -34,29 +35,34 @@ class StartScreenViewModel @Inject constructor(
     fun onCreate(context: Context, filename: String) {
         viewModelScope.launch {
             isLoading = true
-            insertSongsUseCase.execute(context, filename).fold(
-                onSuccess = {
-                    val songsResult = getSongsUseCase.execute()
-                    val countCategories = songsResult.flatMap { it.categories }
-                        .groupingBy { it }
-                        .eachCount()
+            if (cleanDatabasesUseCase.execute().isSuccess) {
+                insertSongsUseCase.execute(context, filename).fold(
+                    onSuccess = {
+                        val songsResult = getSongsUseCase.execute()
+                        val countCategories = songsResult.flatMap { it.categories }
+                            .groupingBy { it }
+                            .eachCount()
 
-                    val countStages = songsResult.map { it.stage }
-                        .groupingBy { it }
-                        .eachCount()
+                        val countStages = songsResult.map { it.stage }
+                            .groupingBy { it }
+                            .eachCount()
 
-                    Category.entries.forEach {
-                        setCountCategoryUseCase.execute(it, countCategories[it] ?: 0)
+                        Category.entries.forEach {
+                            setCountCategoryUseCase.execute(it, countCategories[it] ?: 0)
+                        }
+
+                        Stage.entries.forEach {
+                            setCountStageUseCase.execute(it, countStages[it] ?: 0)
+                        }
+                    },
+                    onFailure = {
+                        isError = true
                     }
+                )
+            } else {
+                isError = true
+            }
 
-                    Stage.entries.forEach {
-                        setCountStageUseCase.execute(it, countStages[it] ?: 0)
-                    }
-                },
-                onFailure = {
-                    isError = true
-                }
-            )
             isLoading = false
         }
     }
