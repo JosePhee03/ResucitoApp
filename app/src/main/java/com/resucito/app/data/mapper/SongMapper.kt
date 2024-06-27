@@ -19,7 +19,8 @@ object SongMapper {
             chords = songDto.chords,
             tone = songDto.tone,
             scale = songDto.scale,
-            favorite = false
+            favorite = false,
+            albumId = null
         )
     }
 
@@ -37,6 +38,7 @@ object SongMapper {
             tone = song.tone,
             scale = song.scale,
             favorite = song.favorite,
+            albumId = song.albumId
         )
     }
 
@@ -53,7 +55,8 @@ object SongMapper {
             chords = songEntity.chords,
             tone = songEntity.tone,
             scale = songEntity.scale,
-            favorite = songEntity.favorite
+            favorite = songEntity.favorite,
+            albumId = null
         )
     }
 }
