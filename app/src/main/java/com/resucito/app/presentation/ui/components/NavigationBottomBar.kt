@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
@@ -23,6 +22,7 @@ import com.resucito.app.presentation.ui.navigation.Album
 import com.resucito.app.presentation.ui.navigation.Home
 import com.resucito.app.presentation.ui.navigation.More
 import com.resucito.app.presentation.ui.navigation.Search
+import com.resucito.app.presentation.ui.theme.ThemeApp
 
 data class NavigationItem(
     val route: Any,
@@ -88,7 +88,7 @@ fun BottomBar(
         HorizontalDivider(
             modifier = Modifier
                 .height(1.dp),
-            color = colorResource(id = R.color.grey_300)
+            color = ThemeApp.color.grey300
         )
         NavigationBar(
             containerColor = Color.Transparent,

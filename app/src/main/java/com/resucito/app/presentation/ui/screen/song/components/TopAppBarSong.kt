@@ -1,4 +1,4 @@
-package com.resucito.app.presentation.ui.screen.song.componets
+package com.resucito.app.presentation.ui.screen.song.components
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon

@@ -17,10 +17,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.resucito.app.R
+import com.resucito.app.presentation.ui.theme.ThemeApp
 
 @Composable
 fun CardStage(
@@ -36,7 +35,7 @@ fun CardStage(
             .clickable { onClick() },
         shape = MaterialTheme.shapes.medium,
         color = MaterialTheme.colorScheme.surface,
-        border = BorderStroke(1.dp, colorResource(id = R.color.grey_300))
+        border = BorderStroke(1.dp, ThemeApp.color.grey300)
     ) {
 
         Row(verticalAlignment = Alignment.CenterVertically) {

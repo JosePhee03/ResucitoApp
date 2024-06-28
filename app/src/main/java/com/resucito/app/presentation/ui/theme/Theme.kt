@@ -6,7 +6,10 @@ import androidx.compose.material3.Shapes
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
@@ -65,12 +68,25 @@ val DarkColorPalette = darkColorScheme(
     outlineVariant = DarkModeColors.outlineVariant
 )
 
+val LocalThemeColor = compositionLocalOf { colorThemeLight }
+
+
+object ThemeApp {
+
+    val color: ColorTheme
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalThemeColor.current
+
+}
+
 @Composable
 fun ResucitoTheme(
     isDarkTheme: Boolean,
     content: @Composable() () -> Unit
 ) {
 
+    val colors = if (isDarkTheme) colorThemeDark else colorThemeLight
     val colorScheme = if (isDarkTheme) DarkColorPalette else LightColorPalette
 
     val view = LocalView.current
@@ -83,10 +99,14 @@ fun ResucitoTheme(
         }
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = AppTypography,
-        shapes = Shapes(),
-        content = content
-    )
+    CompositionLocalProvider(LocalThemeColor provides colors) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = AppTypography,
+            shapes = Shapes(),
+            content = content
+        )
+    }
+
+
 }

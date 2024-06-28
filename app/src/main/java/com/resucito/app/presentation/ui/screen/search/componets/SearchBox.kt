@@ -15,9 +15,8 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
-import com.resucito.app.R
+import com.resucito.app.presentation.ui.theme.ThemeApp
 
 @Composable
 fun SearchBox(text: String, onChange: (String) -> Unit) {
@@ -36,8 +35,8 @@ internal fun SearchBar(text: String, onChange: (String) -> Unit) {
     val textFieldColors = TextFieldDefaults.colors(
         focusedIndicatorColor = Color.Transparent,
         unfocusedIndicatorColor = Color.Transparent,
-        unfocusedContainerColor = colorResource(id = R.color.grey_200),
-        focusedContainerColor = colorResource(id = R.color.grey_200),
+        unfocusedContainerColor = ThemeApp.color.grey200,
+        focusedContainerColor = ThemeApp.color.grey200,
     )
 
     Box(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {

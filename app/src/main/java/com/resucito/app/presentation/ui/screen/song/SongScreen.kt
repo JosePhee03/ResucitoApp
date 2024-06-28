@@ -29,8 +29,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.resucito.app.domain.model.Song
-import com.resucito.app.presentation.ui.screen.song.componets.LyricContainer
-import com.resucito.app.presentation.ui.screen.song.componets.TopAppBarSong
+import com.resucito.app.presentation.ui.screen.song.components.LyricContainer
+import com.resucito.app.presentation.ui.screen.song.components.TopAppBarSong
 
 @Composable
 fun SongScreen(

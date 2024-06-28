@@ -1,4 +1,4 @@
-package com.resucito.app.presentation.ui.screen.song.componets
+package com.resucito.app.presentation.ui.screen.song.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.resucito.app.R
 import com.resucito.app.domain.model.Chord
+import com.resucito.app.presentation.ui.theme.ThemeApp
 
 
 @Composable
@@ -37,8 +38,6 @@ fun LyricContainer(part: String) {
 
     val uppercaseLettersRegex = Regex("[A-Z]{2,}")
     val chords =part.replace("/", " ").trim().split("\\s+".toRegex()).toTypedArray()
-    println("_____________chords: ${chords.map{c -> c}}")
-    Chord.chordFromString(chords)
     Spacer(
         modifier = Modifier
             .fillMaxWidth()
@@ -65,7 +64,8 @@ fun LyricContainer(part: String) {
             val (prefix, letter) = separatePrefixFromText(part)
             Text(
                 text = prefix,
-                color = colorResource(id = R.color.grey_600),
+                color = ThemeApp.color.grey600,
+                fontWeight = FontWeight.Bold,
                 maxLines = 1
             )
 

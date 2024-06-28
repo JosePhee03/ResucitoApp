@@ -55,3 +55,101 @@ object DarkModeColors {
     val outline = Color(0xFF4C4C4C)
     val outlineVariant = Color(0xFFB6B6B6)
 }
+
+val colorThemeLight = ColorTheme(
+    precatechumenate = Color(0xFFCCCCCC),
+    onPrecatechumenate = Color(0xFFFFFFFF),
+    precatechumenateContainer = Color(0xFFE6E6E6),
+    onPrecatechumenateContainer = Color(0xFF333333),
+
+    catechumenate = Color(0xFF81D4FA),
+    onCatechumenate = Color(0xFFCCDDFF),
+    catechumenateContainer = Color(0xFFBEE9FF),
+    onCatechumenateContainer = Color(0xFF001F2A),
+
+    liturgy = Color(0xFFFDEC54),
+    onLiturgy = Color(0xFFFFFFFF),
+    liturgyContainer = Color(0xFFE6E0B5),
+    onLiturgyContainer = Color(0xFF332F11),
+
+    election = Color(0xFFC3F2C2),
+    onElection = Color(0xFFFFFFFF),
+    electionContainer = Color(0xFFC7F6C6),
+    onElectionContainer = Color(0xFF2C5531),
+
+    grey50 = Color(0xFFFAFAFA),
+    grey100 = Color(0xFFF5F5F5),
+    grey200 = Color(0xFFEEEEEE),
+    grey300 = Color(0xFFE0E0E0),
+    grey400 = Color(0xFFBDBDBD),
+    grey500 = Color(0xFF9E9E9E),
+    grey600 = Color(0xFF757575),
+    grey700 = Color(0xFF616161),
+    grey800 = Color(0xFF424242),
+    grey900 = Color(0xFF212121)
+)
+
+val colorThemeDark = ColorTheme(
+    precatechumenate = Color(0xFFE6E6E6),
+    onPrecatechumenate = Color(0xFF4C4C4C),
+    precatechumenateContainer = Color(0xFF666666),
+    onPrecatechumenateContainer = Color(0xFFE6E6E6),
+
+    catechumenate = Color(0xFFB4D6E6),
+    onCatechumenate = Color(0xFF28414C),
+    catechumenateContainer = Color(0xFF004D65),
+    onCatechumenateContainer = Color(0xFFBEE9FF),
+
+    liturgy = Color(0xFFE6DEA1),
+    onLiturgy = Color(0xFF4C4719),
+    liturgyContainer = Color(0xFF665F22),
+    onLiturgyContainer = Color(0xFFE6E0B5),
+
+    election = Color(0xFFD2E6D1),
+    onElection = Color(0xFF3E4C3D),
+    electionContainer = Color(0xFF1E5127),
+    onElectionContainer = Color(0xFFB8F1B9),
+
+    grey50 = Color(0xFF303030),
+    grey100 = Color(0xFF424242),
+    grey200 = Color(0xFF616161),
+    grey300 = Color(0xFF757575),
+    grey400 = Color(0xFF9E9E9E),
+    grey500 = Color(0xFFBDBDBD),
+    grey600 = Color(0xFFE0E0E0),
+    grey700 = Color(0xFFEEEEEE),
+    grey800 = Color(0xFFF5F5F5),
+    grey900 = Color(0xFFFAFAFA)
+)
+data class ColorTheme(
+    val precatechumenate: Color,
+    val onPrecatechumenate: Color,
+    val precatechumenateContainer: Color,
+    val onPrecatechumenateContainer: Color,
+
+    val catechumenate: Color,
+    val onCatechumenate: Color,
+    val catechumenateContainer: Color,
+    val onCatechumenateContainer: Color,
+
+    val liturgy: Color,
+    val onLiturgy: Color,
+    val liturgyContainer: Color,
+    val onLiturgyContainer: Color,
+
+    val election: Color,
+    val onElection: Color,
+    val electionContainer: Color,
+    val onElectionContainer: Color,
+
+    val grey50: Color,
+    val grey100: Color,
+    val grey200: Color,
+    val grey300: Color,
+    val grey400: Color,
+    val grey500: Color,
+    val grey600: Color,
+    val grey700: Color,
+    val grey800: Color,
+    val grey900: Color,
+)

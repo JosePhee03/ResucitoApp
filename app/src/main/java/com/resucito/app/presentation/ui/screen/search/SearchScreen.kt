@@ -1,5 +1,7 @@
 package com.resucito.app.presentation.ui.screen.search
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -33,10 +35,12 @@ import com.resucito.app.domain.model.Song
 import com.resucito.app.domain.model.Stage
 import com.resucito.app.presentation.ui.screen.search.componets.ItemSearchSong
 import com.resucito.app.presentation.ui.screen.search.componets.SearchBox
+import com.resucito.app.presentation.ui.theme.ThemeApp
 import com.resucito.app.presentation.viewmodel.SearchFilters
 import com.resucito.app.util.colorStage
 import kotlinx.coroutines.delay
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SearchScreen(
     navController: NavHostController,
@@ -158,16 +162,17 @@ fun SearchScreen(
 
                         }
                     }
-                    item {
+                    stickyHeader {
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
+                                .background(MaterialTheme.colorScheme.background)
                                 .padding(horizontal = 16.dp, vertical = 4.dp)
                         ) {
                             Text(
                                 text = "${songs.size} Cantos",
                                 style = MaterialTheme.typography.labelLarge,
-                                color = MaterialTheme.colorScheme.outline
+                                color = ThemeApp.color.grey600
                             )
                         }
                     }
