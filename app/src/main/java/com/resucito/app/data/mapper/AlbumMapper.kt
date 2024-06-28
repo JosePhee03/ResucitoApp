@@ -12,13 +12,6 @@ object AlbumMapper {
         )
     }
 
-    fun fromEntityToDomain(albumEntity: AlbumEntity): Album {
-        return Album(
-            name = albumEntity.name,
-            songs = emptyList()
-        )
-    }
-
     fun fromEntityToDomain(albumSongsRelation: AlbumSongsRelation): Album {
         return Album(
             name = albumSongsRelation.album.name,

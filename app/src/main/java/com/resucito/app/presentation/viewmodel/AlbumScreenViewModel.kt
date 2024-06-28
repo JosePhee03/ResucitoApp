@@ -6,7 +6,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.resucito.app.domain.model.Album
 import com.resucito.app.domain.model.Song
 import com.resucito.app.domain.usecase.GetAllFavoriteSongsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

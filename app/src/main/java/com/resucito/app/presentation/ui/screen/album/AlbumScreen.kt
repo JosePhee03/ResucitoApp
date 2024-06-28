@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.resucito.app.domain.model.Album
 import com.resucito.app.domain.model.Song
 import com.resucito.app.presentation.ui.screen.album.components.ItemAlbumSongs
 
@@ -25,7 +24,7 @@ fun AlbumScreen(
 ) {
 
     LaunchedEffect(Unit) {
-            getAlbums()
+        getAlbums()
     }
 
     Column {
@@ -33,18 +32,20 @@ fun AlbumScreen(
         if (isLoading) {
             LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
         }
-        if (isError) { Text("ERRORORORORO") }
+        if (isError) {
+            Text("ERRORORORORO")
+        }
         LazyColumn {
-                item {
-                    ItemAlbumSongs("Favoritos", favoriteSongs.size)
-                }
+            item {
+                ItemAlbumSongs("Favoritos", favoriteSongs.size)
+            }
         }
     }
 }
 
 @Composable
 @Preview(showBackground = true)
-fun AlbumScreenPreview () {
+fun AlbumScreenPreview() {
 
-    AlbumScreen( false, false, {  }, emptyList())
+    AlbumScreen(false, false, { }, emptyList())
 }
