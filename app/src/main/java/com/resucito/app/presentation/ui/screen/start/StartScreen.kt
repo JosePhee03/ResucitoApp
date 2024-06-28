@@ -40,7 +40,7 @@ fun StartScreen(
 
     LaunchedEffect(isLoading) {
         if (!isLoading && !isError) {
-            onToggleFirstRun(true)
+            onToggleFirstRun(false)
             navController.popBackStack()
             navController.navigate(route = Home)
         }

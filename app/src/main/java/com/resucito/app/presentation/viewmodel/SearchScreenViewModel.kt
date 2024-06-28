@@ -14,6 +14,7 @@ import com.resucito.app.domain.usecase.SearchSongsUseCase
 import com.resucito.app.domain.usecase.UpdateFavoriteSongUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -34,6 +35,9 @@ class SearchScreenViewModel @Inject constructor(
 
     var filters by mutableStateOf(SearchFilters(null,null))
         private set
+
+    var toastMessage by mutableStateOf<String?>(null)
+
 
     fun searchSong(query: String) {
         viewModelScope.launch {
@@ -62,9 +66,14 @@ class SearchScreenViewModel @Inject constructor(
 
     fun switchFavoriteSong (songId: String, favorite: Boolean) {
         viewModelScope.launch {
+            toastMessage = null
+            delay(400)
             val songIndex = _songs.indexOfFirst { it.id == songId }
             _songs[songIndex].favorite = favorite
-            updateFavoriteSongUseCase.execute(songId, favorite)
+            updateFavoriteSongUseCase.execute(songId, favorite).fold(
+                onSuccess = {toastMessage = if (favorite) "Canto Guardado en el album de \"Favoritos\"" else "Se quito el canto del album de \"Favoritos\""},
+                onFailure = { toastMessage = it.message ?: "Error favorito"}
+            )
         }
     }
 

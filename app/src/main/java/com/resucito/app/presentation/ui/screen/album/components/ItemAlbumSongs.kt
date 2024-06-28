@@ -27,11 +27,11 @@ fun ItemAlbumSongs(name: String, count: Int) {
             Box(
                 modifier = Modifier
                     .clip(MaterialTheme.shapes.small)
-                    .background(Color.Red)
+                    .background(MaterialTheme.colorScheme.secondaryContainer)
                     .padding(16.dp)
             ) {
                 Icon(
-                    tint = Color(0xFF5C0029),
+                    tint = MaterialTheme.colorScheme.onSecondaryContainer,
                     painter = painterResource(R.drawable.ic_favorite_filled),
                     contentDescription = "Imagen del album"
                 )

@@ -13,11 +13,11 @@ class AlbumRepository @Inject constructor(private val albumDao: AlbumDao) {
         val albumEntity = AlbumMapper.fromDomainToEntity(album)
         return runCatching {
             val albumId = withContext(Dispatchers.IO) { albumDao.insertAlbum(albumEntity) }
-            return Result.success(albumId)
+            return Result.success(albumId.toInt())
         }
     }
 
-    suspend fun updateAlbumId (songId: String, albumId: Int?): Result<Unit> {
+    suspend fun updateAlbumId (songId: String, albumId: Int): Result<Unit> {
         return runCatching {
             withContext(Dispatchers.IO) { albumDao.updateAlbumId(songId, albumId) }
         }
@@ -29,15 +29,17 @@ class AlbumRepository @Inject constructor(private val albumDao: AlbumDao) {
         }
     }
 
-    suspend fun existAlbumName (name: String): Result<Boolean> {
-        return runCatching {
-            withContext(Dispatchers.IO) { albumDao.existAlbumName(name) }
-        }
-    }
-
     suspend fun getAlbumId (name: String): Result<Int?> {
         return runCatching {
             withContext(Dispatchers.IO) { albumDao.getAlbumIdByName(name) }
+        }
+    }
+
+    suspend fun getAllAlbums (): Result<List<Album>> {
+        return runCatching {
+            val albumWithSongEntities = withContext(Dispatchers.IO) { albumDao.getAlbumWithSongs() }
+            val albums = albumWithSongEntities.map { AlbumMapper.fromEntityToDomain(it) }
+            return Result.success(albums)
         }
     }
 

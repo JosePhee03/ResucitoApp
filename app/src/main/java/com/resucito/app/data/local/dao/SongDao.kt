@@ -41,4 +41,7 @@ interface SongDao {
 
     @Query("UPDATE song SET favorite = :favorite WHERE id = :songId")
     suspend fun updateFavoriteSong(songId: String, favorite: Boolean)
+
+    @Query("SELECT * FROM song WHERE favorite = :favorite")
+    suspend fun getAllFavoriteSongs(favorite: Boolean): List<SongEntity>
 }

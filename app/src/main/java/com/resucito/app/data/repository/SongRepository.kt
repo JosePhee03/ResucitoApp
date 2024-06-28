@@ -73,4 +73,14 @@ class SongRepository @Inject constructor(private val songDao: SongDao) {
             }
         }
     }
+
+    suspend fun getAllFavoriteSongs(isFavorite: Boolean): Result<List<Song>> {
+        return runCatching {
+            val songEntities = withContext(Dispatchers.IO) {
+                songDao.getAllFavoriteSongs(isFavorite)
+            }
+            val songs = songEntities.map { SongMapper.fromEntityToDomain(it)}
+            return Result.success(songs)
+        }
+    }
 }

@@ -18,7 +18,7 @@ class AppSharedPreferences (context: Context)  {
         DARK_THEME_PREFS, Context.MODE_PRIVATE)
 
     var isFirstRun: Boolean
-        get() = isFirstRunPreferences.getBoolean(KEY_FIRST_RUN, false)
+        get() = isFirstRunPreferences.getBoolean(KEY_FIRST_RUN, true)
         set(value) = isFirstRunPreferences.edit().putBoolean(KEY_FIRST_RUN, value).apply()
 
     fun clearIsFirstRunPreferences() {

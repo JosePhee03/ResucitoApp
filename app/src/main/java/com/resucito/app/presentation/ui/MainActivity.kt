@@ -9,7 +9,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -31,6 +34,7 @@ import com.resucito.app.presentation.ui.screen.search.SearchScreen
 import com.resucito.app.presentation.ui.screen.song.SongScreen
 import com.resucito.app.presentation.ui.screen.start.StartScreen
 import com.resucito.app.presentation.ui.theme.ResucitoTheme
+import com.resucito.app.presentation.viewmodel.AlbumScreenViewModel
 import com.resucito.app.presentation.viewmodel.ApplicationViewModel
 import com.resucito.app.presentation.viewmodel.HomeScreenViewModel
 import com.resucito.app.presentation.viewmodel.SearchScreenViewModel
@@ -72,8 +76,13 @@ fun MainScreen(
 ) {
 
     val navController = rememberNavController()
+    val snackBarController = remember { SnackbarHostState() }
+
 
     Scaffold(
+        snackbarHost = {
+            SnackbarHost(hostState = snackBarController)
+        },
         bottomBar = { NavigationBottomBar(navController) },
     ) { paddingValues ->
         Column(
@@ -116,7 +125,9 @@ fun MainScreen(
                         isLoading = viewModel.isLoading,
                         searchSong = viewModel::searchSong,
                         setSearchFilter = viewModel::setSearchFilters,
-                        switchFavoriteSong = viewModel::switchFavoriteSong
+                        switchFavoriteSong = viewModel::switchFavoriteSong,
+                        toastMessage = viewModel.toastMessage,
+                        snackBarController = snackBarController
                     )
                 }
                 composable<Song> { backStackEntry ->
@@ -134,7 +145,13 @@ fun MainScreen(
                     )
                 }
                 composable<Album> {
-                    AlbumScreen()
+                    val viewModel: AlbumScreenViewModel = hiltViewModel()
+                    AlbumScreen(
+                        getAlbums = viewModel::getAllAlbums,
+                        isLoading = viewModel.isLoading,
+                        isError = viewModel.isError,
+                        favoriteSongs = viewModel.favoriteSongs
+                    )
                 }
                 composable<More> {
                     MoreScreen()

@@ -6,12 +6,10 @@ import javax.inject.Inject
 
 class CleanDatabasesUseCase @Inject constructor(
     private val songRepository: SongRepository,
-    private val albumRepository: AlbumRepository
 ) {
 
     suspend fun execute(): Result<Unit> {
         return runCatching {
-            albumRepository.cleanAlbums().getOrThrow()
             songRepository.cleanSongs().getOrThrow()
             songRepository.cleanSongsFts().getOrThrow()
         }.fold(

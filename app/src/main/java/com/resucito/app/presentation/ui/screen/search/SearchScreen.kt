@@ -14,6 +14,10 @@ import androidx.compose.material3.InputChip
 import androidx.compose.material3.InputChipDefaults
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -45,10 +49,14 @@ fun SearchScreen(
     isLoading: Boolean,
     searchSong: (String) -> Unit,
     setSearchFilter: (Stage?, Category?) -> Unit,
-    switchFavoriteSong: (String, Boolean) -> Unit
-) {
+    switchFavoriteSong: (String, Boolean) -> Unit,
+    toastMessage: String?,
+    snackBarController: SnackbarHostState,
+
+    ) {
 
     val scrollState = rememberLazyListState()
+
 
     var text by rememberSaveable {
         mutableStateOf("")
@@ -64,15 +72,28 @@ fun SearchScreen(
     }
 
     LaunchedEffect(Unit) {
-        searchSong(text)
+        if (text !== initialText) {
+            searchSong(text)
+        }
+
+
     }
 
     LaunchedEffect(text, filters) {
-        if (text !== initialText) {
-            delay(400)
-            searchSong(text)
+        delay(400)
+        searchSong(text)
+    }
+
+    LaunchedEffect(toastMessage) {
+        if (toastMessage != null) {
+            snackBarController.showSnackbar(
+                message = toastMessage,
+                actionLabel = "Deshacer",
+                duration = SnackbarDuration.Short
+            )
         }
     }
+
 
     Column {
         SearchBox(text) {
