@@ -13,5 +13,4 @@ data class Song(
     val tone: String,
     val scale: String,
     var favorite: Boolean,
-    val albumId: Int?
 )

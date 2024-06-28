@@ -7,7 +7,6 @@ class UpdateFavoriteSongUseCase @Inject constructor(
     private val songRepository: SongRepository,
 ) {
 
-
     suspend fun execute(songId: String, favorite: Boolean): Result<Unit> {
         return songRepository.updateFavoriteSong(songId, favorite)
     }

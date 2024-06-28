@@ -1,8 +1,6 @@
 package com.resucito.app.data.local.entity
 
 import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
@@ -13,13 +11,6 @@ import com.resucito.app.domain.model.Stage
 
 @Entity(
     tableName = "song",
-    indices = [Index(value = ["albumId"])],
-    foreignKeys = [ForeignKey(
-        entity = AlbumEntity::class,
-        parentColumns = ["id"],
-        childColumns = ["albumId"],
-        onDelete = ForeignKey.SET_NULL
-    )]
 )
 @TypeConverters(StageConverter::class, StringListConverter::class, CategoryListConverter::class)
 data class SongEntity(
@@ -37,7 +28,6 @@ data class SongEntity(
     val tone: String,
     val scale: String,
     val favorite: Boolean,
-    val albumId: Int?
 )
 
 class StageConverter {
