@@ -30,7 +30,6 @@ import com.resucito.app.presentation.ui.screen.home.componets.CardStage
 import com.resucito.app.presentation.ui.screen.home.componets.TopBarHome
 import com.resucito.app.util.GetStringResource
 import com.resucito.app.util.colorStage
-import java.util.Locale
 
 
 @OptIn(ExperimentalMaterial3Api::class)

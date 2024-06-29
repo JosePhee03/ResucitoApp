@@ -10,11 +10,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.resucito.app.R
 import com.resucito.app.domain.model.Chord
 import com.resucito.app.presentation.ui.theme.ThemeApp
 
@@ -37,15 +35,18 @@ fun LyricContainerPreview() {
 fun LyricContainer(part: String) {
 
     val uppercaseLettersRegex = Regex("[A-Z]{2,}")
-    val chords =part.replace("/", " ").replace("*", " ").trim().split("\\s+".toRegex()).toTypedArray()
+    val chords =
+        part.replace("/", " ").replace("*", " ").trim().split("\\s+".toRegex()).toTypedArray()
     Spacer(
         modifier = Modifier
             .fillMaxWidth()
             .height(8.dp)
     )
-    Row(modifier = Modifier
-        .padding(horizontal = 16.dp)
-        .fillMaxWidth()) {
+    Row(
+        modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .fillMaxWidth()
+    ) {
         if (Chord.validChordArray(chords)) {
 
             Text(
