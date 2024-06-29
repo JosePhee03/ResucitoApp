@@ -27,9 +27,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.resucito.app.R
 import com.resucito.app.domain.model.Category
 import com.resucito.app.domain.model.Song
 import com.resucito.app.domain.model.Stage
@@ -85,12 +87,13 @@ fun SearchScreen(
         delay(400)
         searchSong(text)
     }
+    val undoString = stringResource(R.string.undo)
 
     LaunchedEffect(toastMessage) {
         if (toastMessage != null) {
             snackBarController.showSnackbar(
                 message = toastMessage,
-                actionLabel = "Deshacer",
+                actionLabel = undoString,
                 duration = SnackbarDuration.Short
             )
         }
@@ -128,7 +131,7 @@ fun SearchScreen(
                                         trailingIcon = {
                                             Icon(
                                                 Icons.Default.Close,
-                                                contentDescription = "Localized description",
+                                                contentDescription = stringResource(R.string.remove_chip),
                                                 Modifier.size(InputChipDefaults.AvatarSize)
                                             )
                                         },
@@ -151,7 +154,7 @@ fun SearchScreen(
                                         trailingIcon = {
                                             Icon(
                                                 Icons.Default.Close,
-                                                contentDescription = "Localized description",
+                                                contentDescription = stringResource(R.string.remove_chip),
                                                 Modifier.size(InputChipDefaults.AvatarSize)
                                             )
                                         },
@@ -170,7 +173,7 @@ fun SearchScreen(
                                 .padding(horizontal = 16.dp, vertical = 4.dp)
                         ) {
                             Text(
-                                text = "${songs.size} Cantos",
+                                text = "${songs.size} ${stringResource(R.string.songs)}",
                                 style = MaterialTheme.typography.labelLarge,
                                 color = ThemeApp.color.grey600
                             )

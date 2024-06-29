@@ -22,12 +22,14 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.resucito.app.R
 import com.resucito.app.domain.model.Song
 import com.resucito.app.presentation.ui.screen.song.components.LyricContainer
 import com.resucito.app.presentation.ui.screen.song.components.TopAppBarSong
@@ -60,7 +62,7 @@ fun SongScreen(
         if (isLoading) {
             item { LinearProgressIndicator(modifier = Modifier.fillMaxWidth()) }
         } else if (isError || song == null) {
-            item { Text("Error al cargar la canción") }
+            item { Text(stringResource(R.string.song_not_found)) }
         } else {
 
             item {
@@ -90,18 +92,18 @@ fun SongScreen(
                         .padding(horizontal = 16.dp)
                 ) {
                     Text(
-                        text = "Cejilla ",
+                        text = stringResource(R.string.capo),
                         fontWeight = FontWeight.Bold
                     )
                     Text(
 
-                        text = "${song.capo}°",
+                        text = " ${song.capo}° ",
                         color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.Bold
                     )
                     Text(
 
-                        text = " traste",
+                        text = stringResource(R.string.fret),
                         fontWeight = FontWeight.Bold
                     )
                 }
@@ -122,12 +124,12 @@ fun SongScreen(
                 ) {
                     Text(
 
-                        text = "Acordes ",
+                        text = stringResource(R.string.chords),
                         fontWeight = FontWeight.Bold
                     )
                     Text(
 
-                        text = song.chords.toString(),
+                        text = " ${song.chords}",
                         letterSpacing = 2.sp,
                         color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.Bold

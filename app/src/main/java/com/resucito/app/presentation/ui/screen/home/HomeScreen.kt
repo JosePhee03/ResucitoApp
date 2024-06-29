@@ -16,16 +16,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.resucito.app.R
 import com.resucito.app.domain.model.Category
 import com.resucito.app.domain.model.Stage
 import com.resucito.app.presentation.ui.navigation.Search
 import com.resucito.app.presentation.ui.screen.home.componets.CardCategory
 import com.resucito.app.presentation.ui.screen.home.componets.CardStage
 import com.resucito.app.presentation.ui.screen.home.componets.TopBarHome
+import com.resucito.app.util.GetStringResource
 import com.resucito.app.util.colorStage
 import java.util.Locale
 
@@ -46,7 +49,7 @@ fun HomeScreen(
         LazyVerticalGrid(
             modifier = Modifier.fillMaxSize(),
             columns = GridCells.Adaptive(160.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp), // Espacio vertical entre elementos
+            verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             contentPadding = PaddingValues(16.dp)
         ) {
@@ -58,7 +61,7 @@ fun HomeScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "Índice de cantos",
+                        text = stringResource(id = R.string.index_songs),
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.headlineMedium
                     )
@@ -67,7 +70,7 @@ fun HomeScreen(
             item(span = { GridItemSpan(maxLineSpan) }) {
                 Text(
                     modifier = Modifier.padding(top = 16.dp),
-                    text = "Etapas del camino",
+                    text = stringResource(id = R.string.Stages_of_the_journey),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Medium
 
@@ -77,7 +80,7 @@ fun HomeScreen(
             Stage.entries.forEach {
                 item {
                     CardStage(
-                        it.name.lowercase(Locale.ENGLISH),
+                        GetStringResource.getLocalizedName(it),
                         getCountStage(it),
                         colorStage(it).backgroundColor
                     ) {
@@ -89,7 +92,7 @@ fun HomeScreen(
             item(span = { GridItemSpan(maxLineSpan) }) {
                 Text(
                     modifier = Modifier.padding(top = 16.dp),
-                    text = "Índice litúrgico",
+                    text = stringResource(id = R.string.liturgical_index),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Medium
 
@@ -99,7 +102,7 @@ fun HomeScreen(
             Category.entries.forEach {
                 item {
                     CardCategory(
-                        it.name.lowercase(Locale.ENGLISH),
+                        GetStringResource.getLocalizedName(it),
                         getCountCategory(it)
                     ) {
                         navController.navigate(Search(null, it.name))

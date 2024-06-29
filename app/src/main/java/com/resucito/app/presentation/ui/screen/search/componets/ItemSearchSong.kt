@@ -19,6 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.resucito.app.R
@@ -36,7 +37,7 @@ fun ItemSearchSong(
     onChangeFavorite: (Boolean) -> Unit
 ) {
 
-    var favoriteState by remember{ mutableStateOf(favorite) }
+    var favoriteState by remember { mutableStateOf(favorite) }
     val (_, backgroundColor) = colorStage(stage)
 
     ListItem(
@@ -64,7 +65,7 @@ fun ItemSearchSong(
             }) {
                 Icon(
                     painter = painterResource(if (favoriteState) R.drawable.ic_favorite_filled else R.drawable.ic_favorite),
-                    contentDescription = if (favoriteState) "Seleccionar como favorito" else "Deseleccionar como favorito",
+                    contentDescription = stringResource(if (favoriteState) R.string.select_as_favorite else R.string.deselect_as_favorite),
                 )
             }
         }

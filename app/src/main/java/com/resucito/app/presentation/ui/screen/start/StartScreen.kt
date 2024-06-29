@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -56,7 +57,7 @@ fun StartScreen(
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                contentDescription = "Image de la palabra Resucitó",
+                contentDescription = stringResource(R.string.logo_description),
                 modifier = Modifier.size(400.dp)
             )
 
@@ -68,7 +69,7 @@ fun StartScreen(
         ) {
             if (isError && !isLoading) {
                 Text(
-                    text = "Error al cargar los datos",
+                    text = stringResource(R.string.error_loading_data),
                     color = MaterialTheme.colorScheme.error,
                     style = MaterialTheme.typography.titleMedium
                 )

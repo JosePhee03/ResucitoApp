@@ -1,3 +1,56 @@
 <resources>
-    <string name="app_name">resucito</string>
+    <string name="app_name">Resucitó</string>
+    <string name="logo_description">La palabra \'Resucitó\' escrita en color rojo.</string>
+    <string name="song">Canto</string>
+    <string name="songs">Cantos</string>
+    <string name="undo">Deshacer</string>
+    <string name="select_as_favorite">Seleccionar como favorito</string>
+    <string name="deselect_as_favorite">Deseleccionar como favorito</string>
+    <string name="remove_chip">Eliminar etiqueta</string>
+    <string name="navigate_back">Navegar hacia atrás</string>
+
+    <!-- Stage Strings -->
+    <string name="precatechumenate">Precatecumenado</string>
+    <string name="catechumenate">Catecumenado</string>
+    <string name="liturgy">Liturgia</string>
+    <string name="election">Elección</string>
+
+    <!-- Category Strings -->
+    <string name="psalm">Salmo</string>
+    <string name="advent">Adviento</string>
+    <string name="childrens_song">Villancico</string>
+    <string name="christmas">Navidad</string>
+    <string name="communion">Comunión</string>
+    <string name="lent">Cuaresma</string>
+    <string name="easter">Pascua</string>
+    <string name="entrance">Entrada</string>
+    <string name="exit">Salida</string>
+    <string name="fraction_of_bread">Fracción del pan</string>
+    <string name="lutes_and_vespers">Laudes - Vísperas</string>
+    <string name="peace_and_offerings">Paz - Ofrendas</string>
+    <string name="pentecost">Pentecostés</string>
+    <string name="signing_to_the_virgin">Cantos a la virgen</string>
+
+    <!-- String Start Screen -->
+    <string name="error_loading_data">Error al cargar los datos</string>
+
+    <!-- String Home Screen -->
+    <string name="switch_to_light_theme">Cambiar a tema claro</string>
+    <string name="switch_to_dark_theme">Cambiar a tema oscuro</string>
+    <string name="index_songs">Índice de cantos</string>
+    <string name="Stages_of_the_journey">Etapas del camino</string>
+    <string name="liturgical_index">Índice litúrgico</string>
+
+    <!-- String Search Screen -->
+    <string name="icon_search_description">Icono de búsqueda</string>
+    <string name="search_bar_placeholder">Hacia ti morada santa</string>
+    <string name="search_icon_close_description">Borrar búsqueda</string>
+
+    <!-- String Song Screen -->
+    <string name="song_not_found">Canto no encontrado</string>
+    <string name="capo">Cejilla</string>
+    <string name="fret">traste</string>
+    <string name="chords">Acordes</string>
+
+
 </resources>

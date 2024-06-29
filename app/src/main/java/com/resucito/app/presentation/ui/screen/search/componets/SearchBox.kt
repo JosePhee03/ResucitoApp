@@ -15,7 +15,10 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.resucito.app.R
 import com.resucito.app.presentation.ui.theme.ThemeApp
 
 @Composable
@@ -46,11 +49,11 @@ internal fun SearchBar(text: String, onChange: (String) -> Unit) {
             onValueChange = {
                 onChange(it)
             },
-            placeholder = { Text(text = "Hacia ti morada santa") },
+            placeholder = { Text(stringResource(R.string.search_bar_placeholder)) },
             modifier = Modifier.fillMaxWidth(),
             leadingIcon = {
                 Icon(
-                    Icons.Default.Search,
+                    painter = painterResource(R.drawable.ic_search),
                     contentDescription = ""
                 )
             },
@@ -62,8 +65,8 @@ internal fun SearchBar(text: String, onChange: (String) -> Unit) {
                         }
                     ) {
                         Icon(
-                            Icons.Default.Close,
-                            contentDescription = ""
+                            painter = painterResource(R.drawable.ic_close),
+                            contentDescription = stringResource(R.string.search_icon_close_description)
                         )
                     }
                 }

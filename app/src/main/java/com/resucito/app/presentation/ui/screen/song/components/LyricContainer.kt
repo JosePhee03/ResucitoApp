@@ -37,7 +37,7 @@ fun LyricContainerPreview() {
 fun LyricContainer(part: String) {
 
     val uppercaseLettersRegex = Regex("[A-Z]{2,}")
-    val chords =part.replace("/", " ").trim().split("\\s+".toRegex()).toTypedArray()
+    val chords =part.replace("/", " ").replace("*", " ").trim().split("\\s+".toRegex()).toTypedArray()
     Spacer(
         modifier = Modifier
             .fillMaxWidth()

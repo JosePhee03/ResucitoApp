@@ -14,6 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import com.resucito.app.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,13 +36,13 @@ fun TopAppBarSong(
             containerColor = MaterialTheme.colorScheme.background
         ),
         title = {
-            Text("Canción")
+            Text(stringResource(R.string.song))
         },
         navigationIcon = {
             IconButton(onClick = { onBackNavigate() }) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_arrow_back),
-                    contentDescription = "Fecha volver hacia atrás"
+                    painter = painterResource(R.drawable.ic_arrow_back),
+                    contentDescription = stringResource(R.string.navigate_back)
                 )
             }
         },
@@ -53,7 +54,7 @@ fun TopAppBarSong(
             }) {
                 Icon(
                     painter = painterResource(if (favoriteState) R.drawable.ic_favorite_filled else R.drawable.ic_favorite),
-                    contentDescription = "Localized description"
+                    contentDescription = stringResource(if (favoriteState) R.string.select_as_favorite else R.string.deselect_as_favorite)
                 )
             }
         },
