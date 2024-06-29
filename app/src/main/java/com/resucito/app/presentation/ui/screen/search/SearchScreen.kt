@@ -54,7 +54,7 @@ fun SearchScreen(
     searchSong: (String) -> Unit,
     setSearchFilter: (Stage?, Category?) -> Unit,
     switchFavoriteSong: (String, Boolean) -> Unit,
-    toastMessage: String?,
+    snackBarText: String?,
     snackBarController: SnackbarHostState,
 
     ) {
@@ -89,10 +89,10 @@ fun SearchScreen(
     }
     val undoString = stringResource(R.string.undo)
 
-    LaunchedEffect(toastMessage) {
-        if (toastMessage != null) {
+    LaunchedEffect(snackBarText) {
+        if (snackBarText != null) {
             snackBarController.showSnackbar(
-                message = toastMessage,
+                message = snackBarText,
                 actionLabel = undoString,
                 duration = SnackbarDuration.Short
             )

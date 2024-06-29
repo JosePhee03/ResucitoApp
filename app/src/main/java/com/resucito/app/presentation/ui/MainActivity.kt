@@ -126,7 +126,7 @@ fun MainScreen(
                         searchSong = viewModel::searchSong,
                         setSearchFilter = viewModel::setSearchFilters,
                         switchFavoriteSong = viewModel::switchFavoriteSong,
-                        toastMessage = viewModel.toastMessage,
+                        snackBarText = viewModel.snackBarText,
                         snackBarController = snackBarController
                     )
                 }
@@ -136,12 +136,15 @@ fun MainScreen(
                     val viewModel: SongScreenViewModel = hiltViewModel()
 
                     SongScreen(
-                        navController,
-                        viewModel.song,
-                        viewModel.isLoading,
-                        viewModel.isError,
-                        viewModel::findSongById,
-                        songRoute.id
+                        navController = navController,
+                        snackBarController = snackBarController,
+                        song = viewModel.song,
+                        isLoading = viewModel.isLoading,
+                        isError = viewModel.isError,
+                        findSong = viewModel::findSongById,
+                        songId = songRoute.id,
+                        onChangeFavorite = viewModel::switchFavoriteSong,
+                        snackBarText = viewModel.snackBarText
                     )
                 }
                 composable<Album> {

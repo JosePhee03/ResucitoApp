@@ -16,6 +16,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
@@ -40,12 +42,25 @@ fun SongScreen(
     song: Song?,
     isLoading: Boolean,
     isError: Boolean,
-    findSongById: (String) -> Unit,
-    songId: String
+    findSong: (String) -> Unit,
+    songId: String,
+    onChangeFavorite: (String, Boolean) -> Unit,
+    snackBarController: SnackbarHostState,
+    snackBarText: String?
 ) {
 
     LaunchedEffect(songId) {
-        findSongById(songId)
+        findSong(songId)
+    }
+    val undoString = stringResource(R.string.undo)
+    LaunchedEffect(snackBarText) {
+        if (snackBarText != null) {
+            snackBarController.showSnackbar(
+                message = snackBarText,
+                actionLabel = undoString,
+                duration = SnackbarDuration.Short
+            )
+        }
     }
 
     LazyColumn(
@@ -54,7 +69,7 @@ fun SongScreen(
     ) {
         item {
             if (song != null) {
-                TopAppBarSong(song.favorite, {}) {
+                TopAppBarSong(song.favorite, onChangeFavorite = { onChangeFavorite(songId, it) }) {
                     navController.navigateUp()
                 }
             }

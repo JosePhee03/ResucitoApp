@@ -36,7 +36,7 @@ class SearchScreenViewModel @Inject constructor(
     var filters by mutableStateOf(SearchFilters(null,null))
         private set
 
-    var toastMessage by mutableStateOf<String?>(null)
+    var snackBarText by mutableStateOf<String?>(null)
 
 
     fun searchSong(query: String) {
@@ -66,13 +66,13 @@ class SearchScreenViewModel @Inject constructor(
 
     fun switchFavoriteSong (songId: String, favorite: Boolean) {
         viewModelScope.launch {
-            toastMessage = null
+            snackBarText = null
             delay(400)
             val songIndex = _songs.indexOfFirst { it.id == songId }
             _songs[songIndex].favorite = favorite
             updateFavoriteSongUseCase.execute(songId, favorite).fold(
-                onSuccess = {toastMessage = if (favorite) "Canto Guardado en el album de \"Favoritos\"" else "Se quito el canto del album de \"Favoritos\""},
-                onFailure = { toastMessage = it.message ?: "Error favorito"}
+                onSuccess = {snackBarText = if (favorite) "Canto Guardado en el album de \"Favoritos\"" else "Se quito el canto del album de \"Favoritos\""},
+                onFailure = { snackBarText = it.message ?: "Error favorito"}
             )
         }
     }

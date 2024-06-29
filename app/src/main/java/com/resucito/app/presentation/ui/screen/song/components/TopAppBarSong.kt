@@ -9,13 +9,10 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.resucito.app.R
+import com.resucito.app.presentation.ui.components.FavoriteIconButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -26,10 +23,6 @@ fun TopAppBarSong(
 ) {
 
     val scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-
-    var favoriteState by remember {
-        mutableStateOf(favorite)
-    }
 
     TopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(
@@ -46,18 +39,7 @@ fun TopAppBarSong(
                 )
             }
         },
-        actions = {
-            IconButton(onClick = {
-                val newFavorite = !favoriteState
-                favoriteState = newFavorite
-                onChangeFavorite(newFavorite)
-            }) {
-                Icon(
-                    painter = painterResource(if (favoriteState) R.drawable.ic_favorite_filled else R.drawable.ic_favorite),
-                    contentDescription = stringResource(if (favoriteState) R.string.select_as_favorite else R.string.deselect_as_favorite)
-                )
-            }
-        },
+        actions = { FavoriteIconButton(favorite, onChangeFavorite) },
         scrollBehavior = scrollBehavior
     )
 }
