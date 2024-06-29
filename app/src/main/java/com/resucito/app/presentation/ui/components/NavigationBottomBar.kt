@@ -12,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
@@ -45,29 +46,29 @@ fun NavigationBottomBar(navController: NavHostController) {
             Home,
             R.drawable.ic_home,
             R.drawable.ic_home_filled,
-            "Inicio",
-            "Icono de casa"
+            stringResource(R.string.home),
+            stringResource(R.string.home)
         ),
         NavigationItem(
             Search(null, null),
             R.drawable.ic_search,
             null,
-            "Buscar",
-            "Icono de lupa"
+            stringResource(R.string.search),
+            stringResource(R.string.search)
         ),
         NavigationItem(
             Album,
             R.drawable.ic_library_music,
             R.drawable.ic_library_music_filled,
-            "Álbumes",
-            "Icono de albumes de musica"
+            stringResource(R.string.lists),
+            stringResource(R.string.lists)
         ),
         NavigationItem(
             More,
             R.drawable.ic_more_horiz,
             null,
-            "Más",
-            "Icono de 3 puntitos horizontal"
+            stringResource(R.string.more),
+            stringResource(R.string.more_options)
         )
     )
 

@@ -157,7 +157,10 @@ fun MainScreen(
                     )
                 }
                 composable<More> {
-                    MoreScreen()
+                    MoreScreen(
+                        isDarkTheme = isDarkTheme,
+                        onToggleTheme = onToggleTheme
+                    )
                 }
             }
         }

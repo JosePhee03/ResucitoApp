@@ -8,14 +8,22 @@
     <string name="deselect_as_favorite">Deseleccionar como favorito</string>
     <string name="remove_chip">Eliminar etiqueta</string>
     <string name="navigate_back">Navegar hacia atrás</string>
+    <string name="dismiss">Cerrar</string>
+    <string name="confirm">Confirmar</string>
 
-    <!-- Stage Strings -->
+    <!-- String Navigation -->
+    <string name="home">Inicio</string>
+    <string name="search">Buscar</string>
+    <string name="lists">Listas</string>
+    <string name="more">Más</string>
+
+    <!-- Strings Stage -->
     <string name="precatechumenate">Precatecumenado</string>
     <string name="catechumenate">Catecumenado</string>
     <string name="liturgy">Liturgia</string>
     <string name="election">Elección</string>
 
-    <!-- Category Strings -->
+    <!-- Strings Category -->
     <string name="psalm">Salmo</string>
     <string name="advent">Adviento</string>
     <string name="childrens_song">Villancico</string>
@@ -51,6 +59,16 @@
     <string name="capo">Cejilla</string>
     <string name="fret">traste</string>
     <string name="chords">Acordes</string>
+    
+    <!-- String More Screen -->
+    <string name="more_options">Más opciones</string>
+    <string name="theme">Tema</string>
+    <string name="dark_mode">Modo oscuro</string>
+    <string name="light_mode">Modo claro</string>
+    <string name="language">Idioma</string>
+    <string name="select_language">Seleccionar Idioma</string>
+    <string name="more_languages_coming_soon">Más idiomas próximamente</string>
 
+    <string name="spanish_language">Español</string>
 
 </resources>

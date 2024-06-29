@@ -10,8 +10,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.resucito.app.R
 
 
 @Composable
@@ -36,7 +38,7 @@ fun CardCategory(title: String, count: Int, onClick: () -> Unit) {
                 style = MaterialTheme.typography.bodyMedium
             )
             Text(
-                text = "$count Cantos",
+                text = "$count ${stringResource(R.string.songs)}",
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center,
                 maxLines = 1,

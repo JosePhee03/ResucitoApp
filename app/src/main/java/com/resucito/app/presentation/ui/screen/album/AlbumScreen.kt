@@ -32,13 +32,14 @@ fun AlbumScreen(
         if (isLoading) {
             LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
         }
-        if (isError) {
-            Text("ERRORORORORO")
-        }
+
         LazyColumn {
             item {
                 ItemAlbumSongs("Favoritos", favoriteSongs.size)
             }
+        }
+        if (isError) {
+            Text("ERRORORORORO")
         }
     }
 }
