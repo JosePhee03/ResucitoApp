@@ -1,4 +1,4 @@
-package com.resucito.app.presentation.ui.screen.home.componets
+package com.resucito.app.presentation.ui.screen.home.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background

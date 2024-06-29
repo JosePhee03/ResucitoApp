@@ -35,8 +35,8 @@ import com.resucito.app.R
 import com.resucito.app.domain.model.Category
 import com.resucito.app.domain.model.Song
 import com.resucito.app.domain.model.Stage
-import com.resucito.app.presentation.ui.screen.search.componets.ItemSearchSong
-import com.resucito.app.presentation.ui.screen.search.componets.SearchBox
+import com.resucito.app.presentation.ui.screen.search.components.ItemSearchSong
+import com.resucito.app.presentation.ui.screen.search.components.SearchBox
 import com.resucito.app.presentation.ui.theme.ThemeApp
 import com.resucito.app.presentation.viewmodel.SearchFilters
 import com.resucito.app.util.colorStage

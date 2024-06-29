@@ -1,4 +1,4 @@
-package com.resucito.app.presentation.ui.screen.home.componets
+package com.resucito.app.presentation.ui.screen.home.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column

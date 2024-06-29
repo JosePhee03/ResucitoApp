@@ -25,9 +25,9 @@ import com.resucito.app.R
 import com.resucito.app.domain.model.Category
 import com.resucito.app.domain.model.Stage
 import com.resucito.app.presentation.ui.navigation.Search
-import com.resucito.app.presentation.ui.screen.home.componets.CardCategory
-import com.resucito.app.presentation.ui.screen.home.componets.CardStage
-import com.resucito.app.presentation.ui.screen.home.componets.TopBarHome
+import com.resucito.app.presentation.ui.screen.home.components.CardCategory
+import com.resucito.app.presentation.ui.screen.home.components.CardStage
+import com.resucito.app.presentation.ui.screen.home.components.TopBarHome
 import com.resucito.app.util.GetStringResource
 import com.resucito.app.util.colorStage
 

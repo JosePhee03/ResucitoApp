@@ -1,4 +1,4 @@
-package com.resucito.app.presentation.ui.screen.search.componets
+package com.resucito.app.presentation.ui.screen.search.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -7,23 +7,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.resucito.app.R
 import com.resucito.app.domain.model.Stage
+import com.resucito.app.presentation.ui.components.FavoriteIconButton
 import com.resucito.app.util.colorStage
 
 @Composable
@@ -37,7 +30,6 @@ fun ItemSearchSong(
     onChangeFavorite: (Boolean) -> Unit
 ) {
 
-    var favoriteState by remember { mutableStateOf(favorite) }
     val (_, backgroundColor) = colorStage(stage)
 
     ListItem(
@@ -57,18 +49,7 @@ fun ItemSearchSong(
                     .padding(8.dp),
             )
         },
-        trailingContent = {
-            IconButton(onClick = {
-                val newFavorite = !favoriteState
-                favoriteState = newFavorite
-                onChangeFavorite(newFavorite)
-            }) {
-                Icon(
-                    painter = painterResource(if (favoriteState) R.drawable.ic_favorite_filled else R.drawable.ic_favorite),
-                    contentDescription = stringResource(if (favoriteState) R.string.select_as_favorite else R.string.deselect_as_favorite),
-                )
-            }
-        }
+        trailingContent = { FavoriteIconButton(favorite, onChangeFavorite) }
     )
 }
 

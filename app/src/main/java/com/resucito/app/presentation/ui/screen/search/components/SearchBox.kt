@@ -1,4 +1,4 @@
-package com.resucito.app.presentation.ui.screen.search.componets
+package com.resucito.app.presentation.ui.screen.search.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
