@@ -71,4 +71,8 @@
 
     <string name="spanish_language">Español</string>
 
+    <!-- String Library Screen -->
+    <string name="favorites">Favoritos</string>
+    <string name="cover_image">Imagen de portada</string>
+    <string name="libraries_not_found">Listas no encontradas</string>
 </resources>

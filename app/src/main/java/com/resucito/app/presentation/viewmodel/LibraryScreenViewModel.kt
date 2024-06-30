@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AlbumScreenViewModel @Inject constructor(
+class LibraryScreenViewModel @Inject constructor(
     private val getAllFavoriteSongsUseCase: GetAllFavoriteSongsUseCase
 ) : ViewModel() {
 
@@ -26,7 +26,7 @@ class AlbumScreenViewModel @Inject constructor(
     private val _favoriteSongs = mutableStateListOf<Song>()
     val favoriteSongs get() = _favoriteSongs.toList()
 
-    fun getAllAlbums() {
+    fun getAllFavoriteSongs() {
         viewModelScope.launch {
             isLoading = true
             isError = false

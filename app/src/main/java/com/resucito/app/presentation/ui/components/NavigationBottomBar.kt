@@ -19,8 +19,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.get
 import com.resucito.app.R
-import com.resucito.app.presentation.ui.navigation.Album
 import com.resucito.app.presentation.ui.navigation.Home
+import com.resucito.app.presentation.ui.navigation.Library
 import com.resucito.app.presentation.ui.navigation.More
 import com.resucito.app.presentation.ui.navigation.Search
 import com.resucito.app.presentation.ui.theme.ThemeApp
@@ -57,7 +57,7 @@ fun NavigationBottomBar(navController: NavHostController) {
             stringResource(R.string.search)
         ),
         NavigationItem(
-            Album,
+            Library,
             R.drawable.ic_library_music,
             R.drawable.ic_library_music_filled,
             stringResource(R.string.lists),

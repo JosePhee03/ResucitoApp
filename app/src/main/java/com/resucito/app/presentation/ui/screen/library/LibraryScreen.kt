@@ -1,4 +1,4 @@
-package com.resucito.app.presentation.ui.screen.album
+package com.resucito.app.presentation.ui.screen.library
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,13 +10,15 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.resucito.app.R
 import com.resucito.app.domain.model.Song
-import com.resucito.app.presentation.ui.screen.album.components.ItemAlbumSongs
+import com.resucito.app.presentation.ui.screen.library.components.ItemLibrary
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AlbumScreen(
+fun LibraryScreen(
     isLoading: Boolean,
     isError: Boolean,
     getAlbums: () -> Unit,
@@ -28,18 +30,18 @@ fun AlbumScreen(
     }
 
     Column {
-        TopAppBar(title = { Text("Albumes") })
+        TopAppBar(title = { Text(stringResource(R.string.lists)) })
         if (isLoading) {
             LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
         }
 
         LazyColumn {
             item {
-                ItemAlbumSongs("Favoritos", favoriteSongs.size)
+                ItemLibrary(stringResource(R.string.favorites), favoriteSongs.size)
             }
         }
         if (isError) {
-            Text("ERRORORORORO")
+            Text(stringResource(R.string.libraries_not_found))
         }
     }
 }
@@ -48,5 +50,5 @@ fun AlbumScreen(
 @Preview(showBackground = true)
 fun AlbumScreenPreview() {
 
-    AlbumScreen(false, false, { }, emptyList())
+    LibraryScreen(false, false, { }, emptyList())
 }

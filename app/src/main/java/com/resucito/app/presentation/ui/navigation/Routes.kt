@@ -16,7 +16,7 @@ data class Search(val stageId: String?, val categoryId: String?)
 data class Song(val id: String)
 
 @Serializable
-data object Album
+data object Library
 
 @Serializable
 data object More

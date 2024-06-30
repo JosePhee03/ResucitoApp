@@ -21,20 +21,20 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.resucito.app.presentation.ui.components.NavigationBottomBar
-import com.resucito.app.presentation.ui.navigation.Album
 import com.resucito.app.presentation.ui.navigation.Home
+import com.resucito.app.presentation.ui.navigation.Library
 import com.resucito.app.presentation.ui.navigation.More
 import com.resucito.app.presentation.ui.navigation.Search
 import com.resucito.app.presentation.ui.navigation.Song
 import com.resucito.app.presentation.ui.navigation.Start
-import com.resucito.app.presentation.ui.screen.album.AlbumScreen
 import com.resucito.app.presentation.ui.screen.home.HomeScreen
+import com.resucito.app.presentation.ui.screen.library.LibraryScreen
 import com.resucito.app.presentation.ui.screen.more.MoreScreen
 import com.resucito.app.presentation.ui.screen.search.SearchScreen
 import com.resucito.app.presentation.ui.screen.song.SongScreen
 import com.resucito.app.presentation.ui.screen.start.StartScreen
 import com.resucito.app.presentation.ui.theme.ResucitoTheme
-import com.resucito.app.presentation.viewmodel.AlbumScreenViewModel
+import com.resucito.app.presentation.viewmodel.LibraryScreenViewModel
 import com.resucito.app.presentation.viewmodel.ApplicationViewModel
 import com.resucito.app.presentation.viewmodel.HomeScreenViewModel
 import com.resucito.app.presentation.viewmodel.SearchScreenViewModel
@@ -60,7 +60,7 @@ class MainActivity : ComponentActivity() {
                     isFirstRun = appViewModel.getIsFirstRun(),
                     onToggleFirstRun = { appViewModel.setIsFirstRun(it) },
                     isDarkTheme = appViewModel.isDarkTheme,
-                    onToggleTheme = { appViewModel.setIsDarkMode(it)})
+                    onToggleTheme = { appViewModel.setIsDarkMode(it) })
             }
         }
     }
@@ -147,10 +147,10 @@ fun MainScreen(
                         snackBarText = viewModel.snackBarText
                     )
                 }
-                composable<Album> {
-                    val viewModel: AlbumScreenViewModel = hiltViewModel()
-                    AlbumScreen(
-                        getAlbums = viewModel::getAllAlbums,
+                composable<Library> {
+                    val viewModel: LibraryScreenViewModel = hiltViewModel()
+                    LibraryScreen(
+                        getAlbums = viewModel::getAllFavoriteSongs,
                         isLoading = viewModel.isLoading,
                         isError = viewModel.isError,
                         favoriteSongs = viewModel.favoriteSongs

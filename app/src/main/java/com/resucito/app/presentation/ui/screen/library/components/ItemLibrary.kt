@@ -1,4 +1,4 @@
-package com.resucito.app.presentation.ui.screen.album.components
+package com.resucito.app.presentation.ui.screen.library.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,13 +12,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.resucito.app.R
 
 
 @Composable
-fun ItemAlbumSongs(name: String, count: Int) {
+fun ItemLibrary(name: String, count: Int) {
 
     ListItem(
         modifier = Modifier.fillMaxWidth(),
@@ -32,20 +33,14 @@ fun ItemAlbumSongs(name: String, count: Int) {
                 Icon(
                     tint = MaterialTheme.colorScheme.onSecondaryContainer,
                     painter = painterResource(R.drawable.ic_favorite_filled),
-                    contentDescription = "Imagen del album"
+                    contentDescription = stringResource(R.string.cover_image)
                 )
             }
 
         },
         headlineContent = { Text(name) },
         supportingContent = {
-            Text("$count cantos")
+            Text("$count ${stringResource(R.string.songs)}")
         }
     )
-}
-
-@Composable
-@Preview(showBackground = true)
-fun ItemAlbumSongsPreview() {
-    ItemAlbumSongs("Favoritos", 100)
 }
