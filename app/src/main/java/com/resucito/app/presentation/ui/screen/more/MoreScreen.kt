@@ -46,8 +46,9 @@ fun MoreScreen(
     }
 
     Column {
-        TopAppBar(title = { Text(stringResource(R.string.more_options)) })
-
+        TopAppBar(
+            title = { Text(stringResource(R.string.more_options)) },
+        )
         ListItem(
             modifier = Modifier
                 .fillMaxWidth()

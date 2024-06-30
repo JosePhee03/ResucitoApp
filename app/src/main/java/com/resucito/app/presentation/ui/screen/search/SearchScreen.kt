@@ -5,15 +5,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.Icon
-import androidx.compose.material3.InputChip
-import androidx.compose.material3.InputChipDefaults
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarDuration
@@ -28,18 +22,18 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.resucito.app.R
 import com.resucito.app.domain.model.Category
 import com.resucito.app.domain.model.Song
 import com.resucito.app.domain.model.Stage
+import com.resucito.app.presentation.ui.components.Chip
 import com.resucito.app.presentation.ui.screen.search.components.ItemSearchSong
 import com.resucito.app.presentation.ui.screen.search.components.SearchBox
 import com.resucito.app.presentation.ui.theme.ThemeApp
 import com.resucito.app.presentation.viewmodel.SearchFilters
-import com.resucito.app.util.colorStage
+import com.resucito.app.util.GetStringResource
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -119,47 +113,24 @@ fun SearchScreen(
                         ) {
                             filters.stage?.let {
                                 item {
-                                    InputChip(
-                                        selected = false,
-                                        onClick = {
-                                            setSearchFilter(null, null)
-                                        },
-                                        label = { Text(it.name, fontWeight = FontWeight.Medium) },
-                                        colors = InputChipDefaults.inputChipColors(
-                                            containerColor = colorStage(it).backgroundColor
-                                        ),
-                                        trailingIcon = {
-                                            Icon(
-                                                Icons.Default.Close,
-                                                contentDescription = stringResource(R.string.remove_chip),
-                                                Modifier.size(InputChipDefaults.AvatarSize)
-                                            )
-                                        },
-                                        border = null,
-                                        elevation = InputChipDefaults.inputChipElevation(2.dp)
-                                    )
+                                    Chip(
+                                        text = GetStringResource.getLocalizedName(it),
+                                        icon = true,
+                                        stage = it
+                                    ) {
+                                        setSearchFilter(null, null)
+                                    }
                                 }
                             }
                             filters.category?.let {
                                 item {
-                                    InputChip(
-                                        selected = false,
-                                        onClick = {
-                                            setSearchFilter(null, null)
-                                        },
-                                        label = { Text(it.name, fontWeight = FontWeight.Medium) },
-                                        colors = InputChipDefaults.inputChipColors(
-                                            containerColor = MaterialTheme.colorScheme.surfaceContainerLow
-                                        ),
-                                        trailingIcon = {
-                                            Icon(
-                                                Icons.Default.Close,
-                                                contentDescription = stringResource(R.string.remove_chip),
-                                                Modifier.size(InputChipDefaults.AvatarSize)
-                                            )
-                                        },
-                                        elevation = InputChipDefaults.inputChipElevation(2.dp)
-                                    )
+                                    Chip(
+                                        text = GetStringResource.getLocalizedName(it),
+                                        icon = true,
+                                        stage = null
+                                    ) {
+                                        setSearchFilter(null, null)
+                                    }
                                 }
                             }
 
