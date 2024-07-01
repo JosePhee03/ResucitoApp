@@ -26,18 +26,21 @@ import com.resucito.app.presentation.ui.navigation.Library
 import com.resucito.app.presentation.ui.navigation.More
 import com.resucito.app.presentation.ui.navigation.Search
 import com.resucito.app.presentation.ui.navigation.Song
+import com.resucito.app.presentation.ui.navigation.SongBook
 import com.resucito.app.presentation.ui.navigation.Start
 import com.resucito.app.presentation.ui.screen.home.HomeScreen
 import com.resucito.app.presentation.ui.screen.library.LibraryScreen
 import com.resucito.app.presentation.ui.screen.more.MoreScreen
 import com.resucito.app.presentation.ui.screen.search.SearchScreen
 import com.resucito.app.presentation.ui.screen.song.SongScreen
+import com.resucito.app.presentation.ui.screen.songbook.SongBookScreen
 import com.resucito.app.presentation.ui.screen.start.StartScreen
 import com.resucito.app.presentation.ui.theme.ResucitoTheme
-import com.resucito.app.presentation.viewmodel.LibraryScreenViewModel
 import com.resucito.app.presentation.viewmodel.ApplicationViewModel
 import com.resucito.app.presentation.viewmodel.HomeScreenViewModel
+import com.resucito.app.presentation.viewmodel.LibraryScreenViewModel
 import com.resucito.app.presentation.viewmodel.SearchScreenViewModel
+import com.resucito.app.presentation.viewmodel.SongBookScreenViewModel
 import com.resucito.app.presentation.viewmodel.SongScreenViewModel
 import com.resucito.app.presentation.viewmodel.StartScreenViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -150,7 +153,18 @@ fun MainScreen(
                 composable<Library> {
                     val viewModel: LibraryScreenViewModel = hiltViewModel()
                     LibraryScreen(
+                        navigateToSongBook = { navController.navigate(SongBook) },
                         getAlbums = viewModel::getAllFavoriteSongs,
+                        isLoading = viewModel.isLoading,
+                        isError = viewModel.isError,
+                        favoriteSongs = viewModel.favoriteSongs
+                    )
+                }
+                composable<SongBook> {
+                    val viewModel: SongBookScreenViewModel = hiltViewModel()
+                    SongBookScreen(
+                        onBackNavigate = { navController.navigateUp() },
+                        getAllFavoriteSongs = viewModel::getAllFavoriteSongs,
                         isLoading = viewModel.isLoading,
                         isError = viewModel.isError,
                         favoriteSongs = viewModel.favoriteSongs
