@@ -5,8 +5,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -22,7 +24,8 @@ fun LibraryScreen(
     isLoading: Boolean,
     isError: Boolean,
     getAlbums: () -> Unit,
-    favoriteSongs: List<Song>
+    favoriteSongs: List<Song>,
+    navigateToSongBook: () -> Unit
 ) {
 
     LaunchedEffect(Unit) {
@@ -30,14 +33,19 @@ fun LibraryScreen(
     }
 
     Column {
-        TopAppBar(title = { Text(stringResource(R.string.lists)) })
+        TopAppBar(
+            title = { Text(stringResource(R.string.lists)) },
+            colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surfaceContainer)
+        )
         if (isLoading) {
             LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
         }
 
         LazyColumn {
             item {
-                ItemLibrary(stringResource(R.string.favorites), favoriteSongs.size)
+                ItemLibrary(stringResource(R.string.favorites), favoriteSongs.size) {
+                    navigateToSongBook()
+                }
             }
         }
         if (isError) {
@@ -50,5 +58,5 @@ fun LibraryScreen(
 @Preview(showBackground = true)
 fun AlbumScreenPreview() {
 
-    LibraryScreen(false, false, { }, emptyList())
+    LibraryScreen(false, false, { }, emptyList()) { }
 }
