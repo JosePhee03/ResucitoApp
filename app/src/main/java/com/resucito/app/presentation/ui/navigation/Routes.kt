@@ -19,4 +19,7 @@ data class Song(val id: String)
 data object Library
 
 @Serializable
+data object SongBook
+
+@Serializable
 data object More
