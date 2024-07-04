@@ -20,17 +20,14 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.resucito.app.R
-import com.resucito.app.presentation.ui.navigation.Home
 import kotlinx.coroutines.delay
 
 @Composable
 fun StartScreen(
-    navController: NavHostController,
+    onRemoveStack: () -> Unit,
+    navigateToHome: () -> Unit,
     onCreate: (Context, String) -> Unit,
     isLoading: Boolean,
     isError: Boolean,
@@ -42,8 +39,8 @@ fun StartScreen(
     LaunchedEffect(isLoading) {
         if (!isLoading && !isError) {
             onToggleFirstRun(false)
-            navController.popBackStack()
-            navController.navigate(route = Home)
+            onRemoveStack()
+            navigateToHome()
         }
         delay(5000)
         onCreate(context, "ES_2019.json")
@@ -84,16 +81,4 @@ fun StartScreen(
             }
         }
     }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun StartScreenPreview() {
-    StartScreen(
-        rememberNavController(),
-        { _, _ -> {} },
-        true,
-        false,
-        { }
-    )
 }
