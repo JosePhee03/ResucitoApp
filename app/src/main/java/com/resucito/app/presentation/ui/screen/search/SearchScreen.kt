@@ -39,7 +39,7 @@ import kotlinx.coroutines.delay
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SearchScreen(
-    navController: NavHostController,
+    navigateToSong: (String) -> Unit,
     stageId: String?,
     categoryId: String?,
     songs: List<Song>,
@@ -162,11 +162,7 @@ fun SearchScreen(
                                 switchFavoriteSong(songItem.id, it)
                             },
                             onClickItem = {
-                                navController.navigate(
-                                    com.resucito.app.presentation.ui.navigation.Song(
-                                        songItem.id
-                                    )
-                                )
+                                navigateToSong(songItem.id)
                             }
                         )
                     }
