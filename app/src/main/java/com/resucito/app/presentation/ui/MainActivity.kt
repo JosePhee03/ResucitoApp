@@ -21,13 +21,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.resucito.app.presentation.ui.components.NavigationBottomBar
-import com.resucito.app.presentation.ui.navigation.Home
-import com.resucito.app.presentation.ui.navigation.Library
-import com.resucito.app.presentation.ui.navigation.More
-import com.resucito.app.presentation.ui.navigation.Search
-import com.resucito.app.presentation.ui.navigation.Song
-import com.resucito.app.presentation.ui.navigation.SongBook
-import com.resucito.app.presentation.ui.navigation.Start
+import com.resucito.app.presentation.ui.components.NavigationStatusBar
+import com.resucito.app.presentation.ui.navigation.Routes
 import com.resucito.app.presentation.ui.screen.home.HomeScreen
 import com.resucito.app.presentation.ui.screen.library.LibraryScreen
 import com.resucito.app.presentation.ui.screen.more.MoreScreen
@@ -81,6 +76,10 @@ fun MainScreen(
     val navController = rememberNavController()
     val snackBarController = remember { SnackbarHostState() }
 
+    NavigationStatusBar(
+        navController,
+        isDarkTheme
+    )
 
     Scaffold(
         snackbarHost = {
@@ -93,34 +92,45 @@ fun MainScreen(
                 .padding(paddingValues)
                 .fillMaxSize()
         ) {
-            NavHost(navController, startDestination = if (isFirstRun) Start else Home) {
-                composable<Start> {
+            NavHost(
+                navController,
+                startDestination = if (isFirstRun) Routes.Start else Routes.Home
+            ) {
+                composable<Routes.Start> {
                     val viewModel: StartScreenViewModel = hiltViewModel()
                     StartScreen(
-                        navController = navController,
+                        navigateToHome = { navController.navigate(Routes.Home) },
+                        onRemoveStack = { navController.popBackStack() },
                         onCreate = viewModel::onCreate,
                         isLoading = viewModel.isLoading,
                         isError = viewModel.isError,
                         onToggleFirstRun = onToggleFirstRun
                     )
                 }
-                composable<Home> {
+                composable<Routes.Home> {
                     val viewModel: HomeScreenViewModel = hiltViewModel()
                     HomeScreen(
-                        navController,
-                        isDarkTheme,
-                        onToggleTheme,
-                        viewModel::getCountStage,
-                        viewModel::getCountCategory
+                        navigateToSearch = { stageId, categoryId ->
+                            navController.navigate(
+                                Routes.Search(
+                                    stageId,
+                                    categoryId
+                                )
+                            )
+                        },
+                        isDarkTheme = isDarkTheme,
+                        onToggleTheme = onToggleTheme,
+                        getCountStage = viewModel::getCountStage,
+                        getCountCategory = viewModel::getCountCategory
                     )
                 }
-                composable<Search> { navBackStackEntry ->
-                    val (stageId, categoryId) = navBackStackEntry.toRoute<Search>()
+                composable<Routes.Search> { navBackStackEntry ->
+                    val (stageId, categoryId) = navBackStackEntry.toRoute<Routes.Search>()
 
                     val viewModel: SearchScreenViewModel = hiltViewModel()
 
                     SearchScreen(
-                        navController = navController,
+                        navigateToSong = { navController.navigate(Routes.Song(it)) },
                         stageId = stageId,
                         categoryId = categoryId,
                         songs = viewModel.songs,
@@ -133,8 +143,8 @@ fun MainScreen(
                         snackBarController = snackBarController
                     )
                 }
-                composable<Song> { backStackEntry ->
-                    val songRoute: Song = backStackEntry.toRoute()
+                composable<Routes.Song> { backStackEntry ->
+                    val songRoute: Routes.Song = backStackEntry.toRoute()
 
                     val viewModel: SongScreenViewModel = hiltViewModel()
 
@@ -150,27 +160,29 @@ fun MainScreen(
                         snackBarText = viewModel.snackBarText
                     )
                 }
-                composable<Library> {
+                composable<Routes.Library> {
                     val viewModel: LibraryScreenViewModel = hiltViewModel()
                     LibraryScreen(
-                        navigateToSongBook = { navController.navigate(SongBook) },
+                        navigateToSongBook = { navController.navigate(Routes.SongBook) },
                         getAlbums = viewModel::getAllFavoriteSongs,
                         isLoading = viewModel.isLoading,
                         isError = viewModel.isError,
                         favoriteSongs = viewModel.favoriteSongs
                     )
                 }
-                composable<SongBook> {
+                composable<Routes.SongBook> {
                     val viewModel: SongBookScreenViewModel = hiltViewModel()
                     SongBookScreen(
                         onBackNavigate = { navController.navigateUp() },
                         getAllFavoriteSongs = viewModel::getAllFavoriteSongs,
                         isLoading = viewModel.isLoading,
                         isError = viewModel.isError,
-                        favoriteSongs = viewModel.favoriteSongs
+                        favoriteSongs = viewModel.favoriteSongs,
+                        navigateToSong = { songId -> navController.navigate(Routes.Song(songId)) },
+                        onChangeFavorite = viewModel::switchFavoriteSong
                     )
                 }
-                composable<More> {
+                composable<Routes.More> {
                     MoreScreen(
                         isDarkTheme = isDarkTheme,
                         onToggleTheme = onToggleTheme
