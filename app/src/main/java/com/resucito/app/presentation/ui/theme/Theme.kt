@@ -89,15 +89,7 @@ fun ResucitoTheme(
     val colors = if (isDarkTheme) colorThemeDark else colorThemeLight
     val colorScheme = if (isDarkTheme) DarkColorPalette else LightColorPalette
 
-    val view = LocalView.current
-    if (!view.isInEditMode) {
-        SideEffect {
-            val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.background.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars =
-                !isDarkTheme
-        }
-    }
+
 
     CompositionLocalProvider(LocalThemeColor provides colors) {
         MaterialTheme(
