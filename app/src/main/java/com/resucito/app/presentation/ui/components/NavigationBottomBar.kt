@@ -19,14 +19,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.get
 import com.resucito.app.R
-import com.resucito.app.presentation.ui.navigation.Home
-import com.resucito.app.presentation.ui.navigation.Library
-import com.resucito.app.presentation.ui.navigation.More
-import com.resucito.app.presentation.ui.navigation.Search
+import com.resucito.app.presentation.ui.navigation.Routes
 import com.resucito.app.presentation.ui.theme.ThemeApp
 
-data class NavigationItem(
-    val route: Any,
+internal data class NavigationItem(
+    val route: Routes,
     val iconOutlined: Int,
     val iconFilled: Int?,
     val label: String,
@@ -43,28 +40,28 @@ fun NavigationBottomBar(navController: NavHostController) {
 
     val navigationItem = listOf(
         NavigationItem(
-            Home,
+            Routes.Home,
             R.drawable.ic_home,
             R.drawable.ic_home_filled,
             stringResource(R.string.home),
             stringResource(R.string.home)
         ),
         NavigationItem(
-            Search(null, null),
+            Routes.Search(null, null),
             R.drawable.ic_search,
             null,
             stringResource(R.string.search),
             stringResource(R.string.search)
         ),
         NavigationItem(
-            Library,
+            Routes.Library,
             R.drawable.ic_library_music,
             R.drawable.ic_library_music_filled,
             stringResource(R.string.lists),
             stringResource(R.string.lists)
         ),
         NavigationItem(
-            More,
+            Routes.More,
             R.drawable.ic_more_horiz,
             null,
             stringResource(R.string.more),
@@ -80,7 +77,7 @@ fun NavigationBottomBar(navController: NavHostController) {
 }
 
 @Composable
-fun BottomBar(
+private fun BottomBar(
     navController: NavHostController,
     navigationItem: List<NavigationItem>,
     navDestination: NavDestination
