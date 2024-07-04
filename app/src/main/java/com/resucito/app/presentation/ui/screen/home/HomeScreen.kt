@@ -20,11 +20,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import com.resucito.app.R
 import com.resucito.app.domain.model.Category
 import com.resucito.app.domain.model.Stage
-import com.resucito.app.presentation.ui.navigation.Search
 import com.resucito.app.presentation.ui.screen.home.components.CardCategory
 import com.resucito.app.presentation.ui.screen.home.components.CardStage
 import com.resucito.app.presentation.ui.screen.home.components.TopBarHome
@@ -35,7 +33,7 @@ import com.resucito.app.util.colorStage
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    navController: NavHostController,
+    navigateToSearch: (String?, String?) -> Unit,
     isDarkTheme: Boolean,
     onToggleTheme: (Boolean) -> Unit,
     getCountStage: (Stage) -> Int,
@@ -83,7 +81,7 @@ fun HomeScreen(
                         getCountStage(it),
                         colorStage(it).backgroundColor
                     ) {
-                        navController.navigate(Search(it.name, null))
+                        navigateToSearch(it.name, null)
                     }
                 }
             }
@@ -104,7 +102,7 @@ fun HomeScreen(
                         GetStringResource.getLocalizedName(it),
                         getCountCategory(it)
                     ) {
-                        navController.navigate(Search(null, it.name))
+                        navigateToSearch(null, it.name)
                     }
                 }
             }
