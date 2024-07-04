@@ -8,13 +8,13 @@
       <entry key="ItemAlbumSongs">
         <State />
       </entry>
-      <entry key="LyricContainerPreview">
-        <State />
-      </entry>
       <entry key="SearchBar">
         <State />
       </entry>
       <entry key="StartScreenPreview">
+        <State />
+      </entry>
+      <entry key="StatefulScaffoldPreview">
         <State />
       </entry>
       <entry key="app">
