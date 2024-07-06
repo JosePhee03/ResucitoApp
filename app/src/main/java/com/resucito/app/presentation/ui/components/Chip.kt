@@ -17,7 +17,8 @@ import com.resucito.app.domain.model.Stage
 import com.resucito.app.util.colorStage
 
 @Composable
-fun Chip(text: String, icon: Boolean, stage: Stage?, onClick: () -> Unit) {
+fun Chip(text: String, icon: Boolean = false, stage: Stage?, onClick: () -> Unit) {
+
     InputChip(
         selected = false,
         onClick = {

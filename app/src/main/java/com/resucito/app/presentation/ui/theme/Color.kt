@@ -52,8 +52,8 @@ object DarkModeColors {
     val onSurface = Color(0xFFE6E2E2)
     val surfaceVariant = Color(0xFF665252)
     val onSurfaceVariant = Color(0xFFE6D1D1)
-    val outline = Color(0xFF4C4C4C)
-    val outlineVariant = Color(0xFFB6B6B6)
+    val outline = Color(0xFF857370)
+    val outlineVariant = Color(0xFFD8C2BE)
 }
 
 val colorThemeLight = ColorTheme(
