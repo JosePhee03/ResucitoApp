@@ -6,6 +6,10 @@ import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.draggable
+import androidx.compose.foundation.gestures.rememberDraggableState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,9 +26,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -33,17 +39,23 @@ import com.resucito.app.R
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun TopBarSongBook(isScrolling: Boolean) {
+fun TopBarSongBook(isExpand: Boolean, onBackNavigate: () -> Unit, onExpand: () -> Unit) {
+
     Surface(
+        color = MaterialTheme.colorScheme.surfaceContainer,
         modifier = Modifier
             .fillMaxWidth()
+            .clickable(enabled = !isExpand) {
+                onExpand()
+            }
     ) {
         SharedTransitionLayout {
-            AnimatedContent(targetState = !isScrolling, label = "") { targetState ->
+            AnimatedContent(targetState = isExpand, label = "aa") { targetState ->
                 if (targetState) {
-                    Row1(this@SharedTransitionLayout, this@AnimatedContent)
+                    Row1(this@SharedTransitionLayout, this@AnimatedContent, onBackNavigate)
                 } else {
-                    Row2(this@SharedTransitionLayout, this@AnimatedContent)
+                    Row2(this@SharedTransitionLayout, this@AnimatedContent, onBackNavigate)
+
                 }
             }
         }
@@ -52,12 +64,21 @@ fun TopBarSongBook(isScrolling: Boolean) {
 
 @OptIn(ExperimentalSharedTransitionApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun Row2(sharedTransitionScope: SharedTransitionScope, animatedContentScope: AnimatedContentScope) {
+fun Row2(
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
+    onBackNavigate: () -> Unit
+) {
     with(sharedTransitionScope) {
         TopAppBar(
-            colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
+            modifier = Modifier
+                .sharedBounds(
+                    rememberSharedContentState(key = "topbar"),
+                    animatedContentScope
+                ),
+            colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent),
             navigationIcon = {
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = { onBackNavigate() }) {
                     Icon(
                         modifier = Modifier.sharedElement(
                             rememberSharedContentState(key = "IconArrow"),
@@ -111,13 +132,22 @@ fun Row2(sharedTransitionScope: SharedTransitionScope, animatedContentScope: Ani
 
 @OptIn(ExperimentalSharedTransitionApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun Row1(sharedTransitionScope: SharedTransitionScope, animatedContentScope: AnimatedContentScope) {
+fun Row1(
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
+    onBackNavigate: () -> Unit
+) {
     with(sharedTransitionScope) {
-        Column(modifier = Modifier.background(MaterialTheme.colorScheme.surfaceContainer)) {
+        Column {
             TopAppBar(
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
+                modifier = Modifier
+                    .sharedBounds(
+                        rememberSharedContentState(key = "topbar"),
+                        animatedContentScope
+                    ),
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent),
                 navigationIcon = {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = { onBackNavigate() }) {
                         Icon(
                             modifier = Modifier.sharedElement(
                                 rememberSharedContentState(key = "IconArrow"),

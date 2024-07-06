@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ErrorLayout(
-    paddingValues: PaddingValues,
     iconPainter: Painter,
     iconDescription: String,
     text: String,
@@ -32,7 +31,6 @@ fun ErrorLayout(
 
     Box(
         modifier = Modifier
-            .padding(paddingValues)
             .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
@@ -43,7 +41,7 @@ fun ErrorLayout(
         ) {
             Icon(
                 tint = MaterialTheme.colorScheme.error,
-                modifier = Modifier.size(96.dp),
+                modifier = Modifier.size(64.dp),
                 painter = iconPainter,
                 contentDescription = iconDescription
             )

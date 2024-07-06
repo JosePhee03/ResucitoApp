@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun EmptyLayout(
-    paddingValues: PaddingValues,
     text: String,
     buttonText: String,
     onReset: () -> Unit,
@@ -27,7 +26,6 @@ fun EmptyLayout(
 
     Box(
         modifier = Modifier
-            .padding(paddingValues)
             .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {

@@ -173,11 +173,9 @@ fun MainScreen(
                 composable<Routes.SongBook> {
                     val viewModel: SongBookScreenViewModel = hiltViewModel()
                     SongBookScreen(
+                        uiState = viewModel.uiState,
                         onBackNavigate = { navController.navigateUp() },
-                        getAllFavoriteSongs = viewModel::getAllFavoriteSongs,
-                        isLoading = viewModel.isLoading,
-                        isError = viewModel.isError,
-                        favoriteSongs = viewModel.favoriteSongs,
+                        getSongBook = viewModel::getAllFavoriteSongs,
                         navigateToSong = { songId -> navController.navigate(Routes.Song(songId)) },
                         onChangeFavorite = viewModel::switchFavoriteSong
                     )

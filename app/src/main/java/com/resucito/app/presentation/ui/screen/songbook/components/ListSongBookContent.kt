@@ -12,17 +12,23 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import com.resucito.app.domain.model.Song
 import com.resucito.app.presentation.ui.screen.search.components.ItemSearchSong
 
 @Composable
 fun ListSongBookContent(
-    scrollState: LazyListState,
     songs: List<Song>,
     onClickItem: (String) -> Unit,
     onChangeFavorite: (String, Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    state: LazyListState,
 ) {
-    LazyColumn(state = scrollState) {
+
+    LazyColumn(
+        modifier = modifier,
+        state = state
+    ) {
         items(songs, key = { it.id }) {
             var visible by remember { mutableStateOf(true) }
 

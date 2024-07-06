@@ -14,48 +14,60 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+data class SongBookUiState(
+    val isLoading: Boolean = true,
+    val isError: Boolean = false,
+    val songs: List<Song> = emptyList(),
+    val snackBarText: String? = null
+)
+
 @HiltViewModel
 class SongBookScreenViewModel @Inject constructor(
     private val getAllFavoriteSongsUseCase: GetAllFavoriteSongsUseCase,
     private val updateFavoriteSongUseCase: UpdateFavoriteSongUseCase
 ): ViewModel() {
 
-    var isError by mutableStateOf(false)
+    var uiState by mutableStateOf(SongBookUiState())
         private set
-
-    var isLoading by mutableStateOf(false)
-        private set
-
-    private val _favoriteSongs = mutableStateListOf<Song>()
-    val favoriteSongs get() = _favoriteSongs.toList()
-
-    var snackBarText by mutableStateOf<String?>(null)
 
     fun getAllFavoriteSongs() {
         viewModelScope.launch {
-            isLoading = true
-            isError = false
+            uiState = uiState.copy(isLoading = true, isError = false)
             val resultFavoriteSongs = getAllFavoriteSongsUseCase.execute()
             resultFavoriteSongs.fold(
                 onSuccess = {
-                    _favoriteSongs.clear()
-                    _favoriteSongs.addAll(it)
+                    uiState = uiState.copy(
+                        isLoading = false,
+                        songs = it
+                    )
                 },
-                onFailure = { isError = true }
+                onFailure = {
+                    uiState = uiState.copy(
+                        isLoading = false,
+                        isError = true
+                    )
+                }
             )
-
-            isLoading = false
         }
     }
 
-    fun switchFavoriteSong (songId: String, favorite: Boolean) {
+    fun switchFavoriteSong(songId: String, favorite: Boolean) {
         viewModelScope.launch {
-            snackBarText = null
+            uiState = uiState.copy(snackBarText = null)
             delay(400)
-            _favoriteSongs.removeIf { it.id == songId }
+            val updatedSongs = uiState.songs.filterNot { it.id == songId }
+            uiState = uiState.copy(songs = updatedSongs)
             updateFavoriteSongUseCase.execute(songId, favorite).fold(
-                onSuccess = {snackBarText = if (favorite) "Canto Guardado en el album de \"Favoritos\"" else "Se quito el canto del album de \"Favoritos\""},
-                onFailure = { snackBarText = it.message ?: "Error favorito"}
+                onSuccess = {
+                    uiState = uiState.copy(
+                        snackBarText = if (favorite) "Canto Guardado en el album de \"Favoritos\"" else "Se quito el canto del album de \"Favoritos\""
+                    )
+                },
+                onFailure = {
+                    uiState = uiState.copy(
+                        snackBarText = it.message ?: "Error favorito"
+                    )
+                }
             )
         }
     }

@@ -1,12 +1,16 @@
 package com.resucito.app.presentation.ui.screen.song
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
@@ -33,6 +37,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.resucito.app.R
 import com.resucito.app.domain.model.Song
+import com.resucito.app.presentation.ui.components.SuggestionChipCategory
+import com.resucito.app.presentation.ui.components.SuggestionChipStage
 import com.resucito.app.presentation.ui.screen.song.components.LyricContainer
 import com.resucito.app.presentation.ui.screen.song.components.TopAppBarSong
 
@@ -79,6 +85,31 @@ fun SongScreen(
         } else if (isError || song == null) {
             item { Text(stringResource(R.string.song_not_found)) }
         } else {
+
+            item {
+                LazyRow(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    contentPadding = PaddingValues(horizontal = 16.dp)
+                ) {
+                    item {
+                        SuggestionChipStage(stage = song.stage, onClick = {})
+                    }
+                    items(song.categories) {
+                        SuggestionChipCategory(category = it, onClick = {})
+                    }
+                }
+            }
+
+            item {
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                        .height(16.dp)
+                )
+            }
 
             item {
                 Text(
@@ -151,14 +182,9 @@ fun SongScreen(
                     )
                 }
             }
-            item {
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
-                        .height(24.dp)
-                )
-            }
+
+
+
 
             item {
                 Text(

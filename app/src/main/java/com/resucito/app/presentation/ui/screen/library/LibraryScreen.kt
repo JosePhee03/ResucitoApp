@@ -43,7 +43,10 @@ fun LibraryScreen(
 
         LazyColumn {
             item {
-                ItemLibrary(stringResource(R.string.favorites), favoriteSongs.size) {
+                ItemLibrary(
+                    name = stringResource(R.string.favorites),
+                    count = favoriteSongs.size,
+                    enabled = !isLoading) {
                     navigateToSongBook()
                 }
             }

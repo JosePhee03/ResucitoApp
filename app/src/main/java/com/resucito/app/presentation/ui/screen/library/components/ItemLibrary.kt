@@ -19,12 +19,12 @@ import com.resucito.app.R
 
 
 @Composable
-fun ItemLibrary(name: String, count: Int, onClick: () -> Unit) {
+fun ItemLibrary(name: String, count: Int, enabled: Boolean, onClick: () -> Unit) {
 
     ListItem(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onClick() },
+            .clickable(enabled = enabled) { onClick() },
         leadingContent = {
             Box(
                 modifier = Modifier
