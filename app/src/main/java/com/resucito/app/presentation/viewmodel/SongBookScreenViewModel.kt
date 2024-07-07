@@ -1,7 +1,6 @@
 package com.resucito.app.presentation.viewmodel
 
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
@@ -25,7 +24,7 @@ data class SongBookUiState(
 class SongBookScreenViewModel @Inject constructor(
     private val getAllFavoriteSongsUseCase: GetAllFavoriteSongsUseCase,
     private val updateFavoriteSongUseCase: UpdateFavoriteSongUseCase
-): ViewModel() {
+) : ViewModel() {
 
     var uiState by mutableStateOf(SongBookUiState())
         private set
