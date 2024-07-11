@@ -64,14 +64,6 @@ class SearchScreenViewModel @Inject constructor(
         return SearchFilters(stage, category)
     }
 
-    fun setSearchFilters(stageId: String?, categoryId: String?) {
-        val stage = stageId?.let { Stage.valueOf(stageId) }
-        val category = categoryId?.let { Category.valueOf(categoryId) }
-        state.value = state.value.copy(
-            filters = SearchFilters(stage, category)
-        )
-    }
-
     fun setSearchFilters(stage: Stage?, category: Category?) {
         state.value = state.value.copy(
             filters = SearchFilters(stage, category)
