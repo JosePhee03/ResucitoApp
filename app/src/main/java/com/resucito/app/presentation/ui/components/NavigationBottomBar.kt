@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
@@ -22,6 +21,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.get
 import com.resucito.app.R
 import com.resucito.app.presentation.ui.navigation.Routes
+import com.resucito.app.presentation.ui.theme.ThemeApp
 
 internal data class NavigationItem(
     val route: Routes,
@@ -89,7 +89,7 @@ private fun BottomBar(
 ) {
     Column {
         HorizontalDivider(
-            modifier = Modifier.height(1.dp), color = MaterialTheme.colorScheme.outline
+            modifier = Modifier.height(1.dp), color = ThemeApp.color.grey300
         )
         NavigationBar(
             containerColor = Color.Transparent,
