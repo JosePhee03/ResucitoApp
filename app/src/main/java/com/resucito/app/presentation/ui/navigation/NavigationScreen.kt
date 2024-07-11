@@ -58,6 +58,7 @@ fun NavigationScreen(
         }
         composable<Routes.Home> {
             HomeScreen(
+                vm = homeScreenViewModel,
                 navigateToSearch = { stageId, categoryId ->
                     navController.navigate(
                         Routes.Search(
@@ -66,9 +67,7 @@ fun NavigationScreen(
                     )
                 },
                 isDarkTheme = isDarkTheme,
-                onToggleTheme = onToggleTheme,
-                getCountStage = homeScreenViewModel::getCountStage,
-                getCountCategory = homeScreenViewModel::getCountCategory
+                onToggleTheme = onToggleTheme
             )
         }
         composable<Routes.Search> { navBackStackEntry ->
