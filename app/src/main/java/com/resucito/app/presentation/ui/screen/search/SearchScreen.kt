@@ -15,26 +15,24 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import com.resucito.app.R
 import com.resucito.app.domain.model.Category
-import com.resucito.app.domain.model.Song
 import com.resucito.app.domain.model.Stage
 import com.resucito.app.presentation.ui.components.Chip
 import com.resucito.app.presentation.ui.screen.search.components.ItemSearchSong
 import com.resucito.app.presentation.ui.screen.search.components.SearchBox
 import com.resucito.app.presentation.ui.theme.ThemeApp
-import com.resucito.app.presentation.viewmodel.SearchFilters
+import com.resucito.app.presentation.viewmodel.SearchScreenViewModel
+import com.resucito.app.presentation.viewmodel.SearchState
 import com.resucito.app.util.GetStringResource
-import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -42,46 +40,39 @@ fun SearchScreen(
     navigateToSong: (String) -> Unit,
     stageId: String?,
     categoryId: String?,
-    songs: List<Song>,
-    filters: SearchFilters,
-    isLoading: Boolean,
-    searchSong: (String) -> Unit,
-    setSearchFilter: (Stage?, Category?) -> Unit,
-    switchFavoriteSong: (String, Boolean) -> Unit,
-    snackBarText: String?,
     snackBarController: SnackbarHostState,
+    vm: SearchScreenViewModel
+) {
 
-    ) {
+    val uiState by vm.state.collectAsState(
+        initial = SearchState(
+            filters = vm.getSearchFilters(stageId, categoryId),
+        )
+    )
+
+    val songs = uiState.songs
+    val filters = uiState.filters
+    val isLoading = uiState.isLoading
+    val query = uiState.query
+    val snackBarText = uiState.snackBarText
+    val setSearchFilter = remember<(Stage?, Category?) -> Unit> {
+        { stage, category -> vm.setSearchFilters(stage, category) }
+    }
+    val switchFavoriteSong = remember<(String, Boolean) -> Unit> {
+        { songId, isFavorite -> vm.switchFavoriteSong(songId, isFavorite) }
+    }
+
+    val searchSong = remember<(String) -> Unit> {
+        { vm.searchSong(it) }
+    }
 
     val scrollState = rememberLazyListState()
 
-
-    var text by rememberSaveable {
-        mutableStateOf("")
-    }
-
-    val initialText by remember {
-        mutableStateOf(text)
-    }
-
-    LaunchedEffect(Unit) {
-        setSearchFilter(stageId?.let { Stage.valueOf(it) },
-            categoryId?.let { Category.valueOf(it) })
-    }
-
-    LaunchedEffect(Unit) {
-        if (text !== initialText) {
-            searchSong(text)
-        }
-
-
-    }
-
-    LaunchedEffect(text, filters) {
-        delay(400)
-        searchSong(text)
-    }
     val undoString = stringResource(R.string.undo)
+
+    LaunchedEffect(Unit) {
+        searchSong(query)
+    }
 
     LaunchedEffect(snackBarText) {
         if (snackBarText != null) {
@@ -93,10 +84,9 @@ fun SearchScreen(
         }
     }
 
-
     Column {
-        SearchBox(text) {
-            text = it
+        SearchBox(query) {
+            searchSong(it)
         }
 
         Column(modifier = Modifier.fillMaxWidth()) {

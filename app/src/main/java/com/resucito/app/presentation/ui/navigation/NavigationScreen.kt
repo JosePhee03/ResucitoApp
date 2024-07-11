@@ -74,16 +74,10 @@ fun NavigationScreen(
             val (stageId, categoryId) = navBackStackEntry.toRoute<Routes.Search>()
 
             SearchScreen(
+                vm = searchScreenViewModel,
                 navigateToSong = { navController.navigate(Routes.Song(it)) },
                 stageId = stageId,
                 categoryId = categoryId,
-                songs = searchScreenViewModel.songs,
-                filters = searchScreenViewModel.filters,
-                isLoading = searchScreenViewModel.isLoading,
-                searchSong = searchScreenViewModel::searchSong,
-                setSearchFilter = searchScreenViewModel::setSearchFilters,
-                switchFavoriteSong = searchScreenViewModel::switchFavoriteSong,
-                snackBarText = searchScreenViewModel.snackBarText,
                 snackBarController = snackBarController
             )
         }
