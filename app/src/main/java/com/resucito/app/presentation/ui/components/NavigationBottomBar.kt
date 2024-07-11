@@ -4,10 +4,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,9 +27,14 @@ import com.resucito.app.presentation.ui.theme.ThemeApp
 internal data class NavigationItem(
     val route: Routes,
     val iconOutlined: Int,
-    val iconFilled: Int?,
+    val iconFilled: Int,
     val label: String,
     val contentDescription: String
+)
+
+@Stable
+internal data class ListNavigationItems(
+    val items: List<NavigationItem> = emptyList()
 )
 
 
@@ -38,39 +45,38 @@ fun NavigationBottomBar(navController: NavHostController) {
 
     val navDestination = navBackStackEntry?.destination
 
-    val navigationItem = listOf(
-        NavigationItem(
-            Routes.Home,
-            R.drawable.ic_home,
-            R.drawable.ic_home_filled,
-            stringResource(R.string.home),
-            stringResource(R.string.home)
-        ),
-        NavigationItem(
-            Routes.Search(null, null),
-            R.drawable.ic_search,
-            null,
-            stringResource(R.string.search),
-            stringResource(R.string.search)
-        ),
-        NavigationItem(
-            Routes.Library,
-            R.drawable.ic_library_music,
-            R.drawable.ic_library_music_filled,
-            stringResource(R.string.lists),
-            stringResource(R.string.lists)
-        ),
-        NavigationItem(
-            Routes.More,
-            R.drawable.ic_more_horiz,
-            null,
-            stringResource(R.string.more),
-            stringResource(R.string.more_options)
+    val navigationItem = ListNavigationItems(
+        items = listOf(
+            NavigationItem(
+                Routes.Home,
+                R.drawable.ic_home,
+                R.drawable.ic_home_filled,
+                stringResource(R.string.home),
+                stringResource(R.string.home)
+            ), NavigationItem(
+                Routes.Search(null, null),
+                R.drawable.ic_search,
+                R.drawable.ic_search,
+                stringResource(R.string.search),
+                stringResource(R.string.search)
+            ), NavigationItem(
+                Routes.Library,
+                R.drawable.ic_library_music,
+                R.drawable.ic_library_music_filled,
+                stringResource(R.string.lists),
+                stringResource(R.string.lists)
+            ), NavigationItem(
+                Routes.More,
+                R.drawable.ic_more_horiz,
+                R.drawable.ic_more_horiz,
+                stringResource(R.string.more),
+                stringResource(R.string.more_options)
+            )
         )
     )
 
     if (navDestination == null) return
-    else if (navigationItem.any { navItem -> navController.graph[navItem.route] == navDestination }) {
+    else if (navigationItem.items.any { navItem -> navController.graph[navItem.route] == navDestination }) {
         BottomBar(navController, navigationItem, navDestination)
     } else return
 
@@ -79,33 +85,28 @@ fun NavigationBottomBar(navController: NavHostController) {
 @Composable
 private fun BottomBar(
     navController: NavHostController,
-    navigationItem: List<NavigationItem>,
+    navigationItem: ListNavigationItems,
     navDestination: NavDestination
 ) {
     Column {
         HorizontalDivider(
-            modifier = Modifier
-                .height(1.dp),
-            color = ThemeApp.color.grey300
+            modifier = Modifier.height(1.dp), color = MaterialTheme.colorScheme.outline
         )
         NavigationBar(
             containerColor = Color.Transparent,
         ) {
-            navigationItem.forEach { navItem ->
-                val isSelected =
-                    navDestination == navController.graph[navItem.route]
+            navigationItem.items.forEach { navItem ->
+                val isSelected = navDestination == navController.graph[navItem.route]
 
-                NavigationBarItem(
+                NavigationBarItem(label = { Text(navItem.label) },
+                    selected = isSelected,
+                    onClick = { navController.navigate(route = navItem.route) },
                     icon = {
                         Icon(
-                            painterResource(if (isSelected && navItem.iconFilled != null) navItem.iconFilled else navItem.iconOutlined),
+                            painterResource(if (isSelected) navItem.iconFilled else navItem.iconOutlined),
                             contentDescription = navItem.contentDescription
                         )
-                    },
-                    label = { Text(navItem.label) },
-                    selected = isSelected,
-                    onClick = { navController.navigate(route = navItem.route) }
-                )
+                    })
             }
         }
     }
