@@ -22,7 +22,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.get
 import com.resucito.app.R
 import com.resucito.app.presentation.ui.navigation.Routes
-import com.resucito.app.presentation.ui.theme.ThemeApp
 
 internal data class NavigationItem(
     val route: Routes,
