@@ -25,7 +25,7 @@ import com.resucito.app.presentation.viewmodel.SongScreenViewModel
 import com.resucito.app.presentation.viewmodel.StartScreenViewModel
 
 @Composable
-fun NavigationScreen (
+fun NavigationScreen(
     navController: NavHostController,
     snackBarController: SnackbarHostState,
     applicationViewModel: ApplicationViewModel,
@@ -39,25 +39,20 @@ fun NavigationScreen (
 
     val isFirstRun = applicationState.isFirstRun
     val isDarkTheme = applicationState.isDarkTheme
-    val onToggleFirstRun = remember<(Boolean) -> Unit>{
+    val onToggleFirstRun = remember<(Boolean) -> Unit> {
         { applicationViewModel.setIsFirstRun(it) }
     }
-    val onToggleTheme = remember<(Boolean) -> Unit>{
+    val onToggleTheme = remember<(Boolean) -> Unit> {
         { applicationViewModel.setIsDarkMode(it) }
     }
 
-
     NavHost(
-        navController,
-        startDestination = if (isFirstRun) Routes.Start else Routes.Home
+        navController, startDestination = if (isFirstRun) Routes.Start else Routes.Home
     ) {
         composable<Routes.Start> {
-            StartScreen(
+            StartScreen(vm = startScreenViewModel,
                 navigateToHome = { navController.navigate(Routes.Home) },
                 onRemoveStack = { navController.popBackStack() },
-                onCreate = startScreenViewModel::onCreate,
-                isLoading = startScreenViewModel.isLoading,
-                isError = startScreenViewModel.isError,
                 onToggleFirstRun = onToggleFirstRun
             )
         }
@@ -66,8 +61,7 @@ fun NavigationScreen (
                 navigateToSearch = { stageId, categoryId ->
                     navController.navigate(
                         Routes.Search(
-                            stageId,
-                            categoryId
+                            stageId, categoryId
                         )
                     )
                 },
@@ -130,8 +124,7 @@ fun NavigationScreen (
         }
         composable<Routes.More> {
             MoreScreen(
-                isDarkTheme = isDarkTheme,
-                onToggleTheme = onToggleTheme
+                isDarkTheme = isDarkTheme, onToggleTheme = onToggleTheme
             )
         }
     }

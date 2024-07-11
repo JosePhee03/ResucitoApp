@@ -14,6 +14,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
@@ -22,17 +25,23 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.resucito.app.R
-import kotlinx.coroutines.delay
+import com.resucito.app.presentation.viewmodel.StartScreenViewModel
 
 @Composable
 fun StartScreen(
     onRemoveStack: () -> Unit,
     navigateToHome: () -> Unit,
-    onCreate: (Context, String) -> Unit,
-    isLoading: Boolean,
-    isError: Boolean,
-    onToggleFirstRun: (Boolean) -> Unit
+    onToggleFirstRun: (Boolean) -> Unit,
+    vm: StartScreenViewModel
 ) {
+
+    val uiState by vm.state.collectAsState()
+    val isLoading = uiState.isLoading
+    val isError = uiState.isError
+    val onCreate = remember<(Context, String) -> Unit> {
+        { context, text -> vm.onCreate(context, text) }
+    }
+
 
     val context = LocalContext.current
 
@@ -42,7 +51,6 @@ fun StartScreen(
             onRemoveStack()
             navigateToHome()
         }
-        delay(5000)
         onCreate(context, "ES_2019.json")
     }
 
