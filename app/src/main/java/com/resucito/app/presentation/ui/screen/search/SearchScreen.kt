@@ -17,7 +17,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -29,7 +32,6 @@ import com.resucito.app.presentation.ui.screen.search.components.ItemSearchSong
 import com.resucito.app.presentation.ui.screen.search.components.SearchBox
 import com.resucito.app.presentation.ui.theme.ThemeApp
 import com.resucito.app.presentation.viewmodel.SearchScreenViewModel
-import com.resucito.app.presentation.viewmodel.SearchState
 import com.resucito.app.util.GetStringResource
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -42,42 +44,36 @@ fun SearchScreen(
     vm: SearchScreenViewModel
 ) {
 
-    val uiState by vm.state.collectAsState(
-        initial = SearchState(
-            filters = vm.getSearchFilters(stageId, categoryId),
-        )
-    )
+    var queryRemember by rememberSaveable {
+        mutableStateOf("")
+    }
+
+    val uiState by vm.state.collectAsState()
 
     val songs = uiState.songs
     val filters = uiState.filters
     val isLoading = uiState.isLoading
     val query = uiState.query
     val snackBarText = uiState.snackBarText
-    val setSearchFilter = remember<(Stage?, Category?) -> Unit> {
-        { stage, category -> vm.setSearchFilters(stage, category) }
-    }
-    val switchFavoriteSong = remember<(String, Boolean) -> Unit> {
-        { songId, isFavorite -> vm.switchFavoriteSong(songId, isFavorite) }
-    }
-
-    val searchSong = remember<(String) -> Unit> {
-        { vm.searchSong(it) }
-    }
+    val setSearchFilters = vm::setSearchFilters
+    val switchFavoriteSong = vm::switchFavoriteSong
+    val searchSong = vm::searchSong
 
     val scrollState = rememberLazyListState()
 
     val undoString = stringResource(R.string.undo)
 
     LaunchedEffect(Unit) {
+        println("stageId: $stageId = categoryId: $categoryId // $filters")
+        setSearchFilters(stageId?.let { Stage.valueOf(it) },
+            categoryId?.let { Category.valueOf(it) })
         searchSong(query)
     }
 
     LaunchedEffect(snackBarText) {
         if (snackBarText != null) {
             snackBarController.showSnackbar(
-                message = snackBarText,
-                actionLabel = undoString,
-                duration = SnackbarDuration.Short
+                message = snackBarText, actionLabel = undoString, duration = SnackbarDuration.Short
             )
         }
     }
@@ -85,6 +81,7 @@ fun SearchScreen(
     Column {
         SearchBox(query) {
             searchSong(it)
+            queryRemember = it
         }
 
         Column(modifier = Modifier.fillMaxWidth()) {
@@ -106,7 +103,7 @@ fun SearchScreen(
                                         icon = true,
                                         stage = it
                                     ) {
-                                        setSearchFilter(null, null)
+                                        setSearchFilters(null, null)
                                     }
                                 }
                             }
@@ -117,7 +114,7 @@ fun SearchScreen(
                                         icon = true,
                                         stage = null
                                     ) {
-                                        setSearchFilter(null, null)
+                                        setSearchFilters(null, null)
                                     }
                                 }
                             }
@@ -140,8 +137,7 @@ fun SearchScreen(
                     }
                     items(songs.size, key = { songs[it].id }) { item ->
                         val songItem = songs[item]
-                        ItemSearchSong(
-                            songItem.page.toString(),
+                        ItemSearchSong(songItem.page.toString(),
                             songItem.title,
                             songItem.subtitle,
                             songItem.favorite,
@@ -151,8 +147,7 @@ fun SearchScreen(
                             },
                             onClickItem = {
                                 navigateToSong(songItem.id)
-                            }
-                        )
+                            })
                     }
                 }
             }
