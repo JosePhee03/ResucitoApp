@@ -21,8 +21,8 @@ fun FavoriteIconButton (favorite: Boolean, onChangeFavorite: (Boolean) -> Unit) 
         onChangeFavorite(newFavorite)
     }) {
         Icon(
-            painter = painterResource(if (favoriteState) R.drawable.ic_favorite_filled else R.drawable.ic_favorite),
-            contentDescription = stringResource(if (favoriteState) R.string.select_as_favorite else R.string.deselect_as_favorite),
+            painter = if (favoriteState) painterResource(R.drawable.ic_favorite_filled) else painterResource(R.drawable.ic_favorite),
+            contentDescription = if (favoriteState) stringResource(R.string.select_as_favorite) else stringResource(R.string.deselect_as_favorite),
         )
     }
 }
