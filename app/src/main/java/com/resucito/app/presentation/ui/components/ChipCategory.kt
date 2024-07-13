@@ -12,11 +12,11 @@ import com.resucito.app.util.GetStringResource
 
 
 @Composable
-fun SuggestionChipCategory(category: Category, onClick: () -> Unit) {
+fun SuggestionChipCategory(category: Category, onClick: (Category) -> Unit) {
 
     SuggestionChip(
         onClick = {
-            onClick()
+            onClick(category)
         },
         label = {
             Text(

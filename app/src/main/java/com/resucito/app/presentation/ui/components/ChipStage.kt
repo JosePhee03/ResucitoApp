@@ -13,11 +13,11 @@ import com.resucito.app.util.GetStringResource
 import com.resucito.app.util.colorStage
 
 @Composable
-fun SuggestionChipStage(stage: Stage, onClick: () -> Unit) {
+fun SuggestionChipStage(stage: Stage, onClick: (Stage) -> Unit) {
 
     SuggestionChip(
         onClick = {
-            onClick()
+            onClick(stage)
         },
         label = { Text(GetStringResource.getLocalizedName(stage), fontWeight = FontWeight.Medium) },
         colors = AssistChipDefaults.assistChipColors(
