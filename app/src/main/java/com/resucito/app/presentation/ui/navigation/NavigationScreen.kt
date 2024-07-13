@@ -50,7 +50,8 @@ fun NavigationScreen(
         navController, startDestination = if (isFirstRun) Routes.Start else Routes.Home
     ) {
         composable<Routes.Start> {
-            StartScreen(vm = startScreenViewModel,
+            StartScreen(
+                vm = startScreenViewModel,
                 navigateToHome = { navController.navigate(Routes.Home) },
                 onRemoveStack = { navController.popBackStack() },
                 onToggleFirstRun = onToggleFirstRun
@@ -85,15 +86,17 @@ fun NavigationScreen(
             val songRoute: Routes.Song = backStackEntry.toRoute()
 
             SongScreen(
-                navController = navController,
+                vm = songScreenViewModel,
                 snackBarController = snackBarController,
-                song = songScreenViewModel.song,
-                isLoading = songScreenViewModel.isLoading,
-                isError = songScreenViewModel.isError,
-                findSong = songScreenViewModel::findSongById,
                 songId = songRoute.id,
-                onChangeFavorite = songScreenViewModel::switchFavoriteSong,
-                snackBarText = songScreenViewModel.snackBarText
+                navigateToSearch = { stageId, categoryId ->
+                    navController.navigate(
+                        Routes.Search(
+                            stageId, categoryId
+                        )
+                    )
+                },
+                onBackNavigate = { navController.navigateUp() }
             )
         }
         composable<Routes.Library> {
