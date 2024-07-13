@@ -26,12 +26,12 @@ import androidx.compose.ui.unit.dp
 import com.resucito.app.R
 import com.resucito.app.domain.model.Category
 import com.resucito.app.domain.model.Stage
-import com.resucito.app.presentation.ui.components.Chip
+import com.resucito.app.presentation.ui.components.InputChipCategory
+import com.resucito.app.presentation.ui.components.InputChipStage
 import com.resucito.app.presentation.ui.screen.search.components.ItemSearchSong
 import com.resucito.app.presentation.ui.screen.search.components.SearchBox
 import com.resucito.app.presentation.ui.theme.ThemeApp
 import com.resucito.app.presentation.viewmodel.SearchScreenViewModel
-import com.resucito.app.util.GetStringResource
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -82,6 +82,30 @@ fun SearchScreen(
             queryRemember = it
         }
 
+        LazyRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp)
+        ) {
+            filters.stage?.let {
+                item {
+                    InputChipStage(
+                        stage = it,
+                        onClick = { setSearchFilters(null, null) }
+                    )
+                }
+            }
+            filters.category?.let {
+                item {
+                    InputChipCategory(
+                        category = it,
+                        onClick = { setSearchFilters(null, null) }
+                    )
+                }
+            }
+
+        }
+
         Column(modifier = Modifier.fillMaxWidth()) {
             if (isLoading) {
                 LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
@@ -89,35 +113,7 @@ fun SearchScreen(
 
                 LazyColumn(modifier = Modifier.fillMaxWidth(), state = scrollState) {
                     item {
-                        LazyRow(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = 16.dp)
-                        ) {
-                            filters.stage?.let {
-                                item {
-                                    Chip(
-                                        text = GetStringResource.getLocalizedName(it),
-                                        icon = true,
-                                        stage = it
-                                    ) {
-                                        setSearchFilters(null, null)
-                                    }
-                                }
-                            }
-                            filters.category?.let {
-                                item {
-                                    Chip(
-                                        text = GetStringResource.getLocalizedName(it),
-                                        icon = true,
-                                        stage = null
-                                    ) {
-                                        setSearchFilters(null, null)
-                                    }
-                                }
-                            }
 
-                        }
                     }
                     stickyHeader {
                         Column(
