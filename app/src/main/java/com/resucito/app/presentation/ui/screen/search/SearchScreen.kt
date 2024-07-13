@@ -63,7 +63,6 @@ fun SearchScreen(
     val undoString = stringResource(R.string.undo)
 
     LaunchedEffect(Unit) {
-        println("stageId: $stageId = categoryId: $categoryId // $filters")
         setSearchFilters(stageId?.let { Stage.valueOf(it) },
             categoryId?.let { Category.valueOf(it) })
         searchSong(query)
