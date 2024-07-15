@@ -3,7 +3,6 @@ package com.resucito.app.presentation.ui.navigation
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -34,6 +33,7 @@ fun NavigationScreen(
     homeScreenViewModel: HomeScreenViewModel,
     searchScreenViewModel: SearchScreenViewModel,
     songScreenViewModel: SongScreenViewModel,
+    songBookScreenViewModel: SongBookScreenViewModel,
     libraryScreenViewModel: LibraryScreenViewModel
 ) {
 
@@ -109,13 +109,10 @@ fun NavigationScreen(
             )
         }
         composable<Routes.SongBook> {
-            val viewModel: SongBookScreenViewModel = hiltViewModel()
             SongBookScreen(
-                uiState = viewModel.uiState,
+                vm = songBookScreenViewModel,
                 onBackNavigate = { navController.navigateUp() },
-                getSongBook = viewModel::getAllFavoriteSongs,
                 navigateToSong = { songId -> navController.navigate(Routes.Song(songId)) },
-                onChangeFavorite = viewModel::switchFavoriteSong
             )
         }
         composable<Routes.More> {

@@ -26,6 +26,7 @@ import com.resucito.app.presentation.viewmodel.ApplicationViewModel
 import com.resucito.app.presentation.viewmodel.HomeScreenViewModel
 import com.resucito.app.presentation.viewmodel.LibraryScreenViewModel
 import com.resucito.app.presentation.viewmodel.SearchScreenViewModel
+import com.resucito.app.presentation.viewmodel.SongBookScreenViewModel
 import com.resucito.app.presentation.viewmodel.SongScreenViewModel
 import com.resucito.app.presentation.viewmodel.StartScreenViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,6 +39,7 @@ class MainActivity : ComponentActivity() {
     private val homeScreenViewModel: HomeScreenViewModel by viewModels()
     private val searchScreenViewModel: SearchScreenViewModel by viewModels()
     private val songScreenViewModel: SongScreenViewModel by viewModels()
+    private val songBookScreenViewModel: SongBookScreenViewModel by viewModels()
     private val libraryScreenViewModel: LibraryScreenViewModel by viewModels()
     private lateinit var applicationUiState: ApplicationState
 
@@ -91,6 +93,7 @@ class MainActivity : ComponentActivity() {
                     homeScreenViewModel = homeScreenViewModel,
                     searchScreenViewModel = searchScreenViewModel,
                     songScreenViewModel = songScreenViewModel,
+                    songBookScreenViewModel = songBookScreenViewModel,
                     libraryScreenViewModel = libraryScreenViewModel
                 )
             }

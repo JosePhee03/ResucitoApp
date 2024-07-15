@@ -4,10 +4,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -15,25 +15,26 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.resucito.app.R
 import com.resucito.app.presentation.ui.components.EmptyLayout
 import com.resucito.app.presentation.ui.components.ErrorLayout
 import com.resucito.app.presentation.ui.screen.songbook.components.ListSongBookContent
 import com.resucito.app.presentation.ui.screen.songbook.components.TopBarSongBook
-import com.resucito.app.presentation.viewmodel.SongBookUiState
+import com.resucito.app.presentation.viewmodel.SongBookScreenViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.sample
 
-@OptIn(ExperimentalMaterial3Api::class, FlowPreview::class)
+@OptIn(FlowPreview::class)
 @Composable
 fun SongBookScreen(
-    uiState: SongBookUiState,
+    vm: SongBookScreenViewModel,
     onBackNavigate: () -> Unit,
-    getSongBook: () -> Unit,
-    navigateToSong: (String) -> Unit,
-    onChangeFavorite: (String, Boolean) -> Unit
+    navigateToSong: (String) -> Unit
 ) {
+
+    val uiState by vm.state.collectAsState()
+    val getSongBook = vm::getAllFavoriteSongs
+    val onChangeFavorite = vm::switchFavoriteSong
 
     val lazyListState = rememberLazyListState()
 
@@ -94,16 +95,4 @@ fun SongBookScreen(
         }
     }
 
-}
-
-@Composable
-@Preview
-fun SongBookScreenPreview() {
-    SongBookScreen(
-        uiState = SongBookUiState(isError = true),
-        onBackNavigate = { },
-        getSongBook = { },
-        navigateToSong = { },
-        onChangeFavorite = { _, _ -> }
-    )
 }

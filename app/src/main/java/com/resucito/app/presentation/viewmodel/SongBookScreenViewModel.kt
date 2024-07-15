@@ -1,8 +1,5 @@
 package com.resucito.app.presentation.viewmodel
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.resucito.app.domain.model.Song
@@ -10,14 +7,17 @@ import com.resucito.app.domain.usecase.GetAllFavoriteSongsUseCase
 import com.resucito.app.domain.usecase.UpdateFavoriteSongUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-data class SongBookUiState(
+data class SongBookState(
     val isLoading: Boolean = true,
     val isError: Boolean = false,
     val songs: List<Song> = emptyList(),
-    val snackBarText: String? = null
+    val snackbarText: String? = null
 )
 
 @HiltViewModel
@@ -26,25 +26,31 @@ class SongBookScreenViewModel @Inject constructor(
     private val updateFavoriteSongUseCase: UpdateFavoriteSongUseCase
 ) : ViewModel() {
 
-    var uiState by mutableStateOf(SongBookUiState())
-        private set
+    private val _state = MutableStateFlow(SongBookState())
+    val state: StateFlow<SongBookState> = _state
 
     fun getAllFavoriteSongs() {
         viewModelScope.launch {
-            uiState = uiState.copy(isLoading = true, isError = false)
+            _state.update {
+                it.copy(isLoading = true, isError = false)
+            }
             val resultFavoriteSongs = getAllFavoriteSongsUseCase.execute()
             resultFavoriteSongs.fold(
-                onSuccess = {
-                    uiState = uiState.copy(
-                        isLoading = false,
-                        songs = it
-                    )
+                onSuccess = { songs ->
+                    _state.update {
+                        it.copy(
+                            isLoading = false,
+                            songs = songs
+                        )
+                    }
                 },
                 onFailure = {
-                    uiState = uiState.copy(
-                        isLoading = false,
-                        isError = true
-                    )
+                    _state.update {
+                        it.copy(
+                            isLoading = false,
+                            isError = true
+                        )
+                    }
                 }
             )
         }
@@ -52,20 +58,35 @@ class SongBookScreenViewModel @Inject constructor(
 
     fun switchFavoriteSong(songId: String, favorite: Boolean) {
         viewModelScope.launch {
-            uiState = uiState.copy(snackBarText = null)
+            _state.update {
+                it.copy(
+                    snackbarText = null
+                )
+            }
             delay(400)
-            val updatedSongs = uiState.songs.filterNot { it.id == songId }
-            uiState = uiState.copy(songs = updatedSongs)
+            _state.update {
+                it.copy(
+                    snackbarText = null
+                )
+            }
+            val updatedSongs = _state.value.songs.filterNot { it.id == songId }
+            _state.update {
+                it.copy(songs = updatedSongs)
+            }
             updateFavoriteSongUseCase.execute(songId, favorite).fold(
                 onSuccess = {
-                    uiState = uiState.copy(
-                        snackBarText = if (favorite) "Canto Guardado en el album de \"Favoritos\"" else "Se quito el canto del album de \"Favoritos\""
-                    )
+                    _state.update {
+                        it.copy(
+                            snackbarText = if (favorite) "Canto Guardado en el album de \"Favoritos\"" else "Se quito el canto del album de \"Favoritos\""
+                        )
+                    }
                 },
-                onFailure = {
-                    uiState = uiState.copy(
-                        snackBarText = it.message ?: "Error favorito"
-                    )
+                onFailure = { exception ->
+                    _state.update {
+                        it.copy(
+                            snackbarText = exception.message ?: "Error favorito"
+                        )
+                    }
                 }
             )
         }
