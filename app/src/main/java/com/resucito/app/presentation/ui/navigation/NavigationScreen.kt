@@ -101,11 +101,8 @@ fun NavigationScreen(
         }
         composable<Routes.Library> {
             LibraryScreen(
-                navigateToSongBook = { navController.navigate(Routes.SongBook) },
-                getAlbums = libraryScreenViewModel::getAllFavoriteSongs,
-                isLoading = libraryScreenViewModel.isLoading,
-                isError = libraryScreenViewModel.isError,
-                favoriteSongs = libraryScreenViewModel.favoriteSongs
+                vm = libraryScreenViewModel,
+                navigateToSongbook = { navController.navigate(Routes.SongBook) },
             )
         }
         composable<Routes.SongBook> {

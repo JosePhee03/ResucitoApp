@@ -8,8 +8,8 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -31,51 +31,46 @@ internal data class NavigationItem(
     val contentDescription: String
 )
 
-@Stable
-internal data class ListNavigationItems(
-    val items: List<NavigationItem> = emptyList()
-)
-
 
 @Composable
 fun NavigationBottomBar(navController: NavHostController) {
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
-    val navDestination = navBackStackEntry?.destination
+    val navDestination = remember {
+        navBackStackEntry?.destination
+    }
 
-    val navigationItem = ListNavigationItems(
-        items = listOf(
-            NavigationItem(
-                Routes.Home,
-                R.drawable.ic_home,
-                R.drawable.ic_home_filled,
-                stringResource(R.string.home),
-                stringResource(R.string.home)
-            ), NavigationItem(
-                Routes.Search(null, null),
-                R.drawable.ic_search,
-                R.drawable.ic_search,
-                stringResource(R.string.search),
-                stringResource(R.string.search)
-            ), NavigationItem(
-                Routes.Library,
-                R.drawable.ic_library_music,
-                R.drawable.ic_library_music_filled,
-                stringResource(R.string.lists),
-                stringResource(R.string.lists)
-            ), NavigationItem(
-                Routes.More,
-                R.drawable.ic_more_horiz,
-                R.drawable.ic_more_horiz,
-                stringResource(R.string.more),
-                stringResource(R.string.more_options)
-            )
+    val navigationItem = listOf(
+        NavigationItem(
+            Routes.Home,
+            R.drawable.ic_home,
+            R.drawable.ic_home_filled,
+            stringResource(R.string.home),
+            stringResource(R.string.home)
+        ), NavigationItem(
+            Routes.Search(null, null),
+            R.drawable.ic_search,
+            R.drawable.ic_search,
+            stringResource(R.string.search),
+            stringResource(R.string.search)
+        ), NavigationItem(
+            Routes.Library,
+            R.drawable.ic_library_music,
+            R.drawable.ic_library_music_filled,
+            stringResource(R.string.lists),
+            stringResource(R.string.lists)
+        ), NavigationItem(
+            Routes.More,
+            R.drawable.ic_more_horiz,
+            R.drawable.ic_more_horiz,
+            stringResource(R.string.more),
+            stringResource(R.string.more_options)
         )
     )
 
     if (navDestination == null) return
-    else if (navigationItem.items.any { navItem -> navController.graph[navItem.route] == navDestination }) {
+    else if (navigationItem.any { navItem -> navController.graph[navItem.route] == navDestination }) {
         BottomBar(navController, navigationItem, navDestination)
     } else return
 
@@ -84,7 +79,7 @@ fun NavigationBottomBar(navController: NavHostController) {
 @Composable
 private fun BottomBar(
     navController: NavHostController,
-    navigationItem: ListNavigationItems,
+    navigationItem: List<NavigationItem>,
     navDestination: NavDestination
 ) {
     Column {
@@ -94,7 +89,7 @@ private fun BottomBar(
         NavigationBar(
             containerColor = Color.Transparent,
         ) {
-            navigationItem.items.forEach { navItem ->
+            navigationItem.forEach { navItem ->
                 val isSelected = navDestination == navController.graph[navItem.route]
 
                 NavigationBarItem(label = { Text(navItem.label) },
