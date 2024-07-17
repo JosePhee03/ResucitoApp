@@ -91,6 +91,10 @@ private fun RowScope.NavItem(
     item: NavigationItem
 ) {
 
+    val icon = remember(isSelected()) {
+        if (isSelected()) item.iconFilled else item.iconOutlined
+    }
+
 
     NavigationBarItem(
         label = { Text(item.label) },
@@ -100,7 +104,7 @@ private fun RowScope.NavItem(
         },
         icon = {
             Icon(
-                painter = painterResource(item.iconOutlined),
+                painter = painterResource(icon),
                 contentDescription = item.contentDescription
             )
         })
