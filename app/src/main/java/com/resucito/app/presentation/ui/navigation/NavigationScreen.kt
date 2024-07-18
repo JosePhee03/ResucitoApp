@@ -7,10 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.resucito.app.presentation.ui.screen.home.HomeScreen
-import com.resucito.app.presentation.ui.screen.library.LibraryScreen
-import com.resucito.app.presentation.ui.screen.more.MoreScreen
-import com.resucito.app.presentation.ui.screen.search.SearchScreen
+import com.resucito.app.presentation.ui.screen.main.MainScreen
 import com.resucito.app.presentation.ui.screen.song.SongScreen
 import com.resucito.app.presentation.ui.screen.songbook.SongBookScreen
 import com.resucito.app.presentation.ui.screen.start.StartScreen
@@ -58,28 +55,27 @@ fun NavigationScreen(
             )
         }
         composable<Routes.Home> {
-            HomeScreen(
-                vm = homeScreenViewModel,
-                navigateToSearch = { stageId, categoryId ->
-                    navController.navigate(
-                        Routes.Search(
-                            stageId, categoryId
-                        )
-                    )
-                },
-                isDarkTheme = isDarkTheme,
-                onToggleTheme = onToggleTheme
+            MainScreen(
+                initialPage = 0,
+                homeScreenViewModel = homeScreenViewModel,
+                searchScreenViewModel = searchScreenViewModel,
+                libraryScreenViewModel = libraryScreenViewModel,
+                navController = navController,
+                onToggleTheme = onToggleTheme,
+                isDarkTheme = isDarkTheme
             )
         }
         composable<Routes.Search> { navBackStackEntry ->
             val (stageId, categoryId) = navBackStackEntry.toRoute<Routes.Search>()
 
-            SearchScreen(
-                vm = searchScreenViewModel,
-                navigateToSong = { navController.navigate(Routes.Song(it)) },
-                stageId = stageId,
-                categoryId = categoryId,
-                snackBarController = snackBarController
+            MainScreen(
+                initialPage = 1,
+                homeScreenViewModel = homeScreenViewModel,
+                searchScreenViewModel = searchScreenViewModel,
+                libraryScreenViewModel = libraryScreenViewModel,
+                navController = navController,
+                onToggleTheme = onToggleTheme,
+                isDarkTheme = isDarkTheme
             )
         }
         composable<Routes.Song> { backStackEntry ->
@@ -99,22 +95,11 @@ fun NavigationScreen(
                 onBackNavigate = { navController.navigateUp() }
             )
         }
-        composable<Routes.Library> {
-            LibraryScreen(
-                vm = libraryScreenViewModel,
-                navigateToSongbook = { navController.navigate(Routes.SongBook) },
-            )
-        }
         composable<Routes.SongBook> {
             SongBookScreen(
                 vm = songBookScreenViewModel,
                 onBackNavigate = { navController.navigateUp() },
                 navigateToSong = { songId -> navController.navigate(Routes.Song(songId)) },
-            )
-        }
-        composable<Routes.More> {
-            MoreScreen(
-                isDarkTheme = isDarkTheme, onToggleTheme = onToggleTheme
             )
         }
     }
