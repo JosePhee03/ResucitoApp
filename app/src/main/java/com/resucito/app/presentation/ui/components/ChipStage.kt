@@ -2,11 +2,11 @@ package com.resucito.app.presentation.ui.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.InputChipDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SuggestionChip
+import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -27,7 +27,7 @@ fun SuggestionChipStage(stage: Stage, onClick: (Stage) -> Unit) {
             onClick(stage)
         },
         label = { Text(GetStringResource.getLocalizedName(stage), fontWeight = FontWeight.Medium) },
-        colors = AssistChipDefaults.assistChipColors(
+        colors = SuggestionChipDefaults.suggestionChipColors().copy(
             containerColor = colorStage(stage).backgroundColor
         ),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
@@ -48,6 +48,9 @@ fun InputChipStage(stage: Stage, onClick: (Stage) -> Unit) {
                 modifier = Modifier.size(InputChipDefaults.AvatarSize)
             )
         },
+        colors = SuggestionChipDefaults.suggestionChipColors().copy(
+            containerColor = colorStage(stage).backgroundColor
+        ),
         label = {
             Text(
                 GetStringResource.getLocalizedName(stage),
