@@ -22,6 +22,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun MainScreen(
     initialPage: Int,
+    stageId: String? = null,
+    categoryId: String? = null,
     navController: NavHostController,
     homeScreenViewModel: HomeScreenViewModel,
     onToggleTheme: (Boolean) -> Unit,
@@ -48,11 +50,11 @@ fun MainScreen(
         ) { currentPage ->
             when (currentPage) {
                 0 -> HomeScreen(
-                    navigateToSearch = { _, _ ->
+                    navigateToSearch = { stageId, categoryId ->
                         navController.navigate(
                             Routes.Search(
-                                null,
-                                null
+                                stageId,
+                                categoryId
                             )
                         )
                     },
@@ -63,8 +65,8 @@ fun MainScreen(
 
                 1 -> SearchScreen(
                     navigateToSong = { navController.navigate(Routes.Song(it)) },
-                    stageId = null,
-                    categoryId = null,
+                    stageId = stageId,
+                    categoryId = categoryId,
                     snackBarController = snackBarController,
                     vm = searchScreenViewModel
                 )

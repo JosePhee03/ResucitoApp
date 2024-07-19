@@ -70,6 +70,8 @@ fun NavigationScreen(
 
             MainScreen(
                 initialPage = 1,
+                stageId = stageId,
+                categoryId = categoryId,
                 homeScreenViewModel = homeScreenViewModel,
                 searchScreenViewModel = searchScreenViewModel,
                 libraryScreenViewModel = libraryScreenViewModel,

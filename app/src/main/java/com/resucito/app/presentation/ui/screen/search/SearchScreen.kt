@@ -64,8 +64,17 @@ fun SearchScreen(
     val undoString = stringResource(R.string.undo)
 
     LaunchedEffect(Unit) {
-        setSearchFilters(stageId?.let { Stage.valueOf(it) },
-            categoryId?.let { Category.valueOf(it) })
+        val newStage: Stage?
+        val newCategory: Category?
+
+        if (stageId != null || categoryId != null) {
+            newStage = if (categoryId != null) null else stageId?.let { Stage.valueOf(it) }
+            newCategory = if (stageId != null) null else categoryId?.let { Category.valueOf(it) }
+            setSearchFilters(
+                newStage ?: filters.stage, newCategory ?: filters.category
+            )
+        }
+
         searchSong(query)
     }
 
@@ -90,18 +99,18 @@ fun SearchScreen(
         ) {
             filters.stage?.let {
                 item {
-                    InputChipStage(
-                        stage = it,
-                        onClick = { setSearchFilters(null, null) }
-                    )
+                    InputChipStage(stage = it, onClick = {
+                        setSearchFilters(null, null)
+                        searchSong(query)
+                    })
                 }
             }
             filters.category?.let {
                 item {
-                    InputChipCategory(
-                        category = it,
-                        onClick = { setSearchFilters(null, null) }
-                    )
+                    InputChipCategory(category = it, onClick = {
+                        setSearchFilters(null, null)
+                        searchSong(query)
+                    })
                 }
             }
 

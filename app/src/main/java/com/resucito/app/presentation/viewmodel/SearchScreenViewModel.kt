@@ -24,7 +24,7 @@ data class SearchState(
     val isError: Boolean = false,
     val songs: List<Song> = emptyList(),
     val query: String = "",
-    val filters: SearchFilters = SearchFilters(Stage.LITURGY, null),
+    val filters: SearchFilters = SearchFilters(null, null),
     val snackBarText: String? = null
 )
 
