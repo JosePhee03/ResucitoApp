@@ -64,8 +64,6 @@ fun MainScreen(
 
                 MainRoute.SEARCH.page -> SearchScreen(
                     navigateToSong = { navController.navigate(Routes.Song(it)) },
-                    stageId = null,
-                    categoryId = null,
                     snackBarController = snackBarController,
                     vm = searchScreenViewModel
                 )

@@ -2,7 +2,9 @@ package com.resucito.app.presentation.ui.screen.search
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -18,15 +20,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.resucito.app.R
-import com.resucito.app.domain.model.Category
-import com.resucito.app.domain.model.Stage
 import com.resucito.app.presentation.ui.components.InputChipCategory
 import com.resucito.app.presentation.ui.components.InputChipStage
 import com.resucito.app.presentation.ui.screen.search.components.ItemSearchSong
@@ -38,24 +35,19 @@ import com.resucito.app.presentation.viewmodel.SearchScreenViewModel
 @Composable
 fun SearchScreen(
     navigateToSong: (String) -> Unit,
-    stageId: String?,
-    categoryId: String?,
     snackBarController: SnackbarHostState,
     vm: SearchScreenViewModel
 ) {
 
-    var queryRemember by rememberSaveable {
-        mutableStateOf("")
-    }
-
     val uiState by vm.state.collectAsState()
 
     val songs = uiState.songs
-    val filters = uiState.filters
+    val searchParams = uiState.searchParams
     val isLoading = uiState.isLoading
-    val query = uiState.query
+    val query = searchParams.query
     val snackBarText = uiState.snackBarText
-    val setSearchFilters = vm::setSearchFilters
+    val setFilters = vm::setFilters
+    val setQuery = vm::setQuery
     val switchFavoriteSong = vm::switchFavoriteSong
     val searchSong = vm::searchSong
 
@@ -63,19 +55,8 @@ fun SearchScreen(
 
     val undoString = stringResource(R.string.undo)
 
-    LaunchedEffect(Unit) {
-        val newStage: Stage?
-        val newCategory: Category?
-
-        if (stageId != null || categoryId != null) {
-            newStage = if (categoryId != null) null else stageId?.let { Stage.valueOf(it) }
-            newCategory = if (stageId != null) null else categoryId?.let { Category.valueOf(it) }
-            setSearchFilters(
-                newStage ?: filters.stage, newCategory ?: filters.category
-            )
-        }
-
-        searchSong(query)
+    LaunchedEffect(searchParams) {
+        searchSong(searchParams)
     }
 
     LaunchedEffect(snackBarText) {
@@ -88,28 +69,25 @@ fun SearchScreen(
 
     Column(modifier = Modifier.fillMaxSize()) {
         SearchBox(query) {
-            searchSong(it)
-            queryRemember = it
+            setQuery(it)
         }
 
         LazyRow(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 16.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.fillMaxWidth(),
+            contentPadding = PaddingValues(horizontal = 16.dp)
         ) {
-            filters.stage?.let {
+            searchParams.stage?.let {
                 item {
                     InputChipStage(stage = it, onClick = {
-                        setSearchFilters(null, null)
-                        searchSong(query)
+                        setFilters(null, null)
                     })
                 }
             }
-            filters.category?.let {
+            searchParams.category?.let {
                 item {
                     InputChipCategory(category = it, onClick = {
-                        setSearchFilters(null, null)
-                        searchSong(query)
+                        setFilters(null, null)
                     })
                 }
             }
