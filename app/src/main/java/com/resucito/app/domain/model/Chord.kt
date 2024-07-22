@@ -21,7 +21,6 @@ class Chord {
 
         fun validChordArray(chordArr: Array<String>): Boolean {
             return chordArr.all {
-                println("VALID CHORD = $it")
                 chordRegex.matches(it)
             }
         }
@@ -29,7 +28,6 @@ class Chord {
         fun chordFromString(chordArr: Array<String>) {
             for (carr in chordArr) {
                 val chordStr = chordRegex.matches(carr)
-                println("CHO = $carr is $chordStr")
             }
 
         }
