@@ -44,34 +44,22 @@ fun NavigationScreen(
     }
 
     NavHost(
-        navController, startDestination = if (isFirstRun) Routes.Start else Routes.Home
+        navController,
+        startDestination = if (isFirstRun) Routes.Start else Routes.Main(MainRoute.HOME.page)
     ) {
         composable<Routes.Start> {
             StartScreen(
                 vm = startScreenViewModel,
-                navigateToHome = { navController.navigate(Routes.Home) },
+                navigateToHome = { navController.navigate(Routes.Main(MainRoute.HOME.page)) },
                 onRemoveStack = { navController.popBackStack() },
                 onToggleFirstRun = onToggleFirstRun
             )
         }
-        composable<Routes.Home> {
-            MainScreen(
-                initialPage = 0,
-                homeScreenViewModel = homeScreenViewModel,
-                searchScreenViewModel = searchScreenViewModel,
-                libraryScreenViewModel = libraryScreenViewModel,
-                navController = navController,
-                onToggleTheme = onToggleTheme,
-                isDarkTheme = isDarkTheme
-            )
-        }
-        composable<Routes.Search> { navBackStackEntry ->
-            val (stageId, categoryId) = navBackStackEntry.toRoute<Routes.Search>()
+        composable<Routes.Main> { backStackEntry ->
+            val routesMain: Routes.Main = backStackEntry.toRoute()
 
             MainScreen(
-                initialPage = 1,
-                stageId = stageId,
-                categoryId = categoryId,
+                initialPage = routesMain.page,
                 homeScreenViewModel = homeScreenViewModel,
                 searchScreenViewModel = searchScreenViewModel,
                 libraryScreenViewModel = libraryScreenViewModel,
@@ -88,10 +76,9 @@ fun NavigationScreen(
                 snackBarController = snackBarController,
                 songId = songRoute.id,
                 navigateToSearch = { stageId, categoryId ->
+                    searchScreenViewModel.setFiltersById(stageId, categoryId)
                     navController.navigate(
-                        Routes.Search(
-                            stageId, categoryId
-                        )
+                        Routes.Main(MainRoute.SEARCH.page)
                     )
                 },
                 onBackNavigate = { navController.navigateUp() }
