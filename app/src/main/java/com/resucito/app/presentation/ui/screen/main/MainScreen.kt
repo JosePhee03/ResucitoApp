@@ -9,6 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavHostController
 import com.resucito.app.presentation.ui.components.NavigationBottomBar
+import com.resucito.app.presentation.ui.navigation.MainRoute
 import com.resucito.app.presentation.ui.navigation.Routes
 import com.resucito.app.presentation.ui.screen.home.HomeScreen
 import com.resucito.app.presentation.ui.screen.library.LibraryScreen
@@ -22,8 +23,6 @@ import kotlinx.coroutines.launch
 @Composable
 fun MainScreen(
     initialPage: Int,
-    stageId: String? = null,
-    categoryId: String? = null,
     navController: NavHostController,
     homeScreenViewModel: HomeScreenViewModel,
     onToggleTheme: (Boolean) -> Unit,
@@ -49,12 +48,12 @@ fun MainScreen(
             contentPadding = paddingValues
         ) { currentPage ->
             when (currentPage) {
-                0 -> HomeScreen(
+                MainRoute.HOME.page -> HomeScreen(
                     navigateToSearch = { stageId, categoryId ->
+                        searchScreenViewModel.setFiltersById(stageId, categoryId)
                         navController.navigate(
-                            Routes.Search(
-                                stageId,
-                                categoryId
+                            Routes.Main(
+                                MainRoute.SEARCH.page
                             )
                         )
                     },
@@ -63,19 +62,22 @@ fun MainScreen(
                     vm = homeScreenViewModel
                 )
 
-                1 -> SearchScreen(
+                MainRoute.SEARCH.page -> SearchScreen(
                     navigateToSong = { navController.navigate(Routes.Song(it)) },
-                    stageId = stageId,
-                    categoryId = categoryId,
+                    stageId = null,
+                    categoryId = null,
                     snackBarController = snackBarController,
                     vm = searchScreenViewModel
                 )
 
-                2 -> LibraryScreen(
+                MainRoute.LIBRARY.page -> LibraryScreen(
                     vm = libraryScreenViewModel,
                     navigateToSongbook = { navController.navigate(Routes.SongBook) })
 
-                3 -> MoreScreen(isDarkTheme = isDarkTheme, onToggleTheme = onToggleTheme)
+                MainRoute.MORE.page -> MoreScreen(
+                    isDarkTheme = isDarkTheme,
+                    onToggleTheme = onToggleTheme
+                )
             }
         }
     }
