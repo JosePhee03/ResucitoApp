@@ -4,24 +4,24 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 sealed class Routes {
-    @Serializable
-    data object More : Routes()
 
     @Serializable
-    data object Start: Routes()
+    data object Start : Routes()
 
     @Serializable
-    data object Home: Routes()
+    data class Song(val id: String) : Routes()
 
     @Serializable
-    data class Search(val stageId: String?, val categoryId: String?): Routes()
+    data object SongBook : Routes()
 
     @Serializable
-    data class Song(val id: String): Routes()
-
-    @Serializable
-    data object Library: Routes()
-
-    @Serializable
-    data object SongBook: Routes()
+    data class Main(val page: Int) : Routes()
 }
+
+enum class MainRoute(val page: Int) {
+    HOME(0),
+    SEARCH(1),
+    LIBRARY(2),
+    MORE(3)
+}
+
