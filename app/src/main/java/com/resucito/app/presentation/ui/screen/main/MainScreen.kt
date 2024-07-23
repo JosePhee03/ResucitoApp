@@ -5,6 +5,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavHostController
@@ -28,13 +29,19 @@ fun MainScreen(
     onToggleTheme: (Boolean) -> Unit,
     isDarkTheme: Boolean,
     searchScreenViewModel: SearchScreenViewModel,
-    libraryScreenViewModel: LibraryScreenViewModel
+    libraryScreenViewModel: LibraryScreenViewModel,
+    isSecondaryStatusColor: (Boolean) -> Unit
 ) {
     val pagerState = rememberPagerState(initialPage = initialPage, pageCount = { 4 })
 
     val scope = rememberCoroutineScope()
     val snackBarController = remember { SnackbarHostState() }
 
+    LaunchedEffect(pagerState.currentPage, isDarkTheme) {
+        val isSecondaryColor =
+            pagerState.currentPage == MainRoute.LIBRARY.page || pagerState.currentPage == MainRoute.MORE.page
+        isSecondaryStatusColor(isSecondaryColor)
+    }
 
     Scaffold(
         bottomBar = {
