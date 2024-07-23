@@ -1,12 +1,18 @@
 package com.resucito.app.presentation.ui.navigation
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.toArgb
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import com.resucito.app.presentation.ui.components.SetSystemBarsColors
 import com.resucito.app.presentation.ui.screen.main.MainScreen
 import com.resucito.app.presentation.ui.screen.song.SongScreen
 import com.resucito.app.presentation.ui.screen.songbook.SongBookScreen
@@ -43,11 +49,27 @@ fun NavigationScreen(
         { applicationViewModel.setIsDarkMode(it) }
     }
 
+    val defaultColor = MaterialTheme.colorScheme.background.toArgb()
+    val secondaryColor = MaterialTheme.colorScheme.surfaceContainer.toArgb()
+
+    var statusBarColor by remember {
+        mutableIntStateOf(defaultColor)
+    }
+
+    SetSystemBarsColors(
+        statusBarColor = statusBarColor,
+        navigationBarColor = defaultColor,
+        isDarkTheme = isDarkTheme
+    )
+
     NavHost(
         navController,
         startDestination = if (isFirstRun) Routes.Start else Routes.Main(MainRoute.HOME.page)
     ) {
         composable<Routes.Start> {
+
+            statusBarColor = defaultColor
+
             StartScreen(
                 vm = startScreenViewModel,
                 navigateToHome = { navController.navigate(Routes.Main(MainRoute.HOME.page)) },
@@ -60,6 +82,9 @@ fun NavigationScreen(
 
             MainScreen(
                 initialPage = routesMain.page,
+                isSecondaryStatusColor = {
+                    statusBarColor = if (it) secondaryColor else defaultColor
+                },
                 homeScreenViewModel = homeScreenViewModel,
                 searchScreenViewModel = searchScreenViewModel,
                 libraryScreenViewModel = libraryScreenViewModel,
@@ -70,6 +95,8 @@ fun NavigationScreen(
         }
         composable<Routes.Song> { backStackEntry ->
             val songRoute: Routes.Song = backStackEntry.toRoute()
+
+            statusBarColor = defaultColor
 
             SongScreen(
                 vm = songScreenViewModel,
@@ -85,6 +112,9 @@ fun NavigationScreen(
             )
         }
         composable<Routes.SongBook> {
+
+            statusBarColor = secondaryColor
+
             SongBookScreen(
                 vm = songBookScreenViewModel,
                 onBackNavigate = { navController.navigateUp() },
