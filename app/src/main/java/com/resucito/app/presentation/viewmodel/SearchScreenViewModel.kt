@@ -20,11 +20,10 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 data class SearchState(
-    val isLoading: Boolean = true,
+    val isLoading: Boolean = false,
     val isError: Boolean = false,
     val songs: List<Song> = emptyList(),
-    val query: String = "",
-    val filters: SearchFilters = SearchFilters(null, null),
+    val searchParams: SearchParams = SearchParams("", null, null),
     val snackBarText: String? = null
 )
 
@@ -38,13 +37,22 @@ class SearchScreenViewModel @Inject constructor(
     private val _state = MutableStateFlow(SearchState())
     val state: StateFlow<SearchState> = _state.asStateFlow()
 
+    private var previousSearchParams: SearchParams? = null
 
-    fun searchSong(query: String) {
+    fun searchSong(searchParams: SearchParams) {
         viewModelScope.launch {
+
+            previousSearchParams = when (previousSearchParams) {
+                null -> searchParams
+                searchParams -> return@launch
+                else -> searchParams
+            }
+
+            val query = searchParams.query
+
             _state.update {
                 it.copy(
                     isLoading = true,
-                    query = query
                 )
             }
             val searchSong: List<Song> = if (query.isBlank()) {
@@ -57,7 +65,7 @@ class SearchScreenViewModel @Inject constructor(
                 }
             }
 
-            val filterSongs = filterSongs(searchSong, state.value.filters)
+            val filterSongs = filterSongs(searchSong, searchParams)
 
             _state.update {
                 it.copy(
@@ -68,11 +76,44 @@ class SearchScreenViewModel @Inject constructor(
     }
 
 
-    fun setSearchFilters(stage: Stage?, category: Category?) {
-        _state.update {
-            it.copy(
-                filters = SearchFilters(stage, category)
-            )
+    fun setFilters(stage: Stage?, category: Category?) {
+        viewModelScope.launch {
+            val searchParams = _state.value.searchParams
+            previousSearchParams = searchParams
+            val newSearchParams = searchParams.copy(stage = stage, category = category)
+            _state.update {
+                it.copy(
+                    searchParams = newSearchParams
+                )
+            }
+        }
+    }
+
+    fun setFiltersById(stageId: String?, categoryId: String?) {
+        viewModelScope.launch {
+            val stage = stageId?.let { Stage.valueOf(it) }
+            val category = categoryId?.let { Category.valueOf(it) }
+            val searchParams = _state.value.searchParams
+            previousSearchParams = searchParams
+            val newSearchParams = searchParams.copy(stage = stage, category = category)
+            _state.update {
+                it.copy(
+                    searchParams = newSearchParams
+                )
+            }
+        }
+    }
+
+    fun setQuery(query: String) {
+        viewModelScope.launch {
+            val searchParams = _state.value.searchParams
+            previousSearchParams = searchParams
+            val newSearchParams = searchParams.copy(query = query)
+            _state.update {
+                it.copy(
+                    searchParams = newSearchParams
+                )
+            }
         }
     }
 
@@ -104,11 +145,11 @@ class SearchScreenViewModel @Inject constructor(
         }
     }
 
-    private fun filterSongs(songs: List<Song>, filters: SearchFilters): List<Song> {
-        val (stage, category) = filters
+    private fun filterSongs(songs: List<Song>, searchParams: SearchParams): List<Song> {
+        val (_, stage, category) = searchParams
         return songs.filter { song ->
             if (stage !== null) {
-                return@filter song.stage == filters.stage
+                return@filter song.stage == stage
             } else if (category !== null) {
                 return@filter song.categories.any { it == category }
             } else true
@@ -117,4 +158,4 @@ class SearchScreenViewModel @Inject constructor(
 
 }
 
-data class SearchFilters(val stage: Stage?, val category: Category?)
+data class SearchParams(val query: String = "", val stage: Stage?, val category: Category?)
