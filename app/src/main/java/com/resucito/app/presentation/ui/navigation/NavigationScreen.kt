@@ -42,12 +42,8 @@ fun NavigationScreen(
 
     val isFirstRun = applicationState.isFirstRun
     val isDarkTheme = applicationState.isDarkTheme
-    val onToggleFirstRun = remember<(Boolean) -> Unit> {
-        { applicationViewModel.setIsFirstRun(it) }
-    }
-    val onToggleTheme = remember<(Boolean) -> Unit> {
-        { applicationViewModel.setIsDarkMode(it) }
-    }
+    val onToggleFirstRun = applicationViewModel::setIsFirstRun
+    val onToggleTheme = applicationViewModel::setIsDarkMode
 
     val defaultColor = MaterialTheme.colorScheme.background.toArgb()
     val secondaryColor = MaterialTheme.colorScheme.surfaceContainer.toArgb()
@@ -98,8 +94,7 @@ fun NavigationScreen(
 
             statusBarColor = defaultColor
 
-            SongScreen(
-                vm = songScreenViewModel,
+            SongScreen(vm = songScreenViewModel,
                 snackBarController = snackBarController,
                 songId = songRoute.id,
                 navigateToSearch = { stageId, categoryId ->
@@ -108,8 +103,7 @@ fun NavigationScreen(
                         Routes.Main(MainRoute.SEARCH.page)
                     )
                 },
-                onBackNavigate = { navController.navigateUp() }
-            )
+                onBackNavigate = { navController.navigateUp() })
         }
         composable<Routes.SongBook> {
 

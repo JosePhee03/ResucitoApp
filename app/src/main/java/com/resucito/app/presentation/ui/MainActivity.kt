@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -40,14 +39,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         screenSplash.setKeepOnScreenCondition { false }
         setContent {
-            val isSystemInDarkTheme = isSystemInDarkTheme()
 
-            applicationUiState = applicationViewModel.state.collectAsState(
-                initial = ApplicationState(
-                    isDarkTheme = applicationViewModel.getIsDarkTheme(isSystemInDarkTheme),
-                    isFirstRun = applicationViewModel.getIsFirstRun()
-                )
-            ).value
+            applicationUiState = applicationViewModel.state.collectAsState().value
 
             ResucitoTheme(applicationUiState.isDarkTheme) {
                 Main()
