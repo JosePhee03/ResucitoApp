@@ -10,10 +10,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.resucito.app.R
@@ -28,15 +26,9 @@ fun LibraryScreen(
 ) {
 
     val uiState by vm.state.collectAsState()
-    val isLoading = remember { uiState.isLoading }
-    val isError = remember { uiState.isError }
-    val songbooks = remember { uiState.songbooks }
-    val getSongBooks: () -> Unit = remember { { vm.getAllFavoriteSongs() } }
-    val navigate: () -> Unit = remember { { navigateToSongbook() } }
-
-    LaunchedEffect(Unit) {
-        getSongBooks()
-    }
+    val isLoading = uiState.isLoading
+    val isError = uiState.isError
+    val songbooks = uiState.songbooks
 
     Column(modifier = Modifier.fillMaxSize()) {
         TopAppBar(
@@ -53,7 +45,7 @@ fun LibraryScreen(
                 count = songbooks.size,
                 enabled = { !isLoading }
             ) {
-                navigate()
+                navigateToSongbook()
             }
         }
         if (isError) {
