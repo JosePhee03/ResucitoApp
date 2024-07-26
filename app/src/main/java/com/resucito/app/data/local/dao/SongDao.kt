@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.resucito.app.data.local.entity.SongEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SongDao {
@@ -43,5 +44,5 @@ interface SongDao {
     suspend fun updateFavoriteSong(songId: String, favorite: Boolean)
 
     @Query("SELECT * FROM song WHERE favorite = :favorite")
-    suspend fun getAllFavoriteSongs(favorite: Boolean): List<SongEntity>
+    fun getAllFavoriteSongs(favorite: Boolean): Flow<List<SongEntity>>
 }

@@ -37,11 +37,13 @@ class SongBookScreenViewModel @Inject constructor(
             val resultFavoriteSongs = getAllFavoriteSongsUseCase.execute()
             resultFavoriteSongs.fold(
                 onSuccess = { songs ->
-                    _state.update {
-                        it.copy(
-                            isLoading = false,
-                            songs = songs
-                        )
+                    songs.collect { songsCollect ->
+                        _state.update {
+                            it.copy(
+                                isLoading = false,
+                                songs = songsCollect
+                            )
+                        }
                     }
                 },
                 onFailure = {

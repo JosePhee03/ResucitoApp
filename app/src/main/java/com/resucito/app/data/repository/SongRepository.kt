@@ -6,6 +6,8 @@ import com.resucito.app.data.local.json.LocalJsonParser
 import com.resucito.app.data.mapper.SongMapper
 import com.resucito.app.domain.model.Song
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -13,11 +15,11 @@ import javax.inject.Inject
 class SongRepository @Inject constructor(private val songDao: SongDao) {
 
     suspend fun getSongsFromDatabase(): List<Song> {
-            val songsDao = songDao.getAllSongs()
-            val songs = songsDao.map {
-                SongMapper.fromEntityToDomain(it)
-            }
-            return songs
+        val songsDao = songDao.getAllSongs()
+        val songs = songsDao.map {
+            SongMapper.fromEntityToDomain(it)
+        }
+        return songs
 
     }
 
@@ -59,10 +61,10 @@ class SongRepository @Inject constructor(private val songDao: SongDao) {
     }
 
     suspend fun getSong(songId: String): Song? {
-            val songEntity = withContext(Dispatchers.IO) {
-                songDao.findSongById(songId)
-            }
-            return songEntity?.let { SongMapper.fromEntityToDomain(songEntity) }
+        val songEntity = withContext(Dispatchers.IO) {
+            songDao.findSongById(songId)
+        }
+        return songEntity?.let { SongMapper.fromEntityToDomain(songEntity) }
     }
 
 
@@ -74,12 +76,15 @@ class SongRepository @Inject constructor(private val songDao: SongDao) {
         }
     }
 
-    suspend fun getAllFavoriteSongs(isFavorite: Boolean): Result<List<Song>> {
+    suspend fun getAllFavoriteSongs(isFavorite: Boolean): Result<Flow<List<Song>>> {
         return runCatching {
             val songEntities = withContext(Dispatchers.IO) {
                 songDao.getAllFavoriteSongs(isFavorite)
             }
-            val songs = songEntities.map { SongMapper.fromEntityToDomain(it)}
+            val songs = songEntities.map { list ->
+                list.map { SongMapper.fromEntityToDomain(it) }
+            }
+
             return Result.success(songs)
         }
     }

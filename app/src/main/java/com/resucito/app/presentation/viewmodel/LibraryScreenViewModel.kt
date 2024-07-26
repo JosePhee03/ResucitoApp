@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 data class LibraryState(
-    val isError: Boolean = false,
+    val isError: Boolean = true,
     val isLoading: Boolean = false,
     val songbooks: List<Song> = emptyList()
 )
@@ -25,7 +25,7 @@ class LibraryScreenViewModel @Inject constructor(
     private val _state = MutableStateFlow(LibraryState())
     val state: StateFlow<LibraryState> = _state
 
-    fun getAllFavoriteSongs() {
+    init {
         viewModelScope.launch {
             _state.update {
                 it.copy(
@@ -36,11 +36,13 @@ class LibraryScreenViewModel @Inject constructor(
             val resultFavoriteSongs = getAllFavoriteSongsUseCase.execute()
             resultFavoriteSongs.fold(
                 onSuccess = { songbooks ->
-                    _state.update {
-                        it.copy(
-                            songbooks = songbooks,
-                            isLoading = false
-                        )
+                    songbooks.collect { songbooksCollect ->
+                        _state.update {
+                            it.copy(
+                                songbooks = songbooksCollect,
+                                isLoading = false
+                            )
+                        }
                     }
                 },
                 onFailure = {
