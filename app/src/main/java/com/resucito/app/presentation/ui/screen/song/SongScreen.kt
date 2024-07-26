@@ -70,7 +70,7 @@ fun SongScreen(
 
     Scaffold(
         topBar = {
-            if (song != null) {
+            if (!isLoading && song != null) {
                 TopAppBarSong(
                     favorite = song.favorite,
                     onChangeFavorite = { onChangeFavorite(songId, it) },

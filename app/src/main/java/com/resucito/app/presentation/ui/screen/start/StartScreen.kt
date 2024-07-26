@@ -1,6 +1,5 @@
 package com.resucito.app.presentation.ui.screen.start
 
-import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
@@ -38,9 +36,7 @@ fun StartScreen(
     val uiState by vm.state.collectAsState()
     val isLoading = uiState.isLoading
     val isError = uiState.isError
-    val onCreate = remember<(Context, String) -> Unit> {
-        { context, text -> vm.onCreate(context, text) }
-    }
+    val onCreate = vm::onCreate
 
 
     val context = LocalContext.current
@@ -50,8 +46,9 @@ fun StartScreen(
             onToggleFirstRun(false)
             onRemoveStack()
             navigateToHome()
+        } else {
+            onCreate(context, "ES_2019.json")
         }
-        onCreate(context, "ES_2019.json")
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
