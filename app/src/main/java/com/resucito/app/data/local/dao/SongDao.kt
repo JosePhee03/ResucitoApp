@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface SongDao {
     @Query("SELECT * FROM song")
-    suspend fun getAllSongs(): List<SongEntity>
+    fun getAllSongs(): Flow<List<SongEntity>>
 
     @Query("DELETE FROM song")
     suspend fun deleteAllSongs()
@@ -38,7 +38,7 @@ interface SongDao {
         )
         """
     )
-    suspend fun searchSongs(query: String): List<SongEntity>
+    fun searchSongs(query: String): Flow<List<SongEntity>>
 
     @Query("UPDATE song SET favorite = :favorite WHERE id = :songId")
     suspend fun updateFavoriteSong(songId: String, favorite: Boolean)

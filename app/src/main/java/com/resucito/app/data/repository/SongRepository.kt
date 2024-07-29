@@ -14,13 +14,15 @@ import javax.inject.Inject
 
 class SongRepository @Inject constructor(private val songDao: SongDao) {
 
-    suspend fun getSongsFromDatabase(): List<Song> {
-        val songsDao = songDao.getAllSongs()
-        val songs = songsDao.map {
-            SongMapper.fromEntityToDomain(it)
-        }
-        return songs
+    suspend fun getSongsFromDatabase(): Result<Flow<List<Song>>> {
+        return runCatching {
+            val songEntities = withContext(Dispatchers.IO) { songDao.getAllSongs() }
+            val songs = songEntities.map { list ->
+                list.map { SongMapper.fromEntityToDomain(it) }
+            }
 
+            return Result.success(songs)
+        }
     }
 
     suspend fun getSongsFromAssets(context: Context, filename: String): Result<List<Song>> {
@@ -36,11 +38,16 @@ class SongRepository @Inject constructor(private val songDao: SongDao) {
         }
     }
 
-    suspend fun searchSongs(query: String): List<Song> {
-        val songEntities = withContext(Dispatchers.IO) {
-            songDao.searchSongs("*$query*")
+    suspend fun searchSongs(query: String): Result<Flow<List<Song>>> {
+        return runCatching {
+            val songEntities = withContext(Dispatchers.IO) {
+                songDao.searchSongs(query)
+            }
+            val songs = songEntities.map { list ->
+                list.map { SongMapper.fromEntityToDomain(it) }
+            }
+            return Result.success(songs)
         }
-        return songEntities.map { SongMapper.fromEntityToDomain(it) }
 
     }
 

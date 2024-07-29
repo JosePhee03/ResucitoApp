@@ -9,14 +9,13 @@ import com.resucito.app.domain.usecase.GetSongsUseCase
 import com.resucito.app.domain.usecase.SearchSongsUseCase
 import com.resucito.app.domain.usecase.UpdateFavoriteSongUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 data class SearchState(
@@ -38,40 +37,57 @@ class SearchScreenViewModel @Inject constructor(
     val state: StateFlow<SearchState> = _state.asStateFlow()
 
     private var previousSearchParams: SearchParams? = null
+    private var collectionJob: Job? = null
 
     fun searchSong(searchParams: SearchParams) {
-        viewModelScope.launch {
 
-            previousSearchParams = when (previousSearchParams) {
-                null -> searchParams
-                searchParams -> return@launch
-                else -> searchParams
-            }
+        previousSearchParams = when (previousSearchParams) {
+            null -> searchParams
+            searchParams -> return
+            else -> searchParams
+        }
 
-            val query = searchParams.query
+        val query = searchParams.query
+
+        collectionJob?.cancel()
+
+        collectionJob = viewModelScope.launch {
 
             _state.update {
                 it.copy(
+                    isError = false,
                     isLoading = true,
                 )
             }
-            val searchSong: List<Song> = if (query.isBlank()) {
-                withContext(Dispatchers.IO) {
-                    getSongsUseCase.execute()
-                }
+
+            val searchSongs = if (query.isEmpty()) {
+                getSongsUseCase.execute()
             } else {
-                withContext(Dispatchers.IO) {
-                    searchSongsUseCase.execute(query)
+                searchSongsUseCase.execute("*$query*")
+            }
+
+            searchSongs.fold(
+                onSuccess = { songs ->
+                    songs.collect { songsCollect ->
+                        val filterSongs = filterSongs(songsCollect, searchParams)
+                        _state.update {
+                            it.copy(
+                                songs = filterSongs, isLoading = false
+                            )
+                        }
+                    }
+
+                },
+                onFailure = {
+                    _state.update {
+                        it.copy(
+                            isError = true, isLoading = false
+                        )
+                    }
                 }
-            }
+            )
 
-            val filterSongs = filterSongs(searchSong, searchParams)
 
-            _state.update {
-                it.copy(
-                    songs = filterSongs, isLoading = false
-                )
-            }
         }
     }
 
