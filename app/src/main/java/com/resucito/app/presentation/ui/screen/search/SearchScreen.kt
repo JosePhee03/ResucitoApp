@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -117,18 +118,18 @@ fun SearchScreen(
                             )
                         }
                     }
-                    items(songs.size, key = { songs[it].id }) { item ->
-                        val songItem = songs[item]
-                        ItemSearchSong(songItem.page.toString(),
-                            songItem.title,
-                            songItem.subtitle,
-                            songItem.favorite,
-                            songItem.stage,
+                    items(songs, key = { it.id }) { song ->
+                        ItemSearchSong(
+                            page = song.page.toString(),
+                            title = song.title,
+                            subtitle = song.subtitle,
+                            favorite = song.favorite,
+                            stage = song.stage,
                             onChangeFavorite = {
-                                switchFavoriteSong(songItem.id, it)
+                                switchFavoriteSong(song.id, it)
                             },
                             onClickItem = {
-                                navigateToSong(songItem.id)
+                                navigateToSong(song.id)
                             })
                     }
                 }
