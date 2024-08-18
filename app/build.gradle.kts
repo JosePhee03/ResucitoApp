@@ -85,4 +85,6 @@ dependencies {
 
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+    implementation("me.onebone:toolbar-compose:2.3.5")
 }
