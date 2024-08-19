@@ -1,6 +1,5 @@
 package com.resucito.app.presentation.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.resucito.app.domain.model.Category

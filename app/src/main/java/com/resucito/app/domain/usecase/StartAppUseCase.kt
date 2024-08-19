@@ -1,8 +1,7 @@
 package com.resucito.app.domain.usecase
 
-import android.content.Context
-import com.resucito.app.domain.repository.SongRepository
 import com.resucito.app.domain.model.Song
+import com.resucito.app.domain.repository.SongRepository
 import javax.inject.Inject
 
 class StartAppUseCase @Inject constructor(private val repository: SongRepository) {
