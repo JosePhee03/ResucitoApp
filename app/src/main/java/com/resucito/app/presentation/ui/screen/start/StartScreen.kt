@@ -18,7 +18,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -38,16 +37,13 @@ fun StartScreen(
     val isError = uiState.isError
     val onCreate = vm::onCreate
 
-
-    val context = LocalContext.current
-
     LaunchedEffect(isLoading) {
         if (!isLoading && !isError) {
             onToggleFirstRun(false)
             onRemoveStack()
             navigateToHome()
         } else {
-            onCreate(context, "ES_2019.json")
+            onCreate("ES_2019.json")
         }
     }
 

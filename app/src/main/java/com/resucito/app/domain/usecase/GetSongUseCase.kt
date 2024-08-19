@@ -1,6 +1,6 @@
 package com.resucito.app.domain.usecase
 
-import com.resucito.app.data.repository.SongRepository
+import com.resucito.app.domain.repository.SongRepository
 import com.resucito.app.domain.model.Song
 import javax.inject.Inject
 

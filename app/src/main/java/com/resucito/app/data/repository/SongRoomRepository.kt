@@ -5,6 +5,7 @@ import com.resucito.app.data.local.dao.SongDao
 import com.resucito.app.data.local.json.LocalJsonParser
 import com.resucito.app.data.mapper.SongMapper
 import com.resucito.app.domain.model.Song
+import com.resucito.app.domain.repository.SongRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -12,9 +13,12 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
-class SongRepository @Inject constructor(private val songDao: SongDao) {
+class SongRoomRepository @Inject constructor(
+    private val songDao: SongDao,
+    private val context: Context
+) : SongRepository {
 
-    suspend fun getSongsFromDatabase(): Result<Flow<List<Song>>> {
+    override suspend fun getSongsFromDatabase(): Result<Flow<List<Song>>> {
         return runCatching {
             val songEntities = withContext(Dispatchers.IO) { songDao.getAllSongs() }
             val songs = songEntities.map { list ->
@@ -25,20 +29,20 @@ class SongRepository @Inject constructor(private val songDao: SongDao) {
         }
     }
 
-    suspend fun getSongsFromAssets(context: Context, filename: String): Result<List<Song>> {
+    override suspend fun getSongsFromAssets(filename: String): Result<List<Song>> {
         return LocalJsonParser.parseUsersFromAssets(context, filename).mapCatching { songsDto ->
             songsDto.map { SongMapper.fromDtoToDomain(it) }
         }
     }
 
-    suspend fun insertSongs(songs: List<Song>): Result<Unit> {
+    override suspend fun insertSongs(songs: List<Song>): Result<Unit> {
         return runCatching {
             val songEntities = songs.map { SongMapper.fromDomainToEntity(it) }
             songDao.insertAll(songEntities)
         }
     }
 
-    suspend fun searchSongs(query: String): Result<Flow<List<Song>>> {
+    override suspend fun searchSongs(query: String): Result<Flow<List<Song>>> {
         return runCatching {
             val songEntities = withContext(Dispatchers.IO) {
                 songDao.searchSongs(query)
@@ -51,7 +55,7 @@ class SongRepository @Inject constructor(private val songDao: SongDao) {
 
     }
 
-    suspend fun cleanSongs(): Result<Unit> {
+    override suspend fun cleanSongs(): Result<Unit> {
         return runCatching {
             withContext(Dispatchers.IO) {
                 songDao.deleteAllSongs()
@@ -59,7 +63,7 @@ class SongRepository @Inject constructor(private val songDao: SongDao) {
         }
     }
 
-    suspend fun cleanSongsFts(): Result<Unit> {
+    override suspend fun cleanSongsFts(): Result<Unit> {
         return runCatching {
             withContext(Dispatchers.IO) {
                 songDao.deleteAllSongsFts()
@@ -67,7 +71,7 @@ class SongRepository @Inject constructor(private val songDao: SongDao) {
         }
     }
 
-    suspend fun getSong(songId: String): Song? {
+    override suspend fun getSong(songId: String): Song? {
         val songEntity = withContext(Dispatchers.IO) {
             songDao.findSongById(songId)
         }
@@ -75,7 +79,7 @@ class SongRepository @Inject constructor(private val songDao: SongDao) {
     }
 
 
-    suspend fun updateFavoriteSong(songId: String, favorite: Boolean): Result<Unit> {
+    override suspend fun updateFavoriteSong(songId: String, favorite: Boolean): Result<Unit> {
         return runCatching {
             withContext(Dispatchers.IO) {
                 songDao.updateFavoriteSong(songId, favorite)
@@ -83,7 +87,7 @@ class SongRepository @Inject constructor(private val songDao: SongDao) {
         }
     }
 
-    suspend fun getAllFavoriteSongs(isFavorite: Boolean): Result<Flow<List<Song>>> {
+    override suspend fun getAllFavoriteSongs(isFavorite: Boolean): Result<Flow<List<Song>>> {
         return runCatching {
             val songEntities = withContext(Dispatchers.IO) {
                 songDao.getAllFavoriteSongs(isFavorite)

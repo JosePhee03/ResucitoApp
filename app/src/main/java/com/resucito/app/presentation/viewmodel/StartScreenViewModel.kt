@@ -30,7 +30,7 @@ class StartScreenViewModel @Inject constructor(
     private val _state = MutableStateFlow(StartState())
     val state: StateFlow<StartState> get() = _state
 
-    fun onCreate(context: Context, filename: String) {
+    fun onCreate(filename: String) {
         viewModelScope.launch {
             _state.update {
                 it.copy(
@@ -40,7 +40,7 @@ class StartScreenViewModel @Inject constructor(
                 )
             }
 
-            val songsResult = startAppUseCase.execute(context, filename)
+            val songsResult = startAppUseCase.execute(filename)
 
             songsResult.fold(
                 onSuccess = { songs ->
