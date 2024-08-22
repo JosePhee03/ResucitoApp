@@ -1,4 +1,4 @@
-package com.resucito.app.domain.usecase
+package com.resucito.app.domain.usecase.preferences
 
 import com.resucito.app.data.preferences.SongSharedPreferences
 import com.resucito.app.domain.model.Stage
