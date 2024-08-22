@@ -3,7 +3,7 @@ package com.resucito.app.domain.usecase.song
 import com.resucito.app.domain.repository.SongRepository
 import javax.inject.Inject
 
-class CleanDatabasesUseCase @Inject constructor(
+class CleanSongsUseCase @Inject constructor(
     private val songRepository: SongRepository,
 ) {
 
