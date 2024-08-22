@@ -3,7 +3,7 @@ package com.resucito.app.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.resucito.app.domain.model.Song
-import com.resucito.app.domain.usecase.GetAllFavoriteSongsUseCase
+import com.resucito.app.domain.usecase.song.GetAllFavoriteSongsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

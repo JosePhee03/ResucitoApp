@@ -3,8 +3,8 @@ package com.resucito.app.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import com.resucito.app.domain.model.Category
 import com.resucito.app.domain.model.Stage
-import com.resucito.app.domain.usecase.GetCountCategoryUseCase
-import com.resucito.app.domain.usecase.GetCountStageUseCase
+import com.resucito.app.domain.usecase.preferences.GetCountCategoryUseCase
+import com.resucito.app.domain.usecase.preferences.GetCountStageUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

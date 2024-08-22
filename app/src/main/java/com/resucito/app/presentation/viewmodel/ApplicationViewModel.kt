@@ -3,10 +3,10 @@ package com.resucito.app.presentation.viewmodel
 import android.content.Context
 import android.content.res.Configuration
 import androidx.lifecycle.ViewModel
-import com.resucito.app.domain.usecase.GetIsDarkThemeUseCase
-import com.resucito.app.domain.usecase.GetIsFirstRunUseCase
-import com.resucito.app.domain.usecase.SetIsDarkThemeUseCase
-import com.resucito.app.domain.usecase.SetIsFirstRunUseCase
+import com.resucito.app.domain.usecase.preferences.GetIsDarkThemeUseCase
+import com.resucito.app.domain.usecase.preferences.GetIsFirstRunUseCase
+import com.resucito.app.domain.usecase.preferences.SetIsDarkThemeUseCase
+import com.resucito.app.domain.usecase.preferences.SetIsFirstRunUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow

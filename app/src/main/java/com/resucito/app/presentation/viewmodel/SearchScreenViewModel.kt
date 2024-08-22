@@ -5,9 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.resucito.app.domain.model.Category
 import com.resucito.app.domain.model.Song
 import com.resucito.app.domain.model.Stage
-import com.resucito.app.domain.usecase.GetSongsUseCase
-import com.resucito.app.domain.usecase.SearchSongsUseCase
-import com.resucito.app.domain.usecase.UpdateFavoriteSongUseCase
+import com.resucito.app.domain.usecase.song.GetSongsUseCase
+import com.resucito.app.domain.usecase.song.SearchSongsUseCase
+import com.resucito.app.domain.usecase.song.UpdateFavoriteSongUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay

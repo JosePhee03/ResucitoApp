@@ -3,8 +3,8 @@ package com.resucito.app.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.resucito.app.domain.model.Song
-import com.resucito.app.domain.usecase.GetSongUseCase
-import com.resucito.app.domain.usecase.UpdateFavoriteSongUseCase
+import com.resucito.app.domain.usecase.song.GetSongUseCase
+import com.resucito.app.domain.usecase.song.UpdateFavoriteSongUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.resucito.app.domain.model.Category
 import com.resucito.app.domain.model.Stage
-import com.resucito.app.domain.usecase.SetCountCategoryUseCase
-import com.resucito.app.domain.usecase.SetCountStageUseCase
-import com.resucito.app.domain.usecase.StartAppUseCase
+import com.resucito.app.domain.usecase.preferences.SetCountCategoryUseCase
+import com.resucito.app.domain.usecase.preferences.SetCountStageUseCase
+import com.resucito.app.domain.usecase.preferences.StartAppUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
