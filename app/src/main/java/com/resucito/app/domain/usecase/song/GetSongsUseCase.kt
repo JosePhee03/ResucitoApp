@@ -1,4 +1,4 @@
-package com.resucito.app.domain.usecase
+package com.resucito.app.domain.usecase.song
 
 import com.resucito.app.domain.repository.SongRepository
 import com.resucito.app.domain.model.Song
