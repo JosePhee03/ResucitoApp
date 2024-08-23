@@ -14,6 +14,8 @@ class InsertSongsUseCaseTest {
     private lateinit var insertSongsUseCase: InsertSongsUseCase
     private val repository: SongRepository = mockk()
 
+    private val filename = "songs.json"
+
     @Before
     fun setUp() {
         insertSongsUseCase = InsertSongsUseCase(repository)
@@ -21,7 +23,6 @@ class InsertSongsUseCaseTest {
 
     @Test
     fun `execute inserts songs successfully`() = runTest {
-        val filename = "songs.json"
         val songs = getMockSongs()
 
         coEvery { repository.getSongsFromAssets(filename) } returns Result.success(songs)
@@ -36,7 +37,7 @@ class InsertSongsUseCaseTest {
 
     @Test
     fun `execute fails when getting songs from assets fails`() = runTest {
-        val filename = "songs.json"
+
         val exception = Exception("Error getting songs from assets")
 
         coEvery { repository.getSongsFromAssets(filename) } returns Result.failure(exception)
