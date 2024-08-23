@@ -1,8 +1,6 @@
 package com.resucito.app.domain.usecase.song
 
-import com.resucito.app.domain.model.Category
 import com.resucito.app.domain.model.Song
-import com.resucito.app.domain.model.Stage
 import com.resucito.app.domain.repository.SongRepository
 import com.resucito.app.mock.getMockSongs
 import io.mockk.coEvery
