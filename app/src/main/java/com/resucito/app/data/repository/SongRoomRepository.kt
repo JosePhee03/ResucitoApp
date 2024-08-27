@@ -2,6 +2,7 @@ package com.resucito.app.data.repository
 
 import android.content.Context
 import com.resucito.app.data.local.dao.SongDao
+import com.resucito.app.data.local.json.AndroidAssetProvider
 import com.resucito.app.data.local.json.LocalJsonParser
 import com.resucito.app.data.mapper.SongMapper
 import com.resucito.app.domain.model.Song
@@ -30,7 +31,10 @@ class SongRoomRepository @Inject constructor(
     }
 
     override suspend fun getSongsFromAssets(filename: String): Result<List<Song>> {
-        return LocalJsonParser.parseUsersFromAssets(context, filename).mapCatching { songsDto ->
+        val assetProvider = AndroidAssetProvider(context)
+        val jsonParser = LocalJsonParser(assetProvider)
+
+        return jsonParser.parseUsersFromAssets(filename).mapCatching { songsDto ->
             songsDto.map { SongMapper.fromDtoToDomain(it) }
         }
     }
