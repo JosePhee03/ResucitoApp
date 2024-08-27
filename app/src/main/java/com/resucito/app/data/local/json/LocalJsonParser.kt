@@ -19,7 +19,7 @@ interface JsonParser {
     fun toJson(src: Any): String
 }
 
-class GsonParser(val gson: Gson = Gson()) : JsonParser {
+class GsonParser(private val gson: Gson = Gson()) : JsonParser {
     override fun <T> fromJson(json: String, clazz: Class<T>): T {
         return gson.fromJson(json, clazz)
     }
