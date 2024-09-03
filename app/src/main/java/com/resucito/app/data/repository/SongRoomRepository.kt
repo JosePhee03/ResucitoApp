@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 class SongRoomRepository @Inject constructor(
     private val songDao: SongDao,
-    private val context: Context
+    private val jsonParser: LocalJsonParser
 ) : SongRepository {
 
     override suspend fun getSongsFromDatabase(): Result<Flow<List<Song>>> {
@@ -31,10 +31,7 @@ class SongRoomRepository @Inject constructor(
     }
 
     override suspend fun getSongsFromAssets(filename: String): Result<List<Song>> {
-        val assetProvider = AndroidAssetProvider(context)
-        val jsonParser = LocalJsonParser(assetProvider)
-
-        return jsonParser.parseUsersFromAssets(filename).mapCatching { songsDto ->
+        return jsonParser.parseSongsFromAssets(filename).mapCatching { songsDto ->
             songsDto.map { SongMapper.fromDtoToDomain(it) }
         }
     }
@@ -42,7 +39,9 @@ class SongRoomRepository @Inject constructor(
     override suspend fun insertSongs(songs: List<Song>): Result<Unit> {
         return runCatching {
             val songEntities = songs.map { SongMapper.fromDomainToEntity(it) }
-            songDao.insertAll(songEntities)
+            withContext(Dispatchers.IO) {
+                songDao.insertAll(songEntities)
+            }
         }
     }
 
