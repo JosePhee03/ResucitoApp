@@ -44,11 +44,15 @@ class AndroidAssetProvider(private val context: Context, private val dispatcher:
 
 class LocalJsonParser(
     private val assetProvider: AssetProvider,
-    val parser: JsonParser = GsonParser()
+    private val parser: JsonParser = GsonParser()
 ) {
-    suspend fun parseUsersFromAssets(fileName: String): Result<List<SongDto>> {
+    suspend fun parseSongsFromAssets(fileName: String): Result<List<SongDto>> {
         return assetProvider.getJsonDataFromAsset(fileName).mapCatching { jsonString ->
             parser.fromJson(jsonString, Array<SongDto>::class.java).toList()
         }
+    }
+
+    fun parseSongsToJson(src: Any): String {
+        return parser.toJson(src)
     }
 }
