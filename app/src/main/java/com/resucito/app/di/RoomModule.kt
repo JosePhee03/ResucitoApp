@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.resucito.app.data.local.dao.SongDao
 import com.resucito.app.data.local.db.AppDatabase
+import com.resucito.app.data.local.json.AndroidAssetProvider
+import com.resucito.app.data.local.json.LocalJsonParser
 import com.resucito.app.data.repository.SongRoomRepository
 import com.resucito.app.domain.repository.SongRepository
 import dagger.Module
@@ -30,14 +32,22 @@ object RoomModule {
     fun provideRoom(@ApplicationContext context: Context) =
         Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME).build()
 
+
+    @Singleton
+    @Provides
+    fun jsonParserProvider(context: Context): LocalJsonParser {
+        val assetProvider = AndroidAssetProvider(context)
+        return LocalJsonParser(assetProvider)
+    }
+
     @Singleton
     @Provides
     fun provideSongDao(db: AppDatabase) = db.songDao()
 
     @Provides
     @Singleton
-    fun provideSongRepository(songDao: SongDao, context: Context): SongRepository {
-        return SongRoomRepository(songDao, context)
+    fun provideSongRepository(songDao: SongDao, jsonParser: LocalJsonParser): SongRepository {
+        return SongRoomRepository(songDao, jsonParser)
     }
 
 }
