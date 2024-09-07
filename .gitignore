@@ -8,6 +8,8 @@
 /.idea/navEditor.xml
 /.idea/other.xml
 /.idea/assetWizardSettings.xml
+/.idea/AndroidTestResultsUserPreferences.xml
+/.idea/deploymentTargetSelector.xml
 .DS_Store
 /build
 /captures
