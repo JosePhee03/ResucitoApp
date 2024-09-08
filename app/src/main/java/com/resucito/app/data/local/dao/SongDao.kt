@@ -5,12 +5,16 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.resucito.app.data.local.entity.SongEntity
+import com.resucito.app.data.local.entity.SongEntityFTS
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SongDao {
     @Query("SELECT * FROM song")
     fun getAllSongs(): Flow<List<SongEntity>>
+
+    @Query("SELECT rowId, title, subtitle, lyric FROM song_fts")
+    fun getAllSongsFTS(): List<SongEntityFTS>
 
     @Query("DELETE FROM song")
     suspend fun deleteAllSongs()
