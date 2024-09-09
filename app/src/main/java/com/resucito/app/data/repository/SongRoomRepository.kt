@@ -66,14 +66,6 @@ class SongRoomRepository @Inject constructor(
         }
     }
 
-    override suspend fun cleanSongsFts(): Result<Unit> {
-        return runCatching {
-            withContext(Dispatchers.IO) {
-                songDao.deleteAllSongsFts()
-            }
-        }
-    }
-
     override suspend fun getSong(songId: String): Song? {
         val songEntity = withContext(Dispatchers.IO) {
             songDao.findSongById(songId)

@@ -22,13 +22,11 @@ class CleanSongsUseCaseTest {
     fun `execute returns success when repository clean operations succeed`() = runTest {
 
         coEvery { repository.cleanSongs() } returns Result.success(Unit)
-        coEvery { repository.cleanSongsFts() } returns Result.success(Unit)
 
         val result = cleanSongsUseCase.execute()
 
         assertEquals(Result.success(Unit), result)
         coVerify(exactly = 1) { repository.cleanSongs() }
-        coVerify(exactly = 1) { repository.cleanSongsFts() }
     }
 
     @Test
@@ -36,26 +34,10 @@ class CleanSongsUseCaseTest {
 
         val exception = Exception("Error cleaning songs")
         coEvery { repository.cleanSongs() } returns Result.failure(exception)
-        coEvery { repository.cleanSongsFts() } returns Result.success(Unit)
 
         val result = cleanSongsUseCase.execute()
 
         assertEquals(Result.failure<Unit>(exception), result)
         coVerify(exactly = 1) { repository.cleanSongs() }
-        coVerify(exactly = 0) { repository.cleanSongsFts() }
-    }
-
-    @Test
-    fun `execute returns failure when cleanSongsFts fails`() = runTest {
-
-        val exception = Exception("Error cleaning FTS")
-        coEvery { repository.cleanSongs() } returns Result.success(Unit)
-        coEvery { repository.cleanSongsFts() } returns Result.failure(exception)
-
-        val result = cleanSongsUseCase.execute()
-
-        assertEquals(Result.failure<Unit>(exception), result)
-        coVerify(exactly = 1) { repository.cleanSongs() }
-        coVerify(exactly = 1) { repository.cleanSongsFts() }
     }
 }

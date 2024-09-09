@@ -19,9 +19,6 @@ interface SongDao {
     @Query("DELETE FROM song")
     suspend fun deleteAllSongs()
 
-    @Query("DELETE FROM song_fts")
-    suspend fun deleteAllSongsFts()
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(songs: List<SongEntity>)
 

@@ -10,7 +10,6 @@ class CleanSongsUseCase @Inject constructor(
     suspend fun execute(): Result<Unit> {
         return runCatching {
             songRepository.cleanSongs().getOrThrow()
-            songRepository.cleanSongsFts().getOrThrow()
         }.fold(
             onSuccess = {
                 Result.success(Unit)

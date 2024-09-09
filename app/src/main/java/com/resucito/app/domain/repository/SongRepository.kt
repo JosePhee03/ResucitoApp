@@ -15,8 +15,6 @@ interface SongRepository {
 
     suspend fun cleanSongs(): Result<Unit>
 
-    suspend fun cleanSongsFts(): Result<Unit>
-
     suspend fun getSong(songId: String): Song?
 
     suspend fun updateFavoriteSong(songId: String, favorite: Boolean): Result<Unit>

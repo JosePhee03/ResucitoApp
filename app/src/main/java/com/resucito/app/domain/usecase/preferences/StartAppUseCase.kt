@@ -9,7 +9,6 @@ class StartAppUseCase @Inject constructor(private val repository: SongRepository
     suspend fun execute(filename: String): Result<List<Song>> {
         return runCatching {
             repository.cleanSongs().getOrThrow()
-            repository.cleanSongsFts().getOrThrow()
             val songs = repository.getSongsFromAssets(filename).getOrThrow()
             repository.insertSongs(songs).getOrThrow()
             return Result.success(songs)
