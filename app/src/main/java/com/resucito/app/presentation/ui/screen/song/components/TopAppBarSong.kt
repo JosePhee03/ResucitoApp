@@ -17,16 +17,16 @@ import com.resucito.app.presentation.ui.components.FavoriteIconButton
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopAppBarSong(
-    favorite: Boolean,
+    favorite: Boolean?,
     onChangeFavorite: (Boolean) -> Unit,
-    onBackNavigate: () -> Unit
+    onBackNavigate: () -> Unit,
+    scrollBehavior: TopAppBarScrollBehavior?
 ) {
-
-    val scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     TopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.background
+            containerColor = MaterialTheme.colorScheme.background,
+            scrolledContainerColor = MaterialTheme.colorScheme.background,
         ),
         title = {
             Text(stringResource(R.string.song))
@@ -39,7 +39,7 @@ fun TopAppBarSong(
                 )
             }
         },
-        actions = { FavoriteIconButton(favorite, onChangeFavorite) },
+        actions = { favorite?.let { FavoriteIconButton(it, onChangeFavorite) } },
         scrollBehavior = scrollBehavior
     )
 }
