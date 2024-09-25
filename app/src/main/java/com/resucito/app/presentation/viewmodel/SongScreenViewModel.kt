@@ -1,7 +1,10 @@
 package com.resucito.app.presentation.viewmodel
 
+import androidx.compose.material3.SnackbarHostState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.resucito.app.R
+import com.resucito.app.data.local.resource.ResourceProvider
 import com.resucito.app.domain.model.Song
 import com.resucito.app.domain.usecase.song.GetSongUseCase
 import com.resucito.app.domain.usecase.song.UpdateFavoriteSongUseCase
@@ -27,8 +30,11 @@ data class SongState(
 @HiltViewModel
 class SongScreenViewModel @Inject constructor(
     private val getSongUseCase: GetSongUseCase,
-    private val updateFavoriteSongUseCase: UpdateFavoriteSongUseCase
+    private val updateFavoriteSongUseCase: UpdateFavoriteSongUseCase,
+    private val resourceProvider: ResourceProvider
 ) : ViewModel() {
+
+    val snackbarHostState = SnackbarHostState()
 
     private val _state = MutableStateFlow(SongState())
     val state: StateFlow<SongState> = _state
@@ -63,26 +69,18 @@ class SongScreenViewModel @Inject constructor(
 
     fun switchFavoriteSong(songId: String, favorite: Boolean) {
         viewModelScope.launch {
-            _state.update {
-                it.copy(
-                    snackbarText = null
-                )
-            }
-            delay(400)
+            snackbarHostState.currentSnackbarData?.dismiss()
+            delay(200)
             updateFavoriteSongUseCase.execute(songId, favorite).fold(
                 onSuccess = {
-                    _state.update {
-                        it.copy(
-                            snackbarText = if (favorite) "Canto Guardado en el album de \"Favoritos\"" else "Se quito el canto del album de \"Favoritos\""
-                        )
+                    if (favorite) {
+                        snackbarHostState.showSnackbar(resourceProvider.getString(R.string.song_saved))
+                    } else {
+                        snackbarHostState.showSnackbar(resourceProvider.getString(R.string.song_remove))
                     }
                 },
-                onFailure = { exception ->
-                    _state.update {
-                        it.copy(
-                            snackbarText = exception.message ?: "Error favorito"
-                        )
-                    }
+                onFailure = {
+                    snackbarHostState.showSnackbar(resourceProvider.getString(R.string.error_update_song))
                 })
         }
     }
