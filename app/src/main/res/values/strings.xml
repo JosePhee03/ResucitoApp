@@ -59,7 +59,7 @@
     <string name="capo">Cejilla</string>
     <string name="fret">traste</string>
     <string name="chords">Acordes</string>
-    
+
     <!-- String More Screen -->
     <string name="more_options">Más opciones</string>
     <string name="theme">Tema</string>
@@ -75,4 +75,9 @@
     <string name="favorites">Favoritos</string>
     <string name="cover_image">Imagen de portada</string>
     <string name="libraries_not_found">Listas no encontradas</string>
+
+
+    <string name="song_saved">1 canto guardado en el album de favoritos</string>
+    <string name="song_remove">1 canto eliminado del album de favoritos</string>
+    <string name="error_update_song">Error al actualizar la canción</string>
 </resources>
