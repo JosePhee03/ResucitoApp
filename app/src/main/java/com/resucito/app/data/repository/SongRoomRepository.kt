@@ -1,9 +1,7 @@
 package com.resucito.app.data.repository
 
-import android.content.Context
 import com.resucito.app.data.local.dao.SongDao
-import com.resucito.app.data.local.json.AndroidAssetProvider
-import com.resucito.app.data.local.json.LocalJsonParser
+import com.resucito.app.data.local.resource.LocalJsonParser
 import com.resucito.app.data.mapper.SongMapper
 import com.resucito.app.domain.model.Song
 import com.resucito.app.domain.repository.SongRepository

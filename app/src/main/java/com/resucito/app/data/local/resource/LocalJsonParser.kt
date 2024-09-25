@@ -1,4 +1,4 @@
-package com.resucito.app.data.local.json
+package com.resucito.app.data.local.resource
 
 import android.content.Context
 import com.google.gson.Gson

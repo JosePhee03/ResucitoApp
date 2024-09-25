@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.resucito.app.data.local.dao.SongDao
 import com.resucito.app.data.local.db.AppDatabase
-import com.resucito.app.data.local.json.AndroidAssetProvider
-import com.resucito.app.data.local.json.LocalJsonParser
+import com.resucito.app.data.local.resource.AndroidAssetProvider
+import com.resucito.app.data.local.resource.LocalJsonParser
 import com.resucito.app.data.repository.SongRoomRepository
 import com.resucito.app.domain.repository.SongRepository
 import dagger.Module

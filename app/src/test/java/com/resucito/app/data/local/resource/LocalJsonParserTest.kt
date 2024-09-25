@@ -1,4 +1,4 @@
-package com.resucito.app.data.local.json
+package com.resucito.app.data.local.resource
 
 import com.resucito.app.mock.getMockSongsDto
 import io.mockk.coEvery
