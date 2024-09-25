@@ -1,7 +1,6 @@
 package com.resucito.app.presentation.ui.navigation
 
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -29,7 +28,6 @@ import com.resucito.app.presentation.viewmodel.StartScreenViewModel
 @Composable
 fun NavigationScreen(
     navController: NavHostController,
-    snackBarController: SnackbarHostState,
     applicationViewModel: ApplicationViewModel,
     applicationState: ApplicationState,
     startScreenViewModel: StartScreenViewModel,
@@ -95,7 +93,6 @@ fun NavigationScreen(
             statusBarColor = defaultColor
 
             SongScreen(vm = songScreenViewModel,
-                snackBarController = snackBarController,
                 songId = songRoute.id,
                 navigateToSearch = { stageId, categoryId ->
                     searchScreenViewModel.setFiltersById(stageId, categoryId)

@@ -23,7 +23,6 @@ data class SongState(
     val song: Song? = null,
     val isLoading: Boolean = true,
     val isError: Boolean = false,
-    val snackbarText: String? = null
 )
 
 

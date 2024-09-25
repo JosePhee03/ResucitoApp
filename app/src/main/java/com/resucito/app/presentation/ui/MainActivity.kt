@@ -4,10 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
 import com.resucito.app.presentation.ui.navigation.NavigationScreen
@@ -52,11 +50,9 @@ class MainActivity : ComponentActivity() {
     fun Main() {
 
         val navController = rememberNavController()
-        val snackBarController = remember { SnackbarHostState() }
 
         NavigationScreen(
             navController,
-            snackBarController,
             applicationViewModel,
             applicationUiState,
             startScreenViewModel,

@@ -7,8 +7,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -28,7 +28,6 @@ import com.resucito.app.presentation.viewmodel.SongScreenViewModel
 fun SongScreen(
     onBackNavigate: () -> Unit,
     songId: String,
-    snackBarController: SnackbarHostState,
     vm: SongScreenViewModel,
     navigateToSearch: (String?, String?) -> Unit
 ) {
@@ -38,8 +37,8 @@ fun SongScreen(
     val isError = uiState.isError
     val song = uiState.song
     val findSong = vm::findSongById
-    val snackbarText = uiState.snackbarText
     val onChangeFavorite = vm::switchFavoriteSong
+    val snackbarHostState = vm.snackbarHostState
 
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
@@ -47,24 +46,19 @@ fun SongScreen(
         findSong(songId)
     }
 
-    val undoString = stringResource(R.string.undo)
-
-    LaunchedEffect(snackbarText) {
-        if (snackbarText != null) {
-            snackBarController.showSnackbar(
-                message = snackbarText,
-                actionLabel = undoString,
-                duration = SnackbarDuration.Short
-            )
-        }
-    }
-
     Scaffold(
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState) {
+                snackbarHostState.currentSnackbarData?.let { Snackbar(snackbarData = it) }
+            }
+        },
         topBar = {
             TopAppBarSong(
                 scrollBehavior = scrollBehavior,
                 favorite = song?.favorite,
-                onChangeFavorite = { onChangeFavorite(songId, it) },
+                onChangeFavorite = {
+                    onChangeFavorite(songId, it)
+                },
                 onBackNavigate = {
                     onBackNavigate()
                 })
