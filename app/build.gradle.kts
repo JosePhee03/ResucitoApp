@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp.android)
     alias(libs.plugins.hilt.android)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -40,9 +41,6 @@ android {
     }
     buildFeatures {
         compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
     }
     packaging {
         resources {
