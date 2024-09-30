@@ -42,6 +42,10 @@ android {
     buildFeatures {
         compose = true
     }
+    composeCompiler {
+        reportsDestination = file("build/outputs/compose_reports")
+        metricsDestination = file("build/outputs/compose_reports")
+    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
