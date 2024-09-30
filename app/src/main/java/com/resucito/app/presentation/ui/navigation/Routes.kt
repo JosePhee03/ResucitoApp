@@ -18,10 +18,10 @@ sealed class Routes {
     data class Main(val page: Int) : Routes()
 }
 
-enum class MainRoute(val page: Int) {
-    HOME(0),
-    SEARCH(1),
-    LIBRARY(2),
-    MORE(3)
+object Page {
+    const val HOME = 0
+    const val SEARCH = 1
+    const val LIBRARY = 2
+    const val MORE = 3
 }
 

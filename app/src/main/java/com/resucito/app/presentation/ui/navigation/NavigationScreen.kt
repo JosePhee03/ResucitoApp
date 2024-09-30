@@ -58,7 +58,7 @@ fun NavigationScreen(
 
     NavHost(
         navController,
-        startDestination = if (isFirstRun) Routes.Start else Routes.Main(MainRoute.HOME.page)
+        startDestination = if (isFirstRun) Routes.Start else Routes.Main(Page.HOME)
     ) {
         composable<Routes.Start> {
 
@@ -66,7 +66,7 @@ fun NavigationScreen(
 
             StartScreen(
                 vm = startScreenViewModel,
-                navigateToHome = { navController.navigate(Routes.Main(MainRoute.HOME.page)) },
+                navigateToHome = { navController.navigate(Routes.Main(Page.HOME)) },
                 onRemoveStack = { navController.popBackStack() },
                 onToggleFirstRun = onToggleFirstRun
             )
@@ -97,7 +97,7 @@ fun NavigationScreen(
                 navigateToSearch = { stageId, categoryId ->
                     searchScreenViewModel.setFiltersById(stageId, categoryId)
                     navController.navigate(
-                        Routes.Main(MainRoute.SEARCH.page)
+                        Routes.Main(Page.SEARCH)
                     )
                 },
                 onBackNavigate = { navController.navigateUp() })

@@ -10,7 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavHostController
 import com.resucito.app.presentation.ui.components.NavigationBottomBar
-import com.resucito.app.presentation.ui.navigation.MainRoute
+import com.resucito.app.presentation.ui.navigation.Page
 import com.resucito.app.presentation.ui.navigation.Routes
 import com.resucito.app.presentation.ui.screen.home.HomeScreen
 import com.resucito.app.presentation.ui.screen.library.LibraryScreen
@@ -39,7 +39,7 @@ fun MainScreen(
 
     LaunchedEffect(pagerState.currentPage, isDarkTheme) {
         val isSecondaryColor =
-            pagerState.currentPage == MainRoute.LIBRARY.page || pagerState.currentPage == MainRoute.MORE.page
+            pagerState.currentPage == Page.LIBRARY || pagerState.currentPage == Page.MORE
         isSecondaryStatusColor(isSecondaryColor)
     }
 
@@ -55,12 +55,12 @@ fun MainScreen(
             contentPadding = paddingValues
         ) { currentPage ->
             when (currentPage) {
-                MainRoute.HOME.page -> HomeScreen(
+                Page.HOME -> HomeScreen(
                     navigateToSearch = { stageId, categoryId ->
                         searchScreenViewModel.setFiltersById(stageId, categoryId)
                         navController.navigate(
                             Routes.Main(
-                                MainRoute.SEARCH.page
+                                Page.SEARCH
                             )
                         )
                     },
@@ -69,17 +69,17 @@ fun MainScreen(
                     vm = homeScreenViewModel
                 )
 
-                MainRoute.SEARCH.page -> SearchScreen(
+                Page.SEARCH -> SearchScreen(
                     navigateToSong = { navController.navigate(Routes.Song(it)) },
                     snackBarController = snackBarController,
                     vm = searchScreenViewModel
                 )
 
-                MainRoute.LIBRARY.page -> LibraryScreen(
+                Page.LIBRARY -> LibraryScreen(
                     vm = libraryScreenViewModel,
                     navigateToSongbook = { navController.navigate(Routes.SongBook) })
 
-                MainRoute.MORE.page -> MoreScreen(
+                Page.MORE -> MoreScreen(
                     isDarkTheme = isDarkTheme,
                     onToggleTheme = onToggleTheme
                 )
