@@ -27,33 +27,43 @@ internal data class NavigationItem(
     val contentDescription: String
 )
 
-
 @Composable
 fun NavigationBottomBar(page: () -> Int, onChangePage: (Int) -> Unit) {
 
-    val navigationItem = listOf(
-        NavigationItem(
-            R.drawable.ic_home,
-            R.drawable.ic_home_filled,
-            stringResource(R.string.home),
-            stringResource(R.string.home)
-        ), NavigationItem(
-            R.drawable.ic_search,
-            R.drawable.ic_search,
-            stringResource(R.string.search),
-            stringResource(R.string.search)
-        ), NavigationItem(
-            R.drawable.ic_library_music,
-            R.drawable.ic_library_music_filled,
-            stringResource(R.string.lists),
-            stringResource(R.string.lists)
-        ), NavigationItem(
-            R.drawable.ic_more_horiz,
-            R.drawable.ic_more_horiz,
-            stringResource(R.string.more),
-            stringResource(R.string.more_options)
+    val homeLabel = stringResource(R.string.home)
+    val searchLabel = stringResource(R.string.search)
+    val listsLabel = stringResource(R.string.lists)
+    val moreLabel = stringResource(R.string.more)
+    val moreOptionsLabel = stringResource(R.string.more_options)
+
+    val navigationItem = remember {
+        listOf(
+            NavigationItem(
+                R.drawable.ic_home,
+                R.drawable.ic_home_filled,
+                homeLabel,
+                homeLabel
+            ),
+            NavigationItem(
+                R.drawable.ic_search,
+                R.drawable.ic_search,
+                searchLabel,
+                searchLabel
+            ),
+            NavigationItem(
+                R.drawable.ic_library_music,
+                R.drawable.ic_library_music_filled,
+                listsLabel,
+                listsLabel
+            ),
+            NavigationItem(
+                R.drawable.ic_more_horiz,
+                R.drawable.ic_more_horiz,
+                moreLabel,
+                moreOptionsLabel
+            )
         )
-    )
+    }
 
     val change = remember<(Int) -> Unit> {
         { onChangePage(it) }
