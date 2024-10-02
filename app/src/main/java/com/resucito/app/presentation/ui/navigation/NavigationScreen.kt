@@ -22,7 +22,6 @@ import com.resucito.app.presentation.viewmodel.HomeScreenViewModel
 import com.resucito.app.presentation.viewmodel.LibraryScreenViewModel
 import com.resucito.app.presentation.viewmodel.SearchScreenViewModel
 import com.resucito.app.presentation.viewmodel.SongBookScreenViewModel
-import com.resucito.app.presentation.viewmodel.SongScreenViewModel
 import com.resucito.app.presentation.viewmodel.StartScreenViewModel
 
 @Composable
@@ -33,7 +32,6 @@ fun NavigationScreen(
     startScreenViewModel: StartScreenViewModel,
     homeScreenViewModel: HomeScreenViewModel,
     searchScreenViewModel: SearchScreenViewModel,
-    songScreenViewModel: SongScreenViewModel,
     songBookScreenViewModel: SongBookScreenViewModel,
     libraryScreenViewModel: LibraryScreenViewModel
 ) {
@@ -92,7 +90,7 @@ fun NavigationScreen(
 
             statusBarColor = defaultColor
 
-            SongScreen(vm = songScreenViewModel,
+            SongScreen(
                 songId = songRoute.id,
                 navigateToSearch = { stageId, categoryId ->
                     searchScreenViewModel.setFiltersById(stageId, categoryId)
