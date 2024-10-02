@@ -18,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.resucito.app.R
 import com.resucito.app.presentation.ui.screen.song.components.SongContent
 import com.resucito.app.presentation.ui.screen.song.components.TopAppBarSong
@@ -28,7 +29,7 @@ import com.resucito.app.presentation.viewmodel.SongScreenViewModel
 fun SongScreen(
     onBackNavigate: () -> Unit,
     songId: String,
-    vm: SongScreenViewModel,
+    vm: SongScreenViewModel = hiltViewModel(),
     navigateToSearch: (String?, String?) -> Unit
 ) {
 
